@@ -1,0 +1,1 @@
+- change colume size email/phone at page http://localhost/dashboard.html#/leads

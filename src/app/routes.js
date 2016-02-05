@@ -11,6 +11,7 @@ var EmailTemplate = require('./models/emailtemplate');
 var SmartView = require('./models/smartview');
 var Task = require('./models/task');
 var Activity = require('./models/activity');
+
 module.exports = function (app, express) {
     var api = express.Router();
     ////////////////error custom format
