@@ -1,0 +1,214 @@
+﻿<div>
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9  " id="emailSetting">
+                    <div class="row">
+                        <h1>{{orgTitle}} - Email Settings</h1>
+                    </div>
+                    <div class="row">
+                        <h4>Email Accounts<span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row">
+
+                        <h5>
+                            Setup your email accounts with SMTP for better email deliverability. Email accounts with IMAP setup will have 2-way sync which automatically attaches incoming emails (and emails you send outside of Close.io) to your leads.
+                        </h5>
+
+                    </div>
+                    <div class="row" ng-hide="mailSettings.Ready == true" >
+                        <button class="input-lg btnAddEmail" data-toggle="modal" data-target="#addNewEmail">
+                            <span class="glyphicon glyphicon-plus"></span><span>Add an email account  </span>
+                        </button>
+                    </div>
+                    <div class="row" ng-show="mailSettings.Ready == true">
+                        <button class="input-lg btnAddEmail" data-toggle="modal" data-target="#addNewEmail">
+                            <span class="glyphicon glyphicon-wrench"></span><span> Configure Email ({{mailSettings.Name}})  </span>
+                        </button>
+                    </div>
+                    <div class="modal fade" id="addNewEmail" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Setup your email</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p>Enter the name and email address you'd like to send emails from.</p>
+
+                                    <div class="jumbotron">
+                                        <form>
+                                            <div class="row form-group">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <label id="Label3">Name</label>
+                                                    <input type="text" class="form-control" ng-model="mailSettings.Name" />
+                                                </div>
+
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Email address:</label>
+                                                    <input type="text" class="form-control" ng-model="mailSettings.Username" />
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer footerAddEmail">
+                                    <a href="#" class="pull-left">Need help?</a>
+                                    <a class="btn btn-primary " role="button" data-dismiss="modal" data-toggle="modal" data-target="#mailDetails">Next>></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal fade" id="mailDetails" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <form role="form">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Your email settings</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>Please fill in your email settings</p>
+                                        <div role="alert" class="alert alert-success" style="display:none"></div>
+                                        <div class="col-md-6">
+                                            <h3>IMAP</h3>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required ng-model="mailSettings.Username" placeholder="Username" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" required ng-model="mailSettings.Password" placeholder="Password" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required ng-model="mailSettings.IMAPHost" placeholder="Host" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required ng-model="mailSettings.IMAPPort" placeholder="Port" />
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="mailSettings.IMAPSSL" value="">SSL Enabled</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h3>SMTP</h3>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required ng-model="mailSettings.Username" placeholder="Username" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" required ng-model="mailSettings.Password" placeholder="Password" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required ng-model="mailSettings.SMTPHost" placeholder="Host" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" required ng-model="mailSettings.SMTPPort" placeholder="Port" />
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" ng-model="mailSettings.SMTPSSL" value="">SSL Enabled</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer footerAddEmail">
+                                        <button class="btn btn-primary " ng-click="updateEmailSettings()" type="submit" role="button">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h4>Secret Address<span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row">
+
+                        <h5>
+                            Emails forwarded (or BCCed) to this address will be attached to any matching lead. If no lead is found, a new one will be created.
+                        </h5>
+
+                    </div>
+                    <div class="row form-group txtSecretEmail">
+                        <input type="text" class="form-control" readonly ng-model="secretEmail" />
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h4>Email Signature <span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 noPaddingRight row">
+                            <textarea class="txtBody"></textarea>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"></div>
+                    </div>
+                    <div class="clear3"></div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <a class="btn btn-primary pull-right" ng-click="updateSinature()" role="button">Save</a>
+                            <span class="successFont" ng-show="EmailSignatureSaved" ng-hide="!EmailSignatureSaved">Saved!</span>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="row">
+                        <h4>Email Tracking<span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row checkbox">
+
+                        <label>
+                            <input type="checkbox" value="">
+                            Track when emails sent from Close.io are opened
+                        </label>
+                    </div>
+
+                </div>
+
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

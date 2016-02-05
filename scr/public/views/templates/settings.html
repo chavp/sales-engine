@@ -1,0 +1,200 @@
+﻿<div>
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" id="accountSetting">
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h1>Account</h1>
+                    </div>
+                    <div class="row">
+                        <h2>Profile</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="jumbotron">
+                                    <form role="form" novalidate name="frmProfileData" id="frmProfileData">
+                                        <div class="">
+                                            <div class="clear3"></div>
+                                            <label>First name</label>
+                                            <input type="text" class="form-control" ng-model="firstName" required id="txtFirstName" name="txtFirstName">
+                                            <span class="errorFont" ng-show="frmProfileData.txtFirstName.$dirty && frmProfileData.txtFirstName.$invalid">
+                                                <span ng-show="frmProfileData.txtFirstName.$error.required">Required</span>
+                                            </span>
+                                            <div class="clear2"></div>
+                                            <label>Last name</label>
+                                            <input type="text" class="form-control" ng-model="lastName" required id="txtLastName" name="txtLastName">
+                                            <span class="errorFont" ng-show="frmProfileData.txtLastName.$dirty && frmProfileData.txtLastName.$invalid">
+                                                <span ng-show="frmProfileData.txtLastName.$error.required">Required</span>
+                                            </span>
+                                            <div class="clear2"></div>
+
+                                            <label>Profile Image</label>
+                                            <div class="profileImg">
+                                                <a class="pull-left cursorPointer" onclick="$('#uploadProfileImage').click()">
+                                                    <img ng-show="!user.Img" src="../../images/person.png" alt="">
+                                                    <img ng-show="user.Img" src="{{user.Img}}" />
+                                                </a>
+                                                <p>
+                                                    You can change your profile image at<a> Gravatar.com</a>, using the email address listed below.
+                                                </p>
+                                            </div>
+                                            <input type="file" accept="" id="uploadProfileImage" class="hide" />
+                                            <div class="clear2"></div>
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                    <button type="submit" ng-click="updateProfileData(frmProfileData)" class="btn btn-primary" role="button">Save profile</button>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="successFont" ng-show="profileDataSaved" ng-hide="!profileDataSaved">Saved!</div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                    </div>
+
+                    <div class="row">
+                        <h1>Change email address</h1>
+                    </div>
+                    <div class="row">
+                        <p>
+                            Set the email address you use to <strong>log in to Close.io</strong>. To change how emails are sent/received in Close.io, visit
+                            <a href="#/settings/emailsetting">Email Settings</a>.
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="jumbotron">
+                                    <form role="form" novalidate name="frmchangeEmail" id="frmchangeEmail">
+                                        <div class="">
+                                            <div class="clear3"></div>
+                                            <label>Current Password</label>
+                                            <input type="password" class="form-control" ng-model="currentPassword" required id="txtCurrentPassword" name="txtCurrentPassword">
+                                            <span class="errorFont" ng-show="frmchangeEmail.txtCurrentPassword.$dirty && frmchangeEmail.txtCurrentPassword.$invalid">
+                                                <span ng-show="frmchangeEmail.txtCurrentPassword.$error.required">Required</span>                                              
+                                            </span>
+                                            <span class="errorFont" ng-show="EmailError" ng-hide="!EmailError || frmchangeEmail.txtCurrentPassword.$error.required">{{messageEmailForm}}</span>
+
+                                            <div class="clear2"></div>
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" ng-model="currentEmail" required id="txtCurrentEmail" name="txtCurrentEmail">
+                                            <span class="errorFont" ng-show="frmchangeEmail.txtCurrentEmail.$dirty && frmchangeEmail.txtCurrentEmail.$invalid">
+                                                <span ng-show="frmchangeEmail.txtCurrentEmail.$error.required">Required</span>
+                                                <span ng-show="frmchangeEmail.txtCurrentEmail.$error.email">Invalid email address.</span>
+                                            </span>
+
+                                            <div class="clear2"></div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <button type="submit" ng-click="changeEmail(frmchangeEmail)" class="btn btn-primary" role="button">Change email address</button>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="successFont" ng-show="EmailSaved" ng-hide="!EmailSaved">Saved!</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="row">
+                        <h1>Change password</h1>
+                    </div>
+                    <div class="row">
+                        <p>
+                            Set the password you use to <strong>log in to Close.io</strong>. To change your email syncing password, visit
+                            <a href="#/settings/emailsetting">Email Settings</a>.
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="jumbotron">
+                                    <form role="form" novalidate name="frmchangePassword" id="frmchangePassword">
+                                        <div class="">
+                                            <div class="clear3"></div>
+                                            <label>Current Password</label>
+                                            <input type="password" class="form-control" ng-model="oldPassword" required id="txtOldPassword" name="txtOldPassword">
+                                            <span class="errorFont" ng-show="frmchangePassword.txtOldPassword.$dirty && frmchangePassword.txtOldPassword.$invalid">
+                                                <span ng-show="frmchangePassword.txtOldPassword.$error.required">Required</span>
+                                            </span>
+                                            <span class="errorFont" ng-show="incorrectPassword" ng-hide="!incorrectPassword">Password is incorrect</span>
+
+                                            <div class="clear2"></div>
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" compare-to="confirmNewPassword" minlength="8" ng-model="newPassword" required id="txtNewPassword" name="txtNewPassword">
+                                            <span class="errorFont" ng-show="frmchangePassword.txtNewPassword.$dirty && frmchangePassword.txtNewPassword.$invalid">
+                                                <span ng-show="frmchangePassword.txtNewPassword.$error.required">Required</span>
+                                                <span ng-show="frmchangePassword.txtNewPassword.$error.minlength">Password must be at least 8 characters long.</span>
+                                                <span ng-show="frmchangePassword.txtNewPassword.$error.compareTo">Passwords must match.</span>
+                                            </span>
+                                            <span class="errorFont" ng-show="samepassword" ng-hide="!samepassword">This password is the same as the current password field.</span>
+                                            
+                                            <div class="clear2"></div>
+                                            <label>Password (repeat)</label>
+                                            <input type="password" class="form-control" ng-model="confirmNewPassword" required id="txtConfirmNewPassword" name="txtConfirmNewPassword">
+                                            <span class="errorFont" ng-show="frmchangePassword.txtConfirmNewPassword.$dirty && frmchangePassword.txtConfirmNewPassword.$invalid">
+                                                <span ng-show="frmchangePassword.txtConfirmNewPassword.$error.required">Required</span>
+                                            </span>
+
+                                            <div class="clear2"></div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <button type="submit" ng-click="changePassword(frmchangePassword)" class="btn btn-primary" role="button">Change password</button>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="successFont" ng-show="PasswodSaved" ng-hide="!PasswodSaved">Saved!</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+
+                <div class="clear"></div>
+
+             </div>
+        </div>
+    </div>
+</div>

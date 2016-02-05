@@ -1,0 +1,131 @@
+﻿<div>
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " id="organizationSetting">
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h1>Organizations</h1>
+                    </div>
+                    <div class="row">
+                        <h4>You are a member of these organizations:</h4>
+                    </div>
+                    <div class="row table-responsive">
+
+                        <table class="table TableOrganization">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Users</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="org in allOrganizations">
+                                    <td>{{org.Orgnization.Title}}</td>
+                                    <td>1</td>
+                                    <td>{{org.Role}}</td>
+                                    <th><button class="btn-danger" ng-click="leaveOrg(org)">Leave</button></th>
+                                </tr>
+                            </tbody>
+                            
+                        </table>
+
+
+                    </div>
+                    <div class="row">
+                        <h5>Data is never shared between organizations. To create a new organization, click below.</h5>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <a class="btn btn-primary" role="button" data-toggle="modal" data-target="#newOrganization">Create New Organization</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="newOrganization" role="dialog" my-modal>
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Create New Organization</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form role="form" novalidate class="" id="register" name="register">
+                                        <div class="row input-group-lg ">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                                                <input type="text" ng-model="company" required class="form-control box" placeholder="Company/Organization" id="txtCompany" name="txtCompany" />
+                                                <span class="errorFont" ng-show="register.txtCompany.$dirty && register.txtCompany.$invalid">
+                                                    <span ng-show="register.txtCompany.$error.required">This field is required..</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="clear2"></div>
+
+                                        <div class="help-block"></div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <label>How many people on your team might use Close.io?</label>
+                                                <select ng-model="selector" required class="form-control box" id="selectTeamSize" name="selectTeamSize">
+                                                    <option disabled>-- Choose One --</option>
+                                                    <option disabled></option>
+                                                    <option ng-repeat="HM in HMP" value="{{HM.value}}">{{HM.value}}</option>
+                                                </select>
+                                                <span class="errorFont" ng-show="register.selectTeamSize.$dirty && register.selectTeamSize.$invalid">
+                                                    <span ng-show="register.selectTeamSize.$error.required">This field is required.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="clear2"></div>
+                                        <div class="help-block"></div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 text-center input-group-lg">
+                                                <button type="submit" class="btn btnGreen btn-large btn-sucess" ng-click="registerForm(register)" id="btnCreateCompany" name="btnCreateCompany">
+                                                    Create Organization
+                                                </button>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <div class="clear2"></div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

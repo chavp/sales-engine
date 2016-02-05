@@ -1,0 +1,394 @@
+﻿
+<div>
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9  " id="customizationSetting">
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h1>Customizations</h1>
+                    </div>
+                    <div class="row">
+                        <h4>Organization Name:</h4>
+                    </div>
+                    <div class="row form-group">
+                        <input type="text" class="form-control txtLine" ng-model="Organization.Title" />
+                        <a class="btn btn-primary" ng-click="updateOrg()" role="button">Save</a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h4>Lead Statuses <span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row form-group">
+                        <input type="text" class="txtLine form-control" ng-model="leadStatusNew" />
+                        <a class="btn btn-primary" role="button" ng-click="saveNewLeadStatus()">Save</a>
+                    </div>
+
+                    <div class="row">
+                        <ul id="sortable" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                            <li class="row statusBlock" ng-repeat="item in Organization.LeadStatus">
+
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 leftContnt">
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 pull-left middleContentStatus">
+                                    <label>{{item.Title}}</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-right middleContentStatus noPaddingLeft noPaddingRight">
+                                    <a class="cursorPointer"><span class="glyphicon glyphicon-pencil blackIcon"></span></a>
+                                    <a class="cursorPointer" ng-click="removeLeadStatus($index)"><span class="glyphicon glyphicon-trash blackIcon"></span></a>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <h4>Opportunity Statuses  <span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row form-group">
+                        <input type="text" class="form-control txtLine" ng-model="OppStatusNew" />
+                        <select class="form-control txtLine">
+                            <option>Acitve</option>
+                            <option>won</option>
+                            <option>lost</option>
+                        </select>
+                        <a class="btn btn-primary" role="button" ng-click="saveNewOppStatus()">Save</a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <ul id="sortable2" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                            <li class="row statusBlock" ng-repeat="item in Organization.OpprtunityStatus">
+
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 leftContnt">
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5  txtStatusContent">
+
+                                    <div class="row">
+                                        <label class="txtStatus">{{item.Title}}</label>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <span>type: active</span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-right middleContentStatus noPaddingLeft noPaddingRight">
+                                    <a class="cursorPointer" href="#"><span class="glyphicon glyphicon-pencil blackIcon"></span></a>
+                                    <a class="cursorPointer" ng-click="removeOppStatus($index)"><span class="glyphicon glyphicon-trash blackIcon"></span></a>
+                                </div>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <div class="clear2"></div>
+                    <div class="row">
+                        <h4>Custom Fields  <span class="glyphicon glyphicon-question-sign"></span></h4>
+                    </div>
+                    <div class="row">
+                        <a class="btn btn-primary" role="button" data-toggle="modal" data-target="#customfieldmodal">add new custom field</a>
+                        <div class="clear2"></div>
+                        <p ng-show="!Organization.CustomFields.length">You don't have any custom fields yet.</p>
+
+                        <table ng-hide="!Organization.CustomFields.length" class="table table-bordered customFieldTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <!--<th colspan="4">Actions</th>-->
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <tr ng-repeat="field in Organization.CustomFields">
+                                    <td>{{field.Name}}</td>
+                                    <td>{{field.Type}}</td>
+                                    <!--<td><a href="#/settings/customizationsetting" class="edit">Edit</a></td>
+                                    <td><a href="#/settings/customizationsetting" class="merge">Merge</a></td>
+                                    <td><a href="#/settings/customizationsetting" class="delete">Delete</a></td>
+                                    <td><a href="/search/has%3Acustom.ch/">Show Leads</a></td>-->
+                                </tr>
+                        </table>
+                    </div>
+
+
+                    <div class="modal fade" id="customfieldmodal" role="dialog" my-modal>
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Custom Field</h4>
+                                </div>
+                                <div class="modal-body" id="modalChoiceBody">
+                                   
+                                    <div class="row">
+                                        <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <h4>Name</h4>
+                                            <input class="form-control" ng-model="modalChoiceName" required />
+                                        </div>
+                                        <div class="clear2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <h4>Type</h4>
+                                            <select ng-model="customFieldSelector" ng-change="customFieldSelect(customFieldSelector)" class="form-control">
+                                                <option value="Choices">Choices</option>
+                                                <option value="Date">Date</option>
+                                                <option value="DateTime">Datetime</option>
+                                                <option value="Number">Number</option>
+                                                <option value="Text">Text</option>
+                                                <option value="Hidden">Hidden (for API use only)</option>
+                                            </select>
+                                        </div>
+                                        <div class="clear2"></div>
+                                    </div>
+
+                                    <div class="row newChoiceMenuDv" ng-show="showChoices">
+                                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <h4>Choices</h4>
+                                        </div>
+                                        <div>
+                                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <input placeholder="New Choice" ng-model="NewChoiceTxt" class="form-control" />
+                                            </div>
+                                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <button ng-click="addChoice()" class="btn btn-primary">Add</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="dvChoiceOptions" ng-repeat="onechoice in choicesList">
+                                                <h5>
+                                                    <a>{{onechoice.choice}}</a>
+                                                    <span ng-click="removeChoice(onechoice)" class="glyphicon glyphicon-remove cursorPointer"></span>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="clear2"></div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <a class="grayFont pull-left">Learn more about custom fields</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" ng-click="saveNewCustomField()">Save</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h4>Currency</h4>
+                    </div>
+                    <div class="row form-group">
+                        <select id="currencySelector" class="form-control txtLine" ng-model="Organization.DefaultCurrency">
+                            <option value="AFN">Afghani (AFN)</option>
+                            <option value="DZD">Algerian Dinar (DZD)</option>
+                            <option value="ARS">Argentine Peso (ARS)</option>
+                            <option value="AMD">Armenian Dram (AMD)</option>
+                            <option value="AWG">Aruban Guilder (AWG)</option>
+                            <option value="AUD">Australian Dollar (A$)</option>
+                            <option value="AZN">Azerbaijanian Manat (AZN)</option>
+                            <option value="BSD">Bahamian Dollar (BSD)</option>
+                            <option value="BHD">Bahraini Dinar (BHD)</option>
+                            <option value="THB">Baht (฿)</option>
+                            <option value="PAB">Balboa (PAB)</option>
+                            <option value="BBD">Barbados Dollar (BBD)</option>
+                            <option value="BYR">Belarussian Ruble (BYR)</option>
+                            <option value="BZD">Belize Dollar (BZD)</option>
+                            <option value="BMD">Bermudian Dollar (BMD)</option>
+                            <option value="VEF">Bolivar Fuerte (VEF)</option>
+                            <option value="BOB">Boliviano (BOB)</option>
+                            <option value="BRL">Brazilian Real (R$)</option>
+                            <option value="BND">Brunei Dollar (BND)</option>
+                            <option value="BGN">Bulgarian Lev (BGN)</option>
+                            <option value="BIF">Burundi Franc (BIF)</option>
+                            <option value="CAD">Canadian Dollar (CA$)</option>
+                            <option value="CVE">Cape Verde Escudo (CVE)</option>
+                            <option value="KYD">Cayman Islands Dollar (KYD)</option>
+                            <option value="CLP">Chilean Peso (CLP)</option>
+                            <option value="COP">Colombian Peso (COP)</option>
+                            <option value="KMF">Comoro Franc (KMF)</option>
+                            <option value="CDF">Congolese Franc (CDF)</option>
+                            <option value="BAM">Convertible Marks (BAM)</option>
+                            <option value="NIO">Cordoba Oro (NIO)</option>
+                            <option value="CRC">Costa Rican Colon (CRC)</option>
+                            <option value="HRK">Croatian Kuna (HRK)</option>
+                            <option value="CUP">Cuban Peso (CUP)</option>
+                            <option value="CYP">Cyprus Pound (CYP)</option>
+                            <option value="CZK">Czech Koruna (CZK)</option>
+                            <option value="GMD">Dalasi (GMD)</option>
+                            <option value="DKK">Danish Krone (DKK)</option>
+                            <option value="MKD">Denar (MKD)</option>
+                            <option value="DJF">Djibouti Franc (DJF)</option>
+                            <option value="STD">Dobra (STD)</option>
+                            <option value="DOP">Dominican Peso (DOP)</option>
+                            <option value="VND">Dong (₫)</option>
+                            <option value="EGP">Egyptian Pound (EGP)</option>
+                            <option value="SVC">El Salvador Colon (SVC)</option>
+                            <option value="ETB">Ethiopian Birr (ETB)</option>
+                            <option value="EUR">Euro (€)</option>
+                            <option value="FKP">Falkland Islands Pound (FKP)</option>
+                            <option value="FJD">Fiji Dollar (FJD)</option>
+                            <option value="HUF">Forint (HUF)</option>
+                            <option value="GHS">Ghana Cedi (GHS)</option>
+                            <option value="GIP">Gibraltar Pound (GIP)</option>
+                            <option value="HTG">Gourde (HTG)</option>
+                            <option value="PYG">Guarani (PYG)</option>
+                            <option value="GNF">Guinea Franc (GNF)</option>
+                            <option value="GYD">Guyana Dollar (GYD)</option>
+                            <option value="HKD">Hong Kong Dollar (HK$)</option>
+                            <option value="UAH">Hryvnia (UAH)</option>
+                            <option value="ISK">Iceland Krona (ISK)</option>
+                            <option value="INR">Indian Rupee (₹)</option>
+                            <option value="IRR">Iranian Rial (IRR)</option>
+                            <option value="IQD">Iraqi Dinar (IQD)</option>
+                            <option value="JMD">Jamaican Dollar (JMD)</option>
+                            <option value="JOD">Jordanian Dinar (JOD)</option>
+                            <option value="KES">Kenyan Shilling (KES)</option>
+                            <option value="PGK">Kina (PGK)</option>
+                            <option value="LAK">Kip (LAK)</option>
+                            <option value="EEK">Kroon (EEK)</option>
+                            <option value="KWD">Kuwaiti Dinar (KWD)</option>
+                            <option value="MWK">Kwacha (MWK)</option>
+                            <option value="AOA">Kwanza (AOA)</option>
+                            <option value="MMK">Kyat (MMK)</option>
+                            <option value="GEL">Lari (GEL)</option>
+                            <option value="LVL">Latvian Lats (LVL)</option>
+                            <option value="LBP">Lebanese Pound (LBP)</option>
+                            <option value="ALL">Lek (ALL)</option>
+                            <option value="HNL">Lempira (HNL)</option>
+                            <option value="SLL">Leone (SLL)</option>
+                            <option value="LRD">Liberian Dollar (LRD)</option>
+                            <option value="LYD">Libyan Dinar (LYD)</option>
+                            <option value="SZL">Lilangeni (SZL)</option>
+                            <option value="LTL">Lithuanian Litas (LTL)</option>
+                            <option value="LSL">Loti (LSL)</option>
+                            <option value="MGA">Malagasy Ariary (MGA)</option>
+                            <option value="MYR">Malaysian Ringgit (MYR)</option>
+                            <option value="MTL">Maltese Lira (MTL)</option>
+                            <option value="TMM">Manat (TMM)</option>
+                            <option value="MUR">Mauritius Rupee (MUR)</option>
+                            <option value="MZN">Metical (MZN)</option>
+                            <option value="MXN">Mexican Peso (MX$)</option>
+                            <option value="MXV">Mexican Unidad de Inversion (UDI) (MXV)</option>
+                            <option value="MDL">Moldovan Leu (MDL)</option>
+                            <option value="MAD">Moroccan Dirham (MAD)</option>
+                            <option value="BOV">Mvdol (BOV)</option>
+                            <option value="NGN">Naira (NGN)</option>
+                            <option value="ERN">Nakfa (ERN)</option>
+                            <option value="NAD">Namibia Dollar (NAD)</option>
+                            <option value="NPR">Nepalese Rupee (NPR)</option>
+                            <option value="ANG">Netherlands Antillian Guilder (ANG)</option>
+                            <option value="ILS">New Israeli Sheqel (₪)</option>
+                            <option value="RON">New Leu (RON)</option>
+                            <option value="TWD">New Taiwan Dollar (NT$)</option>
+                            <option value="TRY">New Turkish Lira (TRY)</option>
+                            <option value="NZD">New Zealand Dollar (NZ$)</option>
+                            <option value="BTN">Ngultrum (BTN)</option>
+                            <option value="KPW">North Korean Won (KPW)</option>
+                            <option value="NOK">Norwegian Krone (NOK)</option>
+                            <option value="PEN">Nuevo Sol (PEN)</option>
+                            <option value="MRO">Ouguiya (MRO)</option>
+                            <option value="TOP">Pa'anga (TOP)</option>
+                            <option value="PKR">Pakistan Rupee (PKR)</option>
+                            <option value="MOP">Pataca (MOP)</option>
+                            <option value="UYU">Peso Uruguayo (UYU)</option>
+                            <option value="PHP">Philippine Peso (PHP)</option>
+                            <option value="GBP">Pound Sterling (£)</option>
+                            <option value="BWP">Pula (BWP)</option>
+                            <option value="QAR">Qatari Rial (QAR)</option>
+                            <option value="GTQ">Quetzal (GTQ)</option>
+                            <option value="ZAR">Rand (ZAR)</option>
+                            <option value="OMR">Rial Omani (OMR)</option>
+                            <option value="KHR">Riel (KHR)</option>
+                            <option value="MVR">Rufiyaa (MVR)</option>
+                            <option value="IDR">Rupiah (IDR)</option>
+                            <option value="RUB">Russian Ruble (RUB)</option>
+                            <option value="RWF">Rwanda Franc (RWF)</option>
+                            <option value="SHP">Saint Helena Pound (SHP)</option>
+                            <option value="SAR">Saudi Riyal (SAR)</option>
+                            <option value="RSD">Serbian Dinar (RSD)</option>
+                            <option value="SCR">Seychelles Rupee (SCR)</option>
+                            <option value="SGD">Singapore Dollar (SGD)</option>
+                            <option value="SBD">Solomon Islands Dollar (SBD)</option>
+                            <option value="KGS">Som (KGS)</option>
+                            <option value="SOS">Somali Shilling (SOS)</option>
+                            <option value="TJS">Somoni (TJS)</option>
+                            <option value="LKR">Sri Lanka Rupee (LKR)</option>
+                            <option value="SDG">Sudanese Pound (SDG)</option>
+                            <option value="SRD">Surinam Dollar (SRD)</option>
+                            <option value="SEK">Swedish Krona (SEK)</option>
+                            <option value="CHF">Swiss Franc (CHF)</option>
+                            <option value="SYP">Syrian Pound (SYP)</option>
+                            <option value="BDT">Taka (BDT)</option>
+                            <option value="WST">Tala (WST)</option>
+                            <option value="TZS">Tanzanian Shilling (TZS)</option>
+                            <option value="KZT">Tenge (KZT)</option>
+                            <option value="TTD">Trinidad and Tobago Dollar (TTD)</option>
+                            <option value="MNT">Tugrik (MNT)</option>
+                            <option value="TND">Tunisian Dinar (TND)</option>
+                            <option value="AED">UAE Dirham (AED)</option>
+                            <option value="USD">US Dollar ($)</option>
+                            <option value="UGX">Uganda Shilling (UGX)</option>
+                            <option value="COU">Unidad de Valor Real (COU)</option>
+                            <option value="CLF">Unidades de fomento (CLF)</option>
+                            <option value="UYI">Uruguay Peso en Unidades Indexadas (UYI)</option>
+                            <option value="UZS">Uzbekistan Sum (UZS)</option>
+                            <option value="VUV">Vatu (VUV)</option>
+                            <option value="CHE">WIR Euro (CHE)</option>
+                            <option value="CHW">WIR Franc (CHW)</option>
+                            <option value="KRW">Won (₩)</option>
+                            <option value="YER">Yemeni Rial (YER)</option>
+                            <option value="JPY">Yen (¥)</option>
+                            <option value="CNY">Yuan Renminbi (CN¥)</option>
+                            <option value="ZMK">Zambian Kwacha (ZMK)</option>
+                            <option value="ZWD">Zimbabwe Dollar (ZWD)</option>
+                            <option value="PLN">Zloty (PLN)</option>
+                        </select>
+                        <a class="btn btn-primary" role="button" ng-click="updateCurrency()">Save</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="successFont pull-right" ng-show="currencySaved" ng-hide="!currencySaved">Saved!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+﻿<div ng-controller="InvitationsController" class="dirtyBackground">
+    <!--top Bar-->
+    <div class="row  topBar">
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <img src="../../images/new_logo_only_80.png" class="img-responsive logo" />
+            <a class="white pull-left">Close.iO</a>
+        </div>
+    </div>
+    <!--end top Bar-->
+    <div class="clear"></div>
+    <div class="clear"></div>
+    <!--body container-->
+    <div class="row col-lg-12">
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
+        <!--form register-->
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-md-offset-2 boxWrapper pull-left">
+            <form role="form" novalidate class="" id="register" name="register">
+                <div class="row headrer">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h2 class="text-center ">Accept Invitation</h2>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row input-group-lg">
+                    <div class="col-lg-6 col-md-6 col-sm-6 ">
+                        <input type="text" ng-model="newUser.Firstname" required class="form-control box" placeholder="First name" />
+                        <div class="help-block"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" ng-model="newUser.Lastname" class="form-control box" placeholder="Last name" id="txtLastName" name="txtLastName" />
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row input-group-lg">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="text" ng-model="newUser.Email" required class="form-control box" placeholder="Email" readonly />
+                    </div>
+                </div>
+
+                <div class="help-block"></div>
+                <div class="row input-group-lg">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="password" ng-model="newUser.Password" required class="form-control box" minlength="8" placeholder="Password( 8+ characters)" />
+                    </div>
+
+                </div>
+                <div class="help-block"></div>
+                <div class="row  input-group-lg">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="tel" ng-model="newUser.Phone" required class="form-control box" placeholder="Phone (+1 555 555 1234)" />
+                    </div>
+
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 input-group-lg">
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="checkFree" name="checkFree" ng-model="checkfree" />I'd also like a free, opt-out-any time email course on improving our sales success
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+
+                        <label>By clicking "Accept" you agree to our<a href="#">Terms</a>.</label>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center input-group-lg">
+
+                        <button type="button" class="btn btnGreen btn-large btn-sucess" ng-click="accept()">
+                            Accept
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- end form -->
+    </div>
+    <div class="clear"></div>
+</div>
+

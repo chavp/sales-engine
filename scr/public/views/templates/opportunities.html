@@ -1,0 +1,295 @@
+﻿<div>
+    <div class="opportunitiesPage">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+                    <h1>Opportunities</h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="buttonsRow">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="pull-left">
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> All Users <b class="caret"></b>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a><input type="checkbox" checked /> All Users</a></li>
+                                <li class="divider"></li>
+                                <li ng-repeat="user in allUsers"><a ng-click="filterStatus(status)"><input type="checkbox" /> {{user.FirstName}}&nbsp;{{user.LastName}}</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-tag"></span>  All Statuses <b class="caret"></b>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a><input type="checkbox" checked />  All Statuses</a></li>
+                                <li class="divider"></li>
+                                <li ng-repeat="status in allStatuses"><a ng-click="filterUser(status)"><input type="checkbox" /> {{status.Title}}</a></li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-default" id="rangeFilter">
+                            <i class="glyphicon glyphicon-calendar"></i><span> All Time </span><b class="caret"></b>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+
+                    <div class="btn-group groupByCheckBoxes">
+                        <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                            <strong>Group by:</strong> <span>{{gropingByTxt}}</span> <b class="caret"></b>
+                        </button>
+                        <ul class="dropdown-menu groupBy">
+                            <li ng-click="groupByWeek()"><a><input type="radio" id="checkWeek" value="week" /> Week</a></li>
+                            <li ng-click="groupByMonth()"><a><input type="radio" id="checkMonth" value="month" /> Month</a></li>
+                            <li ng-click="groupByQuarter()"><a><input type="radio" id="checkQuarter" value="quarter" /> Quarter</a></li>
+                            <li ng-click="groupByYear()"><a><input type="radio" id="checkYear" value="year" /> Year</a></li>
+                            <li class="divider"></li>
+                            <li ng-click="groupByUser()"><a><input type="radio" id="checkUser" value="user" /> User</a></li>
+                            <li class="divider"></li>
+                            <li ng-click="groupByNone()"><a><input type="radio" id="checkNone" value="none" checked /> None</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                            <strong>Order by:</strong> Close Date <b class="caret"></b>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="order('DateClosed')"><input type="radio" checked /> Close Date</a></li>
+                            <li><a ng-click="order('Value')"><input type="radio" /> Value</a></li>
+                            <li><a ng-click="order('Confidence')"><input type="radio" /> Confidence</a></li>
+                            <li><a ng-click="order('AssignedToLabel')"><input type="radio" /> User</a></li>
+                        </ul>
+                    </div>
+                    |
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-download-alt"></span> <b class="caret"></b>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a ng-click="toCSV()"><span class="fa fa-table"></span>  CSV / Excel</a></li>
+                            <li><a ng-click="toJSON()"><span class="fa fa-cloud-download"></span>  JSON</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="clear2"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="opportunitiesDarkDv row">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                        <span>Opportunities: </span>
+                        <br />
+                        <strong class="opportunitiesCounter">{{OppCount}}</strong>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                        <span>Total Value: </span>
+                        <br />
+                        <strong>{{userCurrency}}{{totalValue}} annual</strong>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                        <span>Expected Value: </span>
+                        <br />
+                        <strong>{{userCurrency}}{{expectedValue}} annual</strong>
+                    </div>
+                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-show="!groupedOpp.length">
+            <div class="row">
+                <div ng-hide="!allOpportunities.length || !filteredOpp.length" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tableRow">
+                    <button class="btn btn-xs btnFiltration hidden-md hidden-sm hidden-xs" onclick="toggleFiltrationMenuOpp()"><span>...</span></button>
+                    <div class="pull-right open">
+                        <div id="coulmnFiltrationMenuOpp" class="pull-right hide opportunitiesCoulmnFiltration">
+                            <div class="header">
+                                <h4>Customize Columns</h4>
+                            </div>
+                            <ul class="has-optgroup">
+                                <li class="optgroup">Opportunity</li>
+                                <li><label class="checkbox"><input type="checkbox" checked id="checkOppLead" disabled>Lead</label></li>
+                                <li><label class="checkbox"><input type="checkbox" checked id="checkOppValue">Value</label></li>
+                                <li><label class="checkbox"><input type="checkbox" checked id="checkOppConfidence">Confidence</label></li>
+                                <li><label class="checkbox"><input type="checkbox" checked id="checkOppCloseDate">Close Date</label></li>
+                                <li><label class="checkbox"><input type="checkbox" checked id="checkOppStatus">Status</label></li>
+                                <li><label class="checkbox"><input type="checkbox" checked id="checkOppUser">User</label></li>
+                                <li><label class="checkbox"><input type="checkbox" id="checkOppContact">Contact</label></li>
+                                <li><label class="checkbox"><input type="checkbox" id="checkOppCreated">Created</label></li>
+                                <li><label class="checkbox"><input type="checkbox" id="checkOppCreatedBy">Created by</label></li>
+                                <li><label class="checkbox"><input type="checkbox" id="checkOppLastUpdated">Last updated</label></li>
+                                <li><label class="checkbox"><input type="checkbox" id="checkOppLastUpdatedBy">Last updated by</label></li>
+                            </ul>
+                            <div class="actions">
+                                <button class="btn btn-primary btn-block" onclick="applyCoulmnFiltrationOpp()">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="footable table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th id="thOppLead" class="col-lg-3 thOppLead" title="Lead">Lead</th>
+                                    <th data-hide="phone" id="thOppValue" class="thOppValue" title="Value">Value</th>
+                                    <th data-hide="phone" id="thOppConfidence" class="thOppConfidence" title="Confidence">Confidence</th>
+                                    <th data-hide="phone" id="thOppCloseDate" class="thOppCloseDate" title="Close Date">Close Date</th>
+                                    <th data-hide="phone" id="thOppStatus" class="thOppStatus" title="Status">Status</th>
+                                    <th data-hide="phone" id="thOppUser" class="thOppUser" title="User">User</th>
+
+                                    <th data-hide="all" data-ignore="true" id="thOppContact" class="thOppContact" title="Contact">Contact</th>
+                                    <th data-hide="all" data-ignore="true" id="thOppCreated" class="thOppCreated" title="Created">Created</th>
+                                    <th data-hide="all" data-ignore="true" id="thOppCreatedBy" class="thOppCreatedBy" title="Created By">Created By</th>
+                                    <th data-hide="all" data-ignore="true" id="thOppLastUpdated" class="thOppLastUpdated" title="Last Updated">Last Updated</th>
+                                    <th data-hide="all" data-ignore="true" id="thOppLastUpdatedBy" class="thOppLastUpdatedBy" title="Last Updated By">Last Updated By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="opportunity in filteredOpp">
+                                    <td title="{{opportunity._Id}}" class="coulmnOppLead">
+                                        <span class="linkColor"><a href="#/leadprofile/{{opportunity.LeadId}}">{{opportunity.LeadLabel}}</a></span>
+                                        <br />
+                                        <span class="grayFont">{{opportunity.Note}}</span>
+                                    </td>
+                                    <td title="{{userCurrency}}{{opportunity.Value}}&nbsp;{{opportunity.Repetion}}" class="coulmnOppValue">{{userCurrency}}{{opportunity.Value}}&nbsp;{{opportunity.Repetion}}</td>
+                                    <td title="{{opportunity.Confidence}}%" class="coulmnOppConfidence">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="{{opportunity.Confidence}}" aria-valuemin="0" aria-valuemax="100" style="width:{{opportunity.Confidence}}%">
+                                                <span>{{opportunity.Confidence}}%</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td title="{{opportunity.EstimateDate}}" class="coulmnOppCloseDate">{{opportunity.EstimateDate | date:'MM/dd/yyyy'}}</td>
+                                    <td title="{{opportunity.CurrentStatus}}" class="coulmnOppStatus">{{opportunity.StatusLabel}}</td>
+                                    <td title="John Adam" class="coulmnOppUser">{{opportunity.AssignedToLabel}}</td>
+
+                                    <td title="" class="coulmnOppContact">{{opportunity.Contact.Name}}</td>
+                                    <td title="{{opportunity.CreatedDate}}" class="coulmnOppCreated">{{opportunity.CreatedDate | date:'MM/dd/yyyy'}}</td>
+                                    <td title="" class="coulmnOppCreatedBy"></td>
+                                    <td title="" class="coulmnOppLastUpdated"></td>
+                                    <td title="" class="coulmnOppLastUpdatedBy"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div ng-show="!allOpportunities.length || !filteredOpp.length" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fontBold">
+                    <div class="clear2"></div>
+                    <p>There are currently no opportunities that match the filters chosen above. Time to start selling !</p>
+                    <div class="clear2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="groupedOpp.length">
+
+            <div ng-repeat="group in groupedOpp">
+                    <div class="clear2"></div>
+                    <h4>{{group[0].week}}</h4>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="opportunitiesBlueDv row" ng-init="initiateGroupedOpp($index)">
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                                    <span>Opportunities: </span>
+                                    <br />
+                                    <strong class="opportunitiesCounter">{{group.length}}</strong>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                                    <span>Total Value: </span>
+                                    <br />
+                                    <strong>{{userCurrency}}<span id="totalValueGrouped{{$index}}"></span> annual</strong>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                                    <span>Expected Value: </span>
+                                    <br />
+                                    <strong>{{userCurrency}}<span id="expectedValueGroued{{$index}}"></span> annual</strong>
+                                </div>
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="clear3"></div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tableRow">
+                            <div class="table-responsive">
+                                <table class="footable table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th data-sort-ignore="true" id="thOppLead" class="col-lg-3 thOppLead" title="Lead">Lead</th>
+                                            <th data-sort-ignore="true" data-hide="phone" id="thOppValue" class="thOppValue" title="Value">Value</th>
+                                            <th data-sort-ignore="true" data-hide="phone" id="thOppConfidence" class="thOppConfidence" title="Confidence">Confidence</th>
+                                            <th data-sort-ignore="true" data-hide="phone" id="thOppCloseDate" class="thOppCloseDate" title="Close Date">Close Date</th>
+                                            <th data-sort-ignore="true" data-hide="phone" id="thOppStatus" class="thOppStatus" title="Status">Status</th>
+                                            <th data-sort-ignore="true" data-hide="phone" id="thOppUser" class="thOppUser" title="User">User</th>
+
+                                            <th data-sort-ignore="true" data-hide="all" data-ignore="true" id="thOppContact" class="thOppContact" title="Contact">Contact</th>
+                                            <th data-sort-ignore="true" data-hide="all" data-ignore="true" id="thOppCreated" class="thOppCreated" title="Created">Created</th>
+                                            <th data-sort-ignore="true" data-hide="all" data-ignore="true" id="thOppCreatedBy" class="thOppCreatedBy" title="Created By">Created By</th>
+                                            <th data-sort-ignore="true" data-hide="all" data-ignore="true" id="thOppLastUpdated" class="thOppLastUpdated" title="Last Updated">Last Updated</th>
+                                            <th data-sort-ignore="true" data-hide="all" data-ignore="true" id="thOppLastUpdatedBy" class="thOppLastUpdatedBy" title="Last Updated By">Last Updated By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="opportunity in group">
+                                        <tr ng-repeat="details in opportunity.data">
+                                            <td title=" {{details._id}}" class="coulmnOppLead">
+                                                <span class="linkColor"><a href="#/leadprofile/{{details.LeadId}}">{{details.LeadLabel}}</a></span>
+                                                <br />
+                                                <span class="grayFont">{{details.Note}}</span>
+                                            </td>
+                                            <td title="{{userCurrency}}{{details.Value}}&nbsp;{{details.Repetion}}" class="coulmnOppValue">{{userCurrency}}{{details.Value}}&nbsp;{{details.Repetion}}</td>
+                                            <td title="{{details.Confidence}}%" class="coulmnOppConfidence">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{details.Confidence}}" aria-valuemin="0" aria-valuemax="100" style="width:{{details.Confidence}}%">
+                                                        <span>{{details.Confidence}}%</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td title="{{details.EstimateDate}}" class="coulmnOppCloseDate">{{details.EstimateDate | date:'MM/dd/yyyy'}}</td>
+                                            <td title="{{details.CurrentStatus}}" class="coulmnOppStatus">{{details.StatusLabel}}</td>
+                                            <td title="John Adam" class="coulmnOppUser">{{details.AssignedToLabel}}</td>
+
+                                            <td title="" class="coulmnOppContact">{{details.Contact.Name}}</td>
+                                            <td title="{{details.CreatedDate}}" class="coulmnOppCreated">{{details.CreatedDate | date:'MM/dd/yyyy'}}</td>
+                                            <td title="" class="coulmnOppCreatedBy"></td>
+                                            <td title="" class="coulmnOppLastUpdated"></td>
+                                            <td title="" class="coulmnOppLastUpdatedBy"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div id="tipsRow" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tipsBox">
+                    <h3><span>Tip:</span> Add some opportunities…</h3>
+                    <p>Opportunities can be created when viewing a lead. Search for an existing lead or <a href="#/opportunities">learn how to add new leads</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

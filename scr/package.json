@@ -1,0 +1,13 @@
+{
+  "name": "Sales-Hub",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "mongoose": "*",
+    "nodemailer": "*",
+	"imap": "*",
+	"request":"*",
+	"icalendar":"*"
+  }
+}

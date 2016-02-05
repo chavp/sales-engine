@@ -1,0 +1,66 @@
+﻿<div>
+    <div class="clear"></div>
+    <div class="clear hidden-md"></div>
+    <div class="clear hidden-md hidden-sm"></div>
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12 centerLoginBox">
+        <div class="col-lg-4 col-md-3 col-sm-2 hidden-xs"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+            <div class="row whiteBackgroungColor loginBox">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h3>Login to Sales Hub</h3>
+                        </div>
+                    </div>
+                    <form novalidate id="login" name="login" ng-hide="resetPasswordMode">
+                        <div class="input-group-md">
+                            <input ng-model="email" type="email" required class="form-control" placeholder="Email" name="txtEmail" id="txtEmail">
+                            <span ng-show="login.txtEmail.$dirty && login.txtEmail.$invalid">
+                                <span class="errorFont" ng-show="login.txtEmail.$error.required">Required</span>
+                                <span class="errorFont" ng-show="login.txtEmail.$error.email">Invalid email address.</span>
+                            </span>
+                            <span class="errorFont" ng-hide="login.txtEmail.$error.required || login.txtEmail.$error.email">{{afterLoginError}}</span>
+
+                        </div>
+                        <div class="clear2"></div>
+                        <div class="input-group-md">
+                            <input ng-model="password" type="password" required class="form-control" placeholder="Password" name="txtPassword" id="txtPassword">
+                            <span ng-show="login.txtPassword.$dirty && login.txtPassword.$invalid">
+                                <span class="errorFont" ng-show="login.txtPassword.$error.required">Required</span>
+                            </span>
+                        </div>
+                        <div class="clear2"></div>
+                        <div class="input-group-sm">
+                            <button type="submit" ng-click="loginForm(login)" class="btn btn-primary"> Log in</button>
+                        </div>
+                        <div class="clear"></div>
+                    </form>
+
+                    <form novalidate id="reset" name="reset" ng-show="resetPasswordMode">
+
+                        <div class="input-group-md">
+                            <input ng-model="password" type="password" required class="form-control" placeholder="Password" name="txtPassword" id="txtPassword">
+                            <span ng-show="reset.txtPassword.$dirty && reset.txtPassword.$invalid">
+                                <span class="errorFont" ng-show="reset.txtPassword.$error.required">Required</span>
+                            </span>
+                        </div>
+                        <div class="clear2"></div>
+                        <div class="input-group-sm">
+                            <button type="submit" ng-click="resetForm(reset)" class="btn btn-primary">Reset password</button>
+                        </div>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="clear3"></div>
+            <div class="row loginNavigation">
+
+                <a href="#/forgot" class="pull-left">Forgot your password?</a>
+                <a href="#/register" class="pull-right">Create an account</a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-3 col-sm-2 hidden-xs"></div>
+    </div>
+</div>

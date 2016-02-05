@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html ng-app="salesHubApp" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sales Hub</title>
+    <!--css-->
+
+    <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/fontawesome/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/bootstrap/daterangepicker.css" />
+    <link rel="stylesheet" href="../../css/tokeninput/token-input.css" />
+    <link rel="stylesheet" href="../../css/tokeninput/token-input-facebook.css" />
+    <link rel="stylesheet" href="../../css/bootstrap/jquery.timepicker.css" />
+    <link rel="stylesheet" href="../../css/texteditor/trumbowyg.css" />
+    <link rel="stylesheet" href="../../css/chosen/prism.css" />
+    <link rel="stylesheet" href="../../css/chosen/chosen.css" />
+
+    <link href="../../js/general/footable/footable-0.1.css" rel="stylesheet" />
+
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />-->
+
+    <link rel="stylesheet" href="../../css/style.css" />
+
+
+    <!--angular js-->
+    <script type="text/javascript" src="../../js/general/angular.min.js"></script>
+    <script type="text/javascript" src="../../js/general/angular-route.min.js"></script>
+    <script type="text/javascript" src="../../js/general/angular-messages.js"></script>
+
+
+</head>
+<body onhashchange="changeMenuActiveLink()">
+    <div ng-controller="NewleadController">
+        <!--New Lead Modal-->
+        <div class="modal fade" id="newLeadmodal" role="dialog" my-modal>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <form role="form" id="frmNewLead" name="frmNewLead">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">New Lead</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <h4>Company/Organization Name</h4>
+                                    <input class="form-control" required ng-model="newLeadCompany" id="txtNewLeadCompany" name="txtNewLeadCompany" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <h4>Contact Name</h4>
+                                    <input class="form-control" required ng-model="newLeadContactName" id="txtNewLeadContactName" name="txtNewLeadContactName" />
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="row" ng-show="isDuplicated" ng-hide="!isDuplicated">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="alert alert-danger">
+                                        <span>You alredy have a lead with the same name.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" ng-click="createNewLead(frmNewLead)">Create lead</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" ng-controller="DashboardController">
+        <div class="row">
+            <div class="adjustHeader">
+                <div class="navbar-fixed-top">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="clear3"></div>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                    <button type="button" class="btn btn-default btn-lg button" data-toggle="modal" data-target="#newLeadmodal">
+                                        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Lead
+                                    </button>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-5 col-xs-4 searchBox">
+                                    <div class="has-feedback has-feedback-left">
+                                        <input type="text" id="txtSearchLead" class="form-control input-sm" placeholder="Search" />
+                                        <i class="form-control-feedback glyphicon glyphicon-search"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="border:none"><img id="loader" src="/images/loader.gif" style="max-height:30px;border:none;display:none" class="img-responsive pull-left" /></div>
+                                <div class="col-lg-1 hidden-md"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right rightMenu">
+                            <a href="" class="btn btn-default button dropdown-toggle" data-toggle="dropdown">
+                                <span class="nameUser">{{firstName +" "+ lastName}}</span>
+                                <img class="img-rounded" ng-src="{{UserImg == '' && '../../images/person.png' || UserImg}}" />
+                            </a>
+                            <ul class="dropdown-menu pull-right infoDropdown" role="menu">
+                                <li>
+                                    <div>
+                                        <div class="info">
+                                            <div class="insideContent">
+                                                <strong>{{orgTitle}}</strong>
+                                                <br />
+                                                {{Useremail}}
+                                                <br />
+
+                                                <div>{{Userphone}}</div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="#/settings/accountsetting"><span class="glyphicon glyphicon-cog "></span>Settings</a></li>
+                                <li><a href="#/bulk"><span class="glyphicon glyphicon-cloud-upload"></span>Bulk Import</a></li>
+                                <li><a href="#/settings/membersetting"><span class="glyphicon glyphicon-user"></span>Invite Coworkers</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><span class="fa fa-life-ring"></span>Support &amp; FAQs</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-comment"></span>Live Help Chat</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-heart-empty"></span>Spread the Word</a></li>
+                                <li class="divider"></li>
+                                <li><a class="cursorPointer" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>Log Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 sideMenu">
+                <div class="adjustSideMenu">
+                    <div class="dvScroll">
+                        <ul class="routing">
+                            <li onclick="expandMenu(1)">
+                                <a href="#/inbox">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                            <span class="glyphicon glyphicon-inbox"></span>
+                                            <span id="lnkReports7" onclick="innerMenuChoice(7)" class="menuItemName1 txtItem">&nbsp;Inbox</span>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                            <span class="inbox-count badge">{{getInboxCounter()}}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <ul class="secondLevelMenuOfSelectedItem1 secondLevelMenu hide">
+                                    <li><a id="lnkReports8" class="hide">&nbsp;</a></li>
+                                    <li><a id="lnkReports5" onclick="innerMenuChoice(5)" href="#/inbox/done">&nbsp;Done</a></li>
+                                    <li><a id="lnkReports6" onclick="innerMenuChoice(6)" href="#/inbox/future">&nbsp;Future</a></li>
+                                </ul>
+                            </li>
+                            <li onclick="expandMenu(2)">
+                                <a href="#/opportunities"><span class="fa fa-trophy"></span><span class="menuItemName2 txtItem">&nbsp;Opportunities</span></a>
+                            </li>
+                            <li onclick="expandMenu(3)">
+                                <a href="#/leads"><span class="fa fa-newspaper-o"></span><span class="menuItemName3 txtItem">&nbsp;Leads</span></a>
+                            </li>
+                            <li onclick="expandMenu(4)">
+                                <a href="#/reports/activity" id="lnkReports0" onclick="innerMenuChoice(0)" class="menuItemName4 txtItem"><span class="glyphicon glyphicon-signal"></span><span class="">&nbsp;Reporting</span></a>
+                                <ul class="secondLevelMenuOfSelectedItem4 secondLevelMenu hide">
+                                    <li><a id="lnkReports1" onclick="innerMenuChoice(1)" href="#/reports/activity">&nbsp;Activity</a></li>
+                                    <li><a id="lnkReports2" onclick="innerMenuChoice(2)" href="#/reports/statuschanges">&nbsp;Status Changes</a></li>
+                                    <li><a id="lnkReports3" onclick="innerMenuChoice(3)" href="#/reports/explorer">&nbsp;Explorer</a></li>
+                                    <li><a id="lnkReports4" onclick="innerMenuChoice(4)" href="#/reports/sentemails">&nbsp;Sent Email</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Smart Views</h3>
+
+                        <div class="smartViews">
+
+                            <ul ng-repeat="item in sv track by $index">
+                                <li>
+                                    <a href="#/leads/{{item.Query}}" class="smart-view pointer">{{item.Name}} <span class="glyphicon glyphicon-cog pull-right" ng-click="startSmartViewUpdate($index)" data-toggle="modal" data-target="#smartView"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="smartView" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit Smart View</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+                                        <label>Query</label>
+                                        <input type="text" ng-model="SmartView.Query" class="form-control" />
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+                                        <label>Name</label>
+                                        <input type="text" ng-model="SmartView.Name" class="form-control" />
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <h5 class="fontBold">Sharing options</h5>
+                                        <form role="form">
+                                            <div class="radio">
+                                                <label><input type="radio" checked ng-model="newSmartView.Shared.Type" value="All" name="optradio">Share with the whole orgnization</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" ng-model="newSmartView.Shared.Type" value="Users" name="optradio" disabled>Share with specific users</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" ng-model="newSmartView.Shared.Type" value="Private" name="optradio">Keep private</label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <span class="pull-left redfont pointer"><span ng-click="removeSmartView(SmartView)" data-dismiss="modal" class="glyphicon glyphicon-trash"></span></span>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" ng-click="updateSmartView()" role="button" data-dismiss="modal">Save</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4"></div>
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8 noPaddingLeft adjustView" ng-view>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="../../js/general/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../js/general/bootstrap/moment.min.js"></script>
+    <script type="text/javascript" src="../../js/general/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/general/bootstrap/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../js/general/tokeninput/jquery.tokeninput.js"></script>
+    <script type="text/javascript" src="../../js/general/bootstrap/jquery.timepicker.js"></script>
+    <!--text editor-->
+    <script type="text/javascript" src="../../js/general/texteditor/trumbowyg.min.js"></script>
+    <!--chart-->
+    <script type="text/javascript" src="../../js/general/chart/Chart.js"></script>
+    <!--graph-->
+    <script type="text/javascript" src="../../js/general/graph/raphael-min.js"></script>
+    <script type="text/javascript" src="../../js/general/graph/dracula_graffle.js"></script>
+    <script type="text/javascript" src="../../js/general/graph/dracula_graph.js"></script>
+    <!--Chosen, a Select Box with search-->
+    <script type="text/javascript" src="../../js/general/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="../../js/general/chosen/prism.js"></script>
+    <!--sort-->
+    <script type="text/javascript" src="../../js/general/sortable/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../js/general/sortable/sortable.js"></script>
+    <!-- Foo Table -->
+    <script type="text/javascript" src="../../js/general/footable/footable.js"></script>
+    <script type="text/javascript" src="../../js/general/footable/footable.sortable.js"></script>
+    <!--Pages Scripts-->
+    <script type="text/javascript" src="../../js/app.js"></script>
+    <script type="text/javascript" src="../../js/appRoutes.js"></script>
+
+    <!--google map-->
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbkSt_pCrWS4OxeVx73tABk9Pl28P1_QA&libraries=places">
+    </script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>-->
+
+
+    <script type="text/javascript" src="../../js/services/warehouse.js"></script>
+    <script type="text/javascript" src="../../js/services/localstorage.js"></script>
+    <script type="text/javascript" src="../../js/scripts/dashboard.js"></script>
+    <script type="text/javascript" src="../../js/scripts/inbox.js"></script>
+    <script type="text/javascript" src="../../js/scripts/allleads.js"></script>
+    <script type="text/javascript" src="../../js/scripts/leadprofile.js"></script>
+    <script type="text/javascript" src="../../js/scripts/opportunities.js"></script>
+    <script type="text/javascript" src="../../js/scripts/activityreport.js"></script>
+    <script type="text/javascript" src="../../js/scripts/statuschangesreport.js"></script>
+
+
+    <!--Controllers-->
+    <script type="text/javascript" src="../../js/controllers/inboxcontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/leadscontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/opportunitiescontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/leadprofilecontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/settingscontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/bulkcontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/bulkreviewcontroller.js"></script>
+
+    <script type="text/javascript" src="../../js/controllers/reportscontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/reportexplorercontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/newleadcontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/organizationscontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/donecontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/futurecontroller.js"></script>
+    <script type="text/javascript" src="../../js/controllers/dashboardcontroller.js"></script>
+    <!--<script src="../../js/scripts/autocomplete.min.js"></script>-->
+
+    <script src="../../js/controllers/emailsettingscontroller.js"></script>
+    <script type="text/javascript" src="http://s3.amazonaws.com/plivosdk/web/plivo.min.js"></script>
+    <script type="text/javascript">
+        // Make outgoing calls
+        function addressUpdate()
+        {
+            alert('hello');
+        }
+        // Login with SIP Endpoint
+        function callErr(_err) {
+            //console.log(_err);
+            $('.dvCallStatus').html(_err);
+        }
+        function login() {
+            // SIP Endpoint username and password
+            var username = 'AmirAly151224092352';
+            var password = '1141987Dodo';
+            // Login
+            Plivo.conn.login(username, password);
+        }
+        function logout() {
+            $('#status_txt').text('Logged out');
+            Plivo.conn.logout();
+        }
+        function hangup() {
+            $('#mdCall').modal('hide');
+            Plivo.conn.hangup();
+        }
+        function isNotEmpty(n) {
+            return n.length > 0;
+        }
+        function onCalling() {
+            $('#mdCall').modal('show');
+            $('.dvCallStatus').html('Calling...');
+        }
+        function onMediaPermission(result) {
+            if (result) {
+                //console.log("get media permission");
+            } else {
+                alert("you don't allow media permission, you will can't make a call until you allow it");
+            }
+        }
+        function webrtcNotSupportedAlert() {
+            $('#txtStatus').text("");
+            alert("Your browser doesn't support WebRTC. You need Chrome 25 to use this demo");
+        }
+        function onLogin() {
+            //console.log('Logged in');
+            $('.btnCall').removeAttr('disabled');
+        }
+        function onLoginFailed() {
+            $('#status_txt').text("Login Failed");
+        }
+        function onCallRemoteRinging() {
+            $('#status_txt').text('Ringing..');
+            $('#mdCall').modal('show');
+            $('#btnCallControl').removeAttr('disabled');
+            $('.dvCallStatus').html('Ringing ...');
+        }
+        function onCallAnswered() {
+            //$('#mdCall').modal('show');
+            $('.dvCallStatus').html('Answered, Say hello !');
+            $('#btnCallControl').removeAttr('disabled');
+            $('#status_txt').text('Call Answered');
+        }
+        function onReady() {
+            //console.log("onReady...");
+            login();
+        }
+        function incomingCall(account_name, extraHeaders) {
+            //console.log(_Call);
+            //console.log(_Param1);
+            Plivo.conn.reject();
+            $('#mdCall').modal('show');
+            $('#btnCallAnswer').removeAttr('disabled');
+            $('.dvCallStatus').html('Call from '+account_name);
+        }
+        function Answer() {
+            Plivo.conn.answer();
+            $('#btnCallAnswer').attr('disabled','disabled');
+            $('.dvCallStatus').html('Call in progress');
+        }
+        // Reject incoming calls
+        function Reject() {
+            $('#mdCall').modal('hide');
+            $('.dvCallStatus').html('Call...');
+        }
+        // Initialization
+        $(document).ready(function () {
+            Plivo.onWebrtcNotSupported = webrtcNotSupportedAlert;
+            Plivo.onReady = onReady;
+            Plivo.onLogin = onLogin;
+            Plivo.onLoginFailed = onLoginFailed
+            Plivo.onCallFailed = callErr;
+            Plivo.onCalling = onCalling;
+            Plivo.onCallRemoteRinging = onCallRemoteRinging;
+            Plivo.onCallAnswered = onCallAnswered;
+            Plivo.onMediaPermission = onMediaPermission;
+            Plivo.onIncomingCall = incomingCall;
+            Plivo.init();
+        });
+    </script>
+
+</body>
+</html>
+

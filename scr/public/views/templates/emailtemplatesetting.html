@@ -1,0 +1,82 @@
+﻿<div ng-controller="EmailSettingsController">
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 " id="emailTemplateSetting">
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h1>{{orgTitle}} - Email Templates</h1>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <h2>Saved Templates</h2>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <a class="btn btn-default" href="#/settings/emailtemplatesetting/newtemplate">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Template
+                            </a>
+
+                        </div>
+                    </div>
+                    <div id="tableRow" class="row tblEmailTemp">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th class="colName">Name</th>
+                                    <th class="colBody">Body</th>
+                                    <th class="colType">Type</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="template in allEmailTemplates ">
+                                    <td><a class="cursorPointer" ng-click="editTemplate(template)">{{template.Title}}</a></td>
+                                    <td>
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
+                                            {{template.Body}}
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 text-right">
+                                            <div ng-show="template.Attachements.length">
+                                                <span class="glyphicon glyphicon-paperclip grayFont"></span>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>{{template.Shared ? 'Shared' : 'Private'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

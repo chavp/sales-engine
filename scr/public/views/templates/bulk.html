@@ -1,0 +1,123 @@
+﻿<div ng-controller="bulkController">
+    <div class="bulk">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <div class="row">
+                <h1>Bulk Import</h1>
+            </div>
+            <div class="row">
+                <p>This tool allows you to bulk create new leads.</p>
+            </div>
+            <div class="row">
+                <p>You can upload a CSV file from your computer:</p>
+            </div>
+            <div class="row">
+                <input type="file" id="fileUploader" accept="*.csv" fileread="upload">
+            </div>
+            <div class="clear2"></div>
+            <div class="row">
+                <p>Or copy & paste your data from Excel (don't forget the header row):</p>
+            </div>
+            <div class="row form-group">
+
+                <textarea ng-model="csvFile" class="form-control txtImport"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-2">
+                    <button class="btn btn-primary pull-left" role="button" onclick="javascript:location.href='#bulk/review'">Continue</button>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 txtMatch">
+                    <p>You will be able to match the columns in the next step.</p>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                </div>
+            </div>
+            <div class="row danger">
+                <h4>Do not re-upload copies of existing leads - it will create duplicates.</h4>
+            </div>
+            <div class="row tip">
+                <h2>Tips</h2>
+            </div>
+
+            <div class="row">
+                <ul>
+                    <li>Make sure the first row of your data is a header row, i.e. contains the column names.</li>
+                    <li>Non-US phone numbers must start with a "+" in order to be recognized properly.</li>
+                    <li>Multiple rows with the same company name will be merged into one lead allowing you to add multiple contacts and addresses to one lead. Alternatively, you can have multiple contact or address columns in one row.</li>
+                </ul>
+            </div>
+            <div class="row">
+                <p>Don't hesitate to <a href="#">contact us</a>  if you have any issues.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <div class="row tip">
+                <h2>CRM Migration Tool</h2>
+            </div>
+
+            <div class="row ">
+                <p>Moving from Salesforce, Highrise, or another CRM? We can make the process seamless.</p>
+            </div>
+            <div class="row">
+                <input type="button" class="btn btn-success" value="Choose Your CRM" data-toggle="modal" data-target="#crmData" />
+            </div>
+            <div class="clear"></div>
+
+            <div class="row">
+                <p>Alternatively, we have <a href="#">a Developer API</a> which can be used to import leads, as well as <a href="#">a CSV Import Script </a>you can use.</p>
+            </div>
+
+
+
+            <div class="modal fade" id="crmData" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">CRM Data Import</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <select class="form-control">
+                                        <option value="">--- Which CRM? ---</option>
+                                        <option value="base">Base CRM</option>
+                                        <option value="batchbook">Batchbook</option>
+                                        <option value="capsule">Capsule CRM</option>
+                                        <option value="highrise">Highrise</option>
+                                        <option value="infusionsoft">Infusionsoft</option>
+                                        <option value="insightly">Insightly</option>
+                                        <option value="dynamics">MS Dynamics CRM</option>
+                                        <option value="netsuite">NetSuite CRM</option>
+                                        <option value="nimble">Nimble</option>
+                                        <option value="nutshell">Nutshell</option>
+                                        <option value="pipedrive">Pipedrive</option>
+                                        <option value="pipelinedeals">PipelineDeals</option>
+                                        <option value="redtail">Redtail CRM</option>
+                                        <option value="relateiq">RelateIQ</option>
+                                        <option value="salesforce">Salesforce</option>
+                                        <option value="saleslogix">Saleslogix</option>
+                                        <option value="sugar">SugarCRM</option>
+                                        <option value="zohocrm">Zoho CRM</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-primary" role="button">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

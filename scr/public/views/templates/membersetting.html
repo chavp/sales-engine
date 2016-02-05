@@ -1,0 +1,154 @@
+﻿
+<div ng-controller="SettingsController">
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+
+                    <div ng-show="userOrganizations.length > 1">Switch to…</div>
+                    <div class="settingsMenu" ng-repeat="org in userOrganizations track by $index" ng-hide="org.Orgnization._id == Organization._id">
+                        <h5 class="cursorPointer" ng-click="switchOrganizations(org)">{{org.Orgnization.Title}} »</h5>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9  " id="memberSetting">
+                    <div class="row">
+                        <h1>{{orgTitle}} - Members</h1>
+                    </div>
+                    <div class="row">
+                        <h3>Invite Coworkers</h3>
+                    </div>
+                    <div class="row">
+                        <form>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
+                                <label id="Label1">Coworker's Email:</label>
+                                <input type="text" class="form-control" ng-model="newInvite.Email" />
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-group">
+                                <label>Role</label>
+                                <select class="form-control" ng-model="newInvite.Role">
+                                    <option>User</option>
+                                    <option>Admin</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 form-group">
+                                <label>Plan:</label>
+                                <select class="form-control" ng-model="newInvite.Plan">
+                                    <option value="Basic">Basic ($65/mo.)</option>
+                                    <option value="Pro">Pro ($110/mo.)</option>
+                                    <option value="Business">Business ($165/mo.)</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <label></label>
+                                <button type="submit" class="btn btn-primary" role="button" ng-click="saveNewInvite()">Invite</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clear3"></div>
+                    <div class="row">
+                        <h4>Members ({{Organization.Members.length }})</h4>
+                    </div>
+                    <div class="row table-responsive tblTeam">
+                        <table class="table TableOrganization">
+                            <tr>
+                                <th class="pull-right">Name</th>
+                                <th></th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Plan</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="item in Organization.Members| filter:{ Status: 'Active' } track by $index ">
+                                <td>
+                                    <span class="userAvailability pull-left"></span><a class="pull-right" href="http://www.gravatar.com/">
+                                        <img src="../../images/person.png" alt="">
+                                    </a>
+                                </td>
+                                <td class="DataCol">{{item.Name}}</td>
+                                <td class="DataCol">{{item.Phone}}</td>
+                                <td class="DataCol">{{item.Role}}</td>
+                                <td class="DataCol">{{item.Plan}}</td>
+                                <td class="DataCol">
+                                    <input type="button" class="btn-xs btnChangePlan" value="Change or remove" ng-click="updateMember(item)" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal fade" id="changePlan" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Edit Membership</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <label>User: {{newInvite.Name}} ({{newInvite.Email}})</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                            <label>Role  <span class="glyphicon glyphicon-question-sign"></span></label>
+                                            <select class="form-control" ng-model="newInvite.Role">
+                                                <option value="User">User</option>
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                            <label>Plan:</label>
+                                            <select class="form-control" ng-model="newInvite.Plan">
+                                                <option value="Trail">Trail</option>
+                                                <option value="Basic">Basic ($65/mo.)</option>
+                                                <option value="Pro">Pro ($110/mo.)</option>
+                                                <option value="Business">Business ($165/mo.)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="deleteMember()">Remove</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-primary" role="button" data-dismiss="modal" ng-click="updateOrg()">Save</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

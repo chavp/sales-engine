@@ -1,0 +1,123 @@
+﻿<div ng-controller="ReportsController">
+    <div class="clear2"></div>
+    <div class="actionReportPage sentemailsPage">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+                <h1>Sent Email Report</h1>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+               
+            </div>
+        </div>
+        <div class="clear3"></div>
+        <div class="row">
+            <div id="buttonsRow">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-left">
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> All Users <b class="caret"></b>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a><input type="checkbox" /> All Users</a></li>
+                                <li class="divider"></li>
+                                <li><a><input type="checkbox" /> John Adam</a></li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-default rangeFilter" id="rangeFilterSentEmails">
+                            <i class="glyphicon glyphicon-calendar"></i><span> All Time </span><b class="caret"></b>
+                        </button>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-download-alt"></span> <b class="caret"></b>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a><span class="fa fa-table"></span>  CSV / Excel</a></li>
+                                <li><a><span class="fa fa-cloud-download"></span>  JSON</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dottedWidget">
+            <div class="clear3"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2>All Users' Report for All Time </h2>
+                </div>
+            </div>
+
+            <div class="clear3"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3 class="bottomDottedBorder">All Emails </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Sent</h4>
+                        <a>4</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Opened</h4>
+                        <a>1</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Open Rate</h4>
+                        <a class="darkGrayFont bigFont">25%</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Responded</h4>
+                        <a>0</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center">
+                        <h4 class="fontBold">Response Rate</h4>
+                        <a class="darkGrayFont bigFont">0%</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="clear3"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3 class="bottomDottedBorder">Sample Reply To Steli</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Sent</h4>
+                        <a>1</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Opened</h4>
+                        <a>0</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Open Rate</h4>
+                        <a class="darkGrayFont bigFont">0%</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center rightDottedBorder">
+                        <h4 class="fontBold">Responded</h4>
+                        <a>0</a>
+                    </div>
+                    <div class="col-lg-5th col-md-5th col-sm-5th col-xs-5th text-center">
+                        <h4 class="fontBold">Response Rate</h4>
+                        <a class="darkGrayFont bigFont">0%</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿<div ng-controller="SettingsController">
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9  " id="apiSetting">
+                    <div class="clear"></div>
+                    <div class="row">
+                        <h1>{{orgTitle}} - API Keys</h1>
+                    </div>
+                    <div class="row">
+
+                        <p>API keys allow you to integrate Close.io with other websites, services, and data sources. You can use them with <a href="#">Zapier</a>  or any of<a href="#"> our other integrations</a>, or you can<a href="#"> build one yourself</a>.</p>
+                    </div>
+
+                    <div class="row">
+                        <h2>Your API Keys</h2>
+                    </div>
+                    <div class="row">
+
+                        <p>You don't have any API keys associated with this organization..</p>
+                    </div>
+                    <div class="row">
+
+                        <a class="btn btn-primary" role="button">Create New APi Key</a>
+                    </div>
+
+                    <div class="row">
+                        <h2>API Documentation</h2>
+                    </div>
+                    <div class="row">
+
+                        <p>Documentation for our API exists at<a href="http://close.io"> developer.close.io </a>. Feel free to <a href="#">contact us</a> with any API-related questions you may have.</p>
+                    </div>
+                    <div class="row">
+                        <h2>Testing Environment</h2>
+                    </div>
+                    <div class="row">
+
+                        <p>If you feel the need for a separate dev/testing environment,<a href="#"> email us to setup a separate organization</a> for you to test in.</p>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
