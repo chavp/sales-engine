@@ -47,8 +47,8 @@ process.on('SIGTERM', function() {
 });
 
 // BRING IN YOUR SCHEMAS & MODELS
-require('./members');
+/*require('./members');
 require('./member-profiles');
 require('./organizations');
 require('./organization-roles');
-require('./leads');
+require('./leads');*/
