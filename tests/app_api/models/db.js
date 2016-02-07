@@ -47,4 +47,8 @@ process.on('SIGTERM', function() {
 });
 
 // BRING IN YOUR SCHEMAS & MODELS
-require('../app_api/models/dbs');
+require('./members');
+require('./member-profiles');
+require('./organizations');
+require('./organization-roles');
+require('./leads');

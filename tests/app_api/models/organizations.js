@@ -26,11 +26,11 @@ organizationSchema.plugin(timestamps);
 organizationSchema.plugin(relationship, { relationshipPathName: 'members' });
 
 organizationSchema.statics.findByName = function (name, cb) {
-  return this.find({ name: new RegExp(name, 'i') }, cb);
+  return this.find({ name: name }, cb);
 }
 
 organizationSchema.statics.findOneByName = function (name, cb) {
-  return this.findOne({ name: new RegExp(name, 'i') }, cb);
+  return this.findOne({ name: name }, cb);
 }
 
 mongoose.model('Organization', organizationSchema);

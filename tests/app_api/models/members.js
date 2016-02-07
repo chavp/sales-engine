@@ -43,6 +43,10 @@ memberSchema.methods.login = function(candidatePassword) {
     return bcrypt.compareSync(candidatePassword, member.password); // true 
 };
 
+memberSchema.statics.findOneByUserName = function (userName, cb) {
+  return this.findOne({ userName: userName }, cb);
+}
+
 /*memberSchema.virtual('profile').get(function () {
   console.log(this);
   return this;
