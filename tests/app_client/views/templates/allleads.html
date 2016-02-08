@@ -1,0 +1,2366 @@
+﻿<div ng-controller="LeadsController">
+    <div class="allLeadsPage">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noPaddingLeft">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstRow">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left noPaddingLeft">
+                    <h1>{{PageTitle}} <button data-toggle="modal" data-target="#smartViewmodal" class="" title="Create smart view" style="font-size:20px"><i class="glyphicon glyphicon-star"></i></button></h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right noPaddingRight">
+                    <!--narrow search results-->
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                    <div id="rightMenu" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+
+                        <h4 class="narrowOptionsTitle pointer hide" onclick="showNarrowOptions()"><span class="glyphicon glyphicon-play"></span> Narrow your results  <span class="glyphicon glyphicon-question-sign"></span></h4>
+                        <div class="narrowOptions nonCollapsedNarrowOptions">
+                            <div class="clear2"></div>
+                            <h4 onclick="hideNarrowOptions()" class="pointer"><span class="caret"></span> Narrow your results  <span class="glyphicon glyphicon-question-sign"></span></h4>
+
+                            <div>
+                                <h5 onclick="showLeadDv()" id="titleLead" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> LEAD</h5>
+
+                                <div id="dvAllLeads" class="hide">
+                                    <h5 onclick="hideLeadDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> LEAD</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Status</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Current</li>
+                                                    <li><a>Potential</a></li>
+                                                    <li><a>Bad Fit</a></li>
+                                                    <li><a>Qualified</a></li>
+                                                    <li><a>Customer</a></li>
+                                                    <li class="optgroup">Previous</li>
+                                                    <li><a>Potential</a></li>
+                                                    <li><a>Bad Fit</a></li>
+                                                    <li><a>Qualified</a></li>
+                                                    <li><a>Customer</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Created</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Last updated</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Last status change</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Created by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Last updated by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Source</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>Manual</a></li>
+                                                    <li><a>Bulk Import</a></li>
+                                                    <li><a>API</a></li>
+                                                    <li><a>Email</a></li>
+                                                    <li><a>Lead Clipper</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                    <div onclick="showMoreLeadOptions()" id="lnkshowMoreLeadOptions">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a class="cursorPointer">13 More...</a>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                    <div id="moreLeadOptions" class="hide">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Email addresses</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Number of</li>
+                                                        <li><a>Some</a></li>
+                                                        <li><a>None</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                        <li class="optgroup">Email address search</li>
+                                                        <li><a>Search</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Phone numbers</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Number of</li>
+                                                        <li><a>Some</a></li>
+                                                        <li><a>None</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                        <li class="optgroup">Phone number search</li>
+                                                        <li><a>Search</a></li>
+                                                        <li><a>Time zone</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Contact URLs</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Number of</li>
+                                                        <li><a>Some</a></li>
+                                                        <li><a>None</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                        <li class="optgroup">Contact URL search</li>
+                                                        <li><a>Search</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Contacts</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a>Some</a></li>
+                                                        <li><a>None</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Address</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Number of</li>
+                                                        <li><a>Some</a></li>
+                                                        <li><a>None</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                        <li class="optgroup">Address search</li>
+                                                        <li><a>Street</a></li>
+                                                        <li><a>City</a></li>
+                                                        <li><a>State</a></li>
+                                                        <li><a>ZIP/Postal code</a></li>
+                                                        <li><a>Country</a></li>
+                                                        <li><a>Time zone</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Local time</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Address or Phone</li>
+                                                        <li><a>Before…</a></li>
+                                                        <li><a>After…</a></li>
+                                                        <li class="optgroup">Address</li>
+                                                        <li><a>Before…</a></li>
+                                                        <li><a>After…</a></li>
+                                                        <li class="optgroup">Phone</li>
+                                                        <li><a>Before…</a></li>
+                                                        <li><a>After…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">In Smart View</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a>Recently Created</a></li>
+                                                        <li><a>Never Contacted</a></li>
+                                                        <li><a>Opened Email</a></li>
+                                                        <li><a>Status: Potential</a></li>
+                                                        <li><a>Status: Bad Fit</a></li>
+                                                        <li><a>Status: Qualified</a></li>
+                                                        <li><a>Status: Customer</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Company</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="Bluth Company" />
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Description</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">URL</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control" placeholder="example.com" />
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Contact Name</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="John Smith" />
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Contact Title</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="CTO" />
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Time zone</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="PT" />
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                        <div onclick="showLessLeadOptions()" id="lnkshowLessLeadOptions">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a class="cursorPointer">Less...</a>
+                                            </div>
+                                        </div>
+                                        <div class="clear3"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div>
+                                <h5 onclick="showCustomFieldsDv()" id="titleCustomFields" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> CUSTOM FIELDS</h5>
+
+                                <div id="dvCustomFields" class="hide">
+
+                                    <h5 onclick="hideCustomFieldsDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> CUSTOM FIELDS</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>(Any value)</a></li>
+                                                    <li><a>(No value)</a></li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">ddd</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>(Any value)</a></li>
+                                                    <li><a>(No value)</a></li>
+                                                    <li><a>1250</a></li>
+                                                    <li><a>145</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">ii</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>(Any value)</a></li>
+                                                    <li><a>(No value)</a></li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <h5 onclick="showEmailActivityDv()" id="titleEmailActivity" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> EMAIL ACTIVITY</h5>
+                                <div id="dvEmailActivityDv" class="hide">
+
+                                    <h5 onclick="hideEmailActivityDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> EMAIL ACTIVITY</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Number of</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Total emails</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Sent</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Received</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Drafts</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Outbox</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Error / could not send</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Latest email</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Direction</li>
+                                                    <li><a>Sent</a></li>
+                                                    <li><a>Received</a></li>
+                                                    <li class="optgroup">Date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Latest received date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Latest sent date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Opened</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Ever</li>
+                                                    <li><a>Yes</a></li>
+                                                    <li><a>No</a></li>
+                                                    <li class="optgroup">Number of times</li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div onclick="showMoreEmailActivityOptions()" id="lnkshowMoreEmailActivityOptions">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a class="cursorPointer">7 More...</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div id="moreEmailActivityOptions" class="hide">
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Template</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>Sample Cold Email</a></li>
+                                                        <li><a>Sample Reply To Steli</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Attachments</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>Some</a></li>
+                                                        <li><a>None</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Latest email opened</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Ever</li>
+                                                        <li><a>Yes</a></li>
+                                                        <li><a>No</a></li>
+                                                        <li class="optgroup">Number of times</li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                        <li class="optgroup">Date</li>
+                                                        <li><a>Today</a></li>
+                                                        <li><a>Yesterday</a></li>
+                                                        <li><a>Within last 7 days</a></li>
+                                                        <li><a>Within last 30 days</a></li>
+                                                        <li><a>Before 7 days ago</a></li>
+                                                        <li><a>Before 30 days ago</a></li>
+                                                        <li><a>Before…</a></li>
+                                                        <li><a>After…</a></li>
+                                                        <li><a>On…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Subject</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="" />
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Sender</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="Name or email" />
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Recipient</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="Name or email" />
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div onclick="showLessEmailActivityOptions()" id="lnkshowLessEmailActivityOptions">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a class="cursorPointer">Less...</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <h5 onclick="showCallActivityDv()" id="titleCallActivity" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> CALL ACTIVITY</h5>
+                                <div id="dvCallActivityDv" class="hide">
+
+                                    <h5 onclick="hideCallActivityDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> CALL ACTIVITY</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Number of</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Total calls</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Outbound</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Inbound</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Missed</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Latest call</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Direction</li>
+                                                    <li><a>Outbound</a></li>
+                                                    <li><a>Inbound</a></li>
+                                                    <li class="optgroup">Date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Latest incoming date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Latest outgoing date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Created</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Last updated</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Created by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Last updated by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div onclick="showMoreCallActivityOptions()" id="lnkshowMoreCallActivityOptions">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a class="cursorPointer">4 More...</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div id="moreCallActivityOptions" class="hide">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Duration</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Voicemail</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li class="optgroup">Has voicemail</li>
+                                                        <li><a>Yes</a></li>
+                                                        <li><a>No</a></li>
+                                                        <li class="optgroup">Duration</li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Call Recording</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>Yes</a></li>
+                                                        <li><a>No</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Note</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input type="text" class="form-control " placeholder="" />
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div onclick="showLessCallActivityOptions()" id="lnkshowLessCallActivityOptions">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a class="cursorPointer">Less...</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div>
+                                <h5 onclick="showCommunicationDv()" id="titleCommunication" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> COMMUNICATION</h5>
+                                <div id="dvCommunication" class="hide">
+
+                                    <h5 onclick="hideCommunicationDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> COMMUNICATION</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Number of</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Latest communication</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">First communication</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Latest communication</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">First communication</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Type</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Latest communication</li>
+                                                    <li><a>Call</a></li>
+                                                    <li><a>Outgoing call</a></li>
+                                                    <li><a>Incoming answered call</a></li>
+                                                    <li><a>Missed call</a></li>
+                                                    <li><a>Received voicemail</a></li>
+                                                    <li><a>Email</a></li>
+                                                    <li><a>Sent email</a></li>
+                                                    <li><a>Received email</a></li>
+                                                    <li class="optgroup">First communication</li>
+                                                    <li><a>Call</a></li>
+                                                    <li><a>Outgoing call</a></li>
+                                                    <li><a>Incoming answered call</a></li>
+                                                    <li><a>Missed call</a></li>
+                                                    <li><a>Received voicemail</a></li>
+                                                    <li><a>Email</a></li>
+                                                    <li><a>Sent email</a></li>
+                                                    <li><a>Received email</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Direction</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Latest communication</li>
+                                                    <li><a>Outgoing</a></li>
+                                                    <li><a>Incoming</a></li>
+                                                    <li class="optgroup">First communication</li>
+                                                    <li><a>Outgoing</a></li>
+                                                    <li><a>Incoming</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <h5 onclick="showNotesDv()" id="titleNotes" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> NOTES</h5>
+                                <div id="dvNotes" class="hide">
+
+                                    <h5 onclick="hideNotesDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> NOTES</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Number of</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Latest notes</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Created</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Last updated</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Created by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Last updated by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold inputLabel">Note</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <input class="form-control " />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <h5 onclick="showOpportunitiesDv()" id="titleOpportunities" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span>OPPORTUNITIES</h5>
+                                <div id="dvOpportunitiesDv" class="hide">
+
+                                    <h5 onclick="hideOpportunitiesDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> EMAIL ACTIVITY</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Status</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Current status</li>
+                                                    <li><a>Active</a></li>
+                                                    <li><a>Won</a></li>
+                                                    <li><a>Lost</a></li>
+                                                    <li class="optgroup">Previous status</li>
+                                                    <li><a>Active</a></li>
+                                                    <li><a>Won</a></li>
+                                                    <li><a>Lost</a></li>
+                                                    <li class="optgroup">Current status type</li>
+                                                    <li><a>Active</a></li>
+                                                    <li><a>Won</a></li>
+                                                    <li><a>Lost</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Number of</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Total opportunities</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Active</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Won</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Lost</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Assigned to</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Created by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Last updated by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Closed (or est. closed)</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Created</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Last updated</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Latest status change</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div onclick="showMoreOpportunitiesOptions()" id="lnkshowMoreOpportunitiesOptions">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <a class="cursorPointer">4 More...</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="moreOpportunitiesOptions" class="hide">
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Confidence</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Value</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>Has a value</a></li>
+                                                        <li><a>No value</a></li>
+                                                        <li><a>Exactly…</a></li>
+                                                        <li><a>More than…</a></li>
+                                                        <li><a>Less than…</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold">Period</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu pull-right has-optgroup">
+                                                        <li><a>one-time</a></li>
+                                                        <li><a>monthly</a></li>
+                                                        <li><a>annual</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                                <label class="fontBold inputLabel">Comment</label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                                <input class="form-control " />
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                        <div onclick="showLessOpportunitiesOptions()" id="lnkshowLessOpportunitiesOptions">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <a class="cursorPointer">Less...</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="clear3"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <h5 onclick="showTasksDv()" id="titleTasks" class="grayFont cursorPointer"><span class="glyphicon glyphicon-play"></span> TASKS</h5>
+                                <div id="dvTasks" class="hide">
+
+                                    <h5 onclick="hideTasksDv()" class="grayFont cursorPointer"><span class="glyphicon glyphicon glyphicon-triangle-bottom"></span> TASKS</h5>
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Number of</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Total tasks</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Completed</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                    <li class="optgroup">Incomplete</li>
+                                                    <li><a>Some</a></li>
+                                                    <li><a>None</a></li>
+                                                    <li><a>Exactly…</a></li>
+                                                    <li><a>More than…</a></li>
+                                                    <li><a>Less than…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">Date</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Date</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Created</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                    <li class="optgroup">Last updated</li>
+                                                    <li><a>Today</a></li>
+                                                    <li><a>Yesterday</a></li>
+                                                    <li><a>Within last 7 days</a></li>
+                                                    <li><a>Within last 30 days</a></li>
+                                                    <li><a>Before 7 days ago</a></li>
+                                                    <li><a>Before 30 days ago</a></li>
+                                                    <li><a>Before…</a></li>
+                                                    <li><a>After…</a></li>
+                                                    <li><a>On…</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold">User</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></button>
+                                                <ul class="dropdown-menu pull-right has-optgroup">
+                                                    <li class="optgroup">Assigned to</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Created by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                    <li class="optgroup">Last updated by</li>
+                                                    <li><a>Me</a></li>
+                                                    <li><a>John Adam</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clear3"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                            <label class="fontBold inputLabel">Description</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 noPaddingLeft text-left">
+                                            <input class="form-control " />
+                                        </div>
+                                    </div>
+
+                                    <div class="clear"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="buttonsRow" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 secondRow">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 noPaddingRight">
+                    <div class="pull-left">
+                        <span>{{LeadsCounter}} total results</span>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 noPaddingLeft text-right">
+
+                    <button type="button" class="btn  btn-xs btn-default" data-toggle="modal" data-target="#emailLeadmodal">
+                        <span class="glyphicon glyphicon-envelope"></span> Email
+                    </button>
+                    <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#editLeadmodal" onclick="resetEditModel()">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#exportLeadmodal">
+                        <span class="glyphicon glyphicon-save"></span> Export
+                    </button>
+                    |
+                    <div class="btn-group" id="myContainer">
+                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-sort"></span> Sort by
+                            <span class="caret"></span>
+                        </button>
+                        <!--sort Menus one primary & two sub menus-->
+                        <ul class="dropdown-menu pull-right">
+                            <li onmouseover="showSubMenu(1)" onmouseout="hideSubMenu(1)" class="dropdown-submenu text-left">
+                                <a class="lnkWidth">Ascending <span class="glyphicon glyphicon-triangle-right pull-right tinyFont"></span></a>
+                            </li>
+                            <li onmouseover="showSubMenu(2)" onmouseout="hideSubMenu(2)" class="dropdown-submenu text-left">
+                                <a class="lnkWidth">Descending <span class="glyphicon glyphicon-triangle-right pull-right tinyFont"></span></a>
+                            </li>
+                        </ul>
+                        <ul id="subMenu1" class="dropdown-menu has-optgroup hide" onmouseover="showSubMenu(1)" onmouseout="hideSubMenu(1)">
+                            <li class="optgroup">Leads</li>
+                            <li><a>Display name</a></li>
+                            <li><a>Company</a></li>
+                            <li><a>Contact name</a></li>
+                            <li><a>Date created</a></li>
+                            <li><a>Date last updated</a></li>
+                            <li><a>Date last status change</a></li>
+                            <li><a># Email addresses</a></li>
+                            <li><a># Phone numbers</a></li>
+                            <li><a># Contact urls</a></li>
+                            <li><a># Contacts</a></li>
+                            <li><a># Addresses</a></li>
+                            <li class="optgroup">Communication</li>
+                            <li><a>Last communicated</a></li>
+                            <li><a>First communicated</a></li>
+                            <li><a># Times communicated</a></li>
+                            <li class="optgroup">Emails</li>
+                            <li><a># Emails</a></li>
+                            <li><a># Sent emails</a></li>
+                            <li><a># Received emails</a></li>
+                            <li><a>Email date</a></li>
+                            <li><a>Latest email date</a></li>
+                            <li><a>Latest received email</a></li>
+                            <li><a>Latest sent email</a></li>
+                            <li><a>Email last opened</a></li>
+                            <li><a># Email attachments</a></li>
+                            <li class="optgroup">Calls</li>
+                            <li><a># Calls</a></li>
+                            <li><a># Outbound calls</a></li>
+                            <li><a># Inbound calls</a></li>
+                            <li><a># Missed calls</a></li>
+                            <li><a>Latest call date</a></li>
+                            <li><a>Call created</a></li>
+                            <li><a>Call last updated</a></li>
+                            <li><a>Call duration</a></li>
+                            <li><a>Voicemail duration</a></li>
+                            <li class="optgroup">Notes</li>
+                            <li><a># Notes</a></li>
+                            <li><a>Latest note date</a></li>
+                            <li><a>Date created</a></li>
+                            <li><a>Date last updated</a></li>
+                            <li class="optgroup">Opportunities</li>
+                            <li><a>Total active opp. value</a></li>
+                            <li><a>Total won opp. value</a></li>
+                            <li><a>Total lost opp. value</a></li>
+                            <li><a>Total opp. value</a></li>
+                            <li><a># Opportunities</a></li>
+                            <li><a># Active opportunities</a></li>
+                            <li><a># Won opportunities</a></li>
+                            <li><a># Lost opportunities</a></li>
+                            <li><a>Close date</a></li>
+                            <li><a>Date created</a></li>
+                            <li><a>Date last updated</a></li>
+                            <li><a>Date last status change</a></li>
+                            <li><a>Confidence %</a></li>
+                            <li><a>Value</a></li>
+                            <li class="optgroup">Tasks</li>
+                            <li><a># Tasks</a></li>
+                            <li><a># Completed tasks</a></li>
+                            <li><a># Incomplete tasks</a></li>
+                            <li class="optgroup">Custom Fields</li>
+                            <li><a>date</a></li>
+                            <li><a>jj</a></li>
+                        </ul>
+                        <ul id="subMenu2" class="dropdown-menu has-optgroup hide" onmouseover="showSubMenu(2)" onmouseout="hideSubMenu(2)">
+                            <li class="optgroup">Leads</li>
+                            <li><a>Display name</a></li>
+                            <li><a>Company</a></li>
+                            <li><a>Contact name</a></li>
+                            <li><a>Date created</a></li>
+                            <li><a>Date last updated</a></li>
+                            <li><a>Date last status change</a></li>
+                            <li><a># Email addresses</a></li>
+                            <li><a># Phone numbers</a></li>
+                            <li><a># Contact urls</a></li>
+                            <li><a># Contacts</a></li>
+                            <li><a># Addresses</a></li>
+                            <li class="optgroup">Communication</li>
+                            <li><a>Last communicated</a></li>
+                            <li><a>First communicated</a></li>
+                            <li><a># Times communicated</a></li>
+                            <li class="optgroup">Emails</li>
+                            <li><a># Emails</a></li>
+                            <li><a># Sent emails</a></li>
+                            <li><a># Received emails</a></li>
+                            <li><a>Email date</a></li>
+                            <li><a>Latest email date</a></li>
+                            <li><a>Latest received email</a></li>
+                            <li><a>Latest sent email</a></li>
+                            <li><a>Email last opened</a></li>
+                            <li><a># Email attachments</a></li>
+                            <li class="optgroup">Calls</li>
+                            <li><a># Calls</a></li>
+                            <li><a># Outbound calls</a></li>
+                            <li><a># Inbound calls</a></li>
+                            <li><a># Missed calls</a></li>
+                            <li><a>Latest call date</a></li>
+                            <li><a>Call created</a></li>
+                            <li><a>Call last updated</a></li>
+                            <li><a>Call duration</a></li>
+                            <li><a>Voicemail duration</a></li>
+                            <li class="optgroup">Notes</li>
+                            <li><a># Notes</a></li>
+                            <li><a>Latest note date</a></li>
+                            <li><a>Date created</a></li>
+                            <li><a>Date last updated</a></li>
+                            <li class="optgroup">Opportunities</li>
+                            <li><a>Total active opp. value</a></li>
+                            <li><a>Total won opp. value</a></li>
+                            <li><a>Total lost opp. value</a></li>
+                            <li><a>Total opp. value</a></li>
+                            <li><a># Opportunities</a></li>
+                            <li><a># Active opportunities</a></li>
+                            <li><a># Won opportunities</a></li>
+                            <li><a># Lost opportunities</a></li>
+                            <li><a>Close date</a></li>
+                            <li><a>Date created</a></li>
+                            <li><a>Date last updated</a></li>
+                            <li><a>Date last status change</a></li>
+                            <li><a>Confidence %</a></li>
+                            <li><a>Value</a></li>
+                            <li class="optgroup">Tasks</li>
+                            <li><a># Tasks</a></li>
+                            <li><a># Completed tasks</a></li>
+                            <li><a># Incomplete tasks</a></li>
+                            <li class="optgroup">Custom Fields</li>
+                            <li><a>date</a></li>
+                            <li><a>jj</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="btn btn-xs btnFiltration hidden-md hidden-sm hidden-xs" onclick="toggleFiltrationMenu()"><span>...</span></button>
+                <div class="pull-right open">
+                    <div id="coulmnFiltrationMenu" class="pull-right hide LeadsCoulmnFiltration">
+                        <div class="header">
+                            <h4>Customize Columns</h4>
+                        </div>
+                        <ul class="has-optgroup">
+                            <li class="optgroup">Leads</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkCompany" checked disabled>Company</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkEmail" checked disabled>Email</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkCall" checked disabled>Call</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkContacts" checked>Contacts</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkStatus" checked>Status</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkDescription">Description</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkURL">URL</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkCreated" checked>Created</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkCreatedBy" checked>Created by</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkUpdated">Updated</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkUpdatedBy">Updated by</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestStatusChangeDate">Latest status change date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkSource">Source</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLocalTime">Local time</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryAddress">Primary address</label></li>
+                            <li class="optgroup">Custom Fields</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkDate">date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkDdd">ddd</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkJj">jj</label></li>
+                            <li class="optgroup">Communication</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestCommunication">Latest communication</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestCommunicationDate">Latest communication date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestCommunicationUser">Latest communication user</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkFirstCommunication">First communication</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkFirstCommunicationDate">First communication date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkFirstCommunicationUser">First communication user</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkTimesCommunicated">Times communicated</label></li>
+                            <li class="optgroup">Emails</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestEmailDate">Latest email date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestReceivedEmailDate">Latest received email date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestSentEmailDate">Latest sent email date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestEmailSubject">Latest email subject</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkEmailLastOpened">Email last opened</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkEmails"># Emails</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkSentEmails"># Sent emails</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkReceivedEmails"># Received emails</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkEmailAttachments"># Email attachments</label></li>
+                            <li class="optgroup">Calls</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestCallDate">Latest call date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestIncomingCallDate">Latest incoming call date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestOutgoingCallDate">Latest outgoing call date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestCallNote">Latest call note</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkFirstCallDate">First call date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkFirstCallNote">First call note</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkCalls"># Calls</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkOutgoingCalls"># Outgoing calls</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkIncomingCalls"># Incoming calls</label></li>
+                            <li class="optgroup">Notes</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkNotes"># Notes</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLatestNoteDate">Latest note date</label></li>
+                            <li class="optgroup">Opportunities</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkActiveOppValue">Active opp. value</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkWonOppValue">Won opp. value</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLostOppValue">Lost opp. value</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkAllOppValue">All opp. value</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppStatus">Primary opp. status</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppCloseDate">Primary opp. close date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppCreated">Primary opp. created</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppUpdated">Primary opp. updated</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppConfidence">Primary opp. confidence %</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppValue">Primary opp. value</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkPrimaryOppUser">Primary opp. user</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLastOppStatusChangeDate">Last opp. status change date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkOpportunities"># Opportunities</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkActiveOpportunities"># Active opportunities</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkWonOpportunities"># Won opportunities</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkLostOpportunities"># Lost opportunities</label></li>
+                            <li class="optgroup">Tasks</li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkNextTask">Next task</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkNextTaskDate">Next task date</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkNextTaskUser">Next task user</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkTasks"># Tasks</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkCompletedTasks"># Completed tasks</label></li>
+                            <li><label class="checkbox"><input type="checkbox" id="checkIncompleteTasks"># Incomplete tasks</label></li>
+                        </ul>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-block" onclick="applyCoulmnFiltration()">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear2"></div>
+        <div class="row">
+
+            <div id="tableRow" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 tblLeads">
+                <div class="table-responsive">
+                    <table class="footable table table-bordered">
+                        <thead>
+                            <tr>
+                                <th id="thCompany" class="col-4 col-md-4" title="Company">Company</th>
+                                <th data-hide="phone" id="thEmail" class="col-1 col-md-1 text-center grayFont" title="Email"><span class="glyphicon glyphicon-envelope"></span><span class="hidden-lg hidden-md">Email</span></th>
+                                <th data-hide="phone" id="thCall" class="col-1 col-md-1 text-center grayFont" title="Call"><span class="glyphicon glyphicon-earphone"></span><span class="hidden-lg hidden-md">Call</span></th>
+                                <th data-hide="phone" id="thContacts" title="Contacts">Contacts</th>
+                                <th data-hide="phone" id="thStatus" title="Status">Status</th>
+                                <th data-hide="all" data-ignore="true" id="thDescription" title="Description">Description</th>
+                                <th data-hide="all" data-ignore="true" id="thURL" title="URL">URL</th>
+
+                                <th data-hide="phone" id="thCreated" title="Created">Created</th>
+                                <th data-hide="phone" id="thCreatedBy" title="Created By">Created By</th>
+                                <th data-hide="all" data-ignore="true" id="thUpdated" title="Updated">Updated</th>
+                                <th data-hide="all" data-ignore="true" id="thUpdatedBy" title="Updated By">Updated By</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestStatusChangeDate" title="Latest Status Change Date">Latest Status Change Date</th>
+                                <th data-hide="all" data-ignore="true" id="thSource" title="Source">Source</th>
+                                <th data-hide="all" data-ignore="true" id="thLocalTime" title="Local Time">Local Time</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryAddress" title="Primary Address">Primary Address</th>
+
+                                <th data-hide="all" data-ignore="true" id="thDate" title="date">date</th>
+                                <th data-hide="all" data-ignore="true" id="thDdd" title="ddd">ddd</th>
+                                <th data-hide="all" data-ignore="true" id="thJj" title="jj">jj</th>
+
+                                <th data-hide="all" data-ignore="true" id="thLatestCommunication" title="Latest communication">Latest communication</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestCommunicationDate" title="Latest communication date">Latest communication date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestCommunicationUser" title="Latest communication user">Latest communication user</th>
+                                <th data-hide="all" data-ignore="true" id="thFirstCommunication" title="First communication">First communication</th>
+                                <th data-hide="all" data-ignore="true" id="thFirstCommunicationDate" title="First communication date">First communication date</th>
+                                <th data-hide="all" data-ignore="true" id="thFirstCommunicationUser" title="First communication user">First communication user</th>
+                                <th data-hide="all" data-ignore="true" id="thTimesCommunicated" title="Times communicated">Times communicated</th>
+
+                                <th data-hide="all" data-ignore="true" id="thLatestEmailDate" title="Latest email date">Latest email date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestReceivedEmailDate" title="Latest received email date">Latest received email date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestSentEmailDate" title="Latest sent email date">Latest sent email date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestEmailSubject" title="Latest email subject">Latest email subject</th>
+                                <th data-hide="all" data-ignore="true" id="thEmailLastOpened" title="Email last opened">Email last opened</th>
+                                <th data-hide="all" data-ignore="true" id="thEmails" title="# Emails"># Emails</th>
+                                <th data-hide="all" data-ignore="true" id="thSentEmails" title="# Sent emails"># Sent emails</th>
+                                <th data-hide="all" data-ignore="true" id="thReceivedEmails" title="Received emails">Received emails</th>
+                                <th data-hide="all" data-ignore="true" id="thEmailAttachments" title="Email attachments">Email attachments</th>
+
+                                <th data-hide="all" data-ignore="true" id="thLatestCallDate" title="Latest call date">Latest call date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestIncomingCallDate" title="Latest incoming call date">Latest incoming call date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestOutgoingCallDate" title="Latest outgoing call date">Latest outgoing call date</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestCallNote" title="Latest call note">Latest call note</th>
+                                <th data-hide="all" data-ignore="true" id="thFirstCallDate" title="First call date">First call date</th>
+                                <th data-hide="all" data-ignore="true" id="thFirstCallNote" title="First call note">First call note</th>
+                                <th data-hide="all" data-ignore="true" id="thCalls" title="# Calls"># Calls</th>
+                                <th data-hide="all" data-ignore="true" id="thOutgoingCalls" title="# Outgoing calls"># Outgoing calls</th>
+                                <th data-hide="all" data-ignore="true" id="thIncomingCalls" title="# Incoming calls"># Incoming calls</th>
+
+                                <th data-hide="all" data-ignore="true" id="thNotes" title="# Notes"># Notes</th>
+                                <th data-hide="all" data-ignore="true" id="thLatestNoteDate" title="Latest note date">Latest note date</th>
+
+                                <th data-hide="all" data-ignore="true" id="thActiveOppValue" title="Active opp. value">Active opp. value</th>
+                                <th data-hide="all" data-ignore="true" id="thWonOppValue" title="Won opp. value">Won opp. value</th>
+                                <th data-hide="all" data-ignore="true" id="thLostOppValue" title="Lost opp. value">Lost opp. value</th>
+                                <th data-hide="all" data-ignore="true" id="thAllOppValue" title="All opp. value">All opp. value</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppStatus" title="Primary opp. status">Primary opp. status</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppCloseDate" title="Primary opp. close date">Primary opp. close date</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppCreated" title="Primary opp. created">Primary opp. created</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppUpdated" title="Primary opp. updated">Primary opp. updated</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppConfidence" title="Primary opp. confidence %">Primary opp. confidence %</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppValue" title="Primary opp. value">Primary opp. value</th>
+                                <th data-hide="all" data-ignore="true" id="thPrimaryOppUser" title="Primary opp. user">Primary opp. user</th>
+                                <th data-hide="all" data-ignore="true" id="thLastOppStatusChangeDate" title="Last opp. status change date">Last opp. status change date</th>
+                                <th data-hide="all" data-ignore="true" id="thOpportunities" title="# Opportunities"># Opportunities</th>
+                                <th data-hide="all" data-ignore="true" id="thActiveOpportunities" title="# Active opportunities"># Active opportunities</th>
+                                <th data-hide="all" data-ignore="true" id="thWonOpportunities" title="# Won opportunities"># Won opportunities</th>
+                                <th data-hide="all" data-ignore="true" id="thLostOpportunities" title="# Lost opportunities"># Lost opportunities</th>
+
+                                <th data-hide="all" data-ignore="true" id="thNextTask" title="Next task">Next task</th>
+                                <th data-hide="all" data-ignore="true" id="thNextTaskDate" title="Next task date">Next task date</th>
+                                <th data-hide="all" data-ignore="true" id="thNextTaskUser" title="Next task user">Next task user</th>
+                                <th data-hide="all" data-ignore="true" id="thTasks" title="# Tasks"># Tasks</th>
+                                <th data-hide="all" data-ignore="true" id="thCompletedTasks" title="# Completed tasks"># Completed tasks</th>
+                                <th data-hide="all" data-ignore="true" id="thIncompleteTasks" title="# Incomplete tasks"># Incomplete tasks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="lead in allLeads">
+                                <td title="{{lead.Title}}"><a href="#/leadprofile/{{lead._id}}">{{lead.Title}}</a></td>
+                                <td title="" class="text-center"><span></span></td>
+                                <td title="" class="text-center"><span></span></td>
+                                <td title="{{lead.Contacts[0].Name}}" class="coulmnContacts">{{lead.Contacts[0].Name}}</td>
+                                <td title="{{lead.StatusLabel}}" class="coulmnStatus">{{lead.StatusLabel}}</td>
+                                <td title="" class="coulmnDescription">{{lead.Description}}</td>
+                                <td title="" class="coulmnURL"><a href="{{lead.URL}}">{{lead.URL}}</a></td>
+
+                                <td title="{{lead.CreatedDate}}" class="coulmnCreated">{{lead.CreatedDate | date:'MM/dd/yyyy'}}</td>
+                                <td title="{{lead.CreatedBy.FirstName}}&nbsp;{{lead.CreatedBy.LastName}}" class="coulmnCreatedBy">{{lead.CreatedBy.FirstName}}&nbsp;{{lead.CreatedBy.LastName}}</td>
+                                <td title="" class="coulmnUpdated">{{lead.LstUpdated}}</td>
+                                <td title="" class="coulmnLatestStatusChangeDate"></td>
+                                <td title="" class="coulmnSource"></td>
+                                <td title="" class="coulmnLocalTime"></td>
+                                <td title="" class="coulmnPrimaryAddress"></td>
+
+                                <td title="" class="coulmnDate"></td>
+                                <td title="" class="coulmnDdd"></td>
+                                <td title="" class="coulmnJj"></td>
+
+                                <td title="" class="coulmnLatestCommunication"></td>
+                                <td title="" class="coulmnLatestCommunicationDate"></td>
+                                <td title="" class="coulmnLatestCommunicationUser"></td>
+                                <td title="" class="coulmnFirstCommunication"></td>
+                                <td title="" class="coulmnFirstCommunicationDate"></td>
+                                <td title="" class="coulmnFirstCommunicationUser"></td>
+                                <td title="" class="coulmnTimesCommunicated"></td>
+
+                                <td title="" class="coulmnLatestEmailDate"></td>
+                                <td title="" class="coulmnLatestReceivedEmailDate"></td>
+                                <td title="" class="coulmnLatestSentEmailDate"></td>
+                                <td title="" class="coulmnLatestEmailSubject"></td>
+                                <td title="" class="coulmnEmailLastOpened"></td>
+                                <td title="" class="coulmnEmails"></td>
+                                <td title="" class="coulmnDateSentEmails"></td>
+                                <td title="" class="coulmnReceivedEmails"></td>
+                                <td title="" class="coulmnEmailAttachments"></td>
+
+                                <td title="" class="coulmnLatestCallDate"></td>
+                                <td title="" class="coulmnLatestIncomingCallDate"></td>
+                                <td title="" class="coulmnLatestOutgoingCallDate"></td>
+                                <td title="" class="coulmnLatestCallNote"></td>
+                                <td title="" class="coulmnFirstCallDate"></td>
+                                <td title="" class="coulmnFirstCallNote"></td>
+                                <td title="" class="coulmnCalls text-right"></td>
+                                <td title="" class="coulmnOutgoingCalls"></td>
+                                <td title="" class="coulmnIncomingCalls"></td>
+
+                                <td title="" class="coulmnNotes"></td>
+                                <td title="" class="coulmnLatestNoteDate"></td>
+
+                                <td title="" class="coulmnActiveOppValue"></td>
+                                <td title="" class="coulmnWonOppValue"></td>
+                                <td title="" class="coulmnLostOppValue"></td>
+                                <td title="" class="coulmnAllOppValue"></td>
+                                <td title="" class="coulmnPrimaryOppStatus"></td>
+                                <td title="" class="coulmnPrimaryOppCloseDate"></td>
+                                <td title="" class="coulmnPrimaryOppCreated"></td>
+                                <td title="" class="coulmnPrimaryOppUpdated"></td>
+                                <td title="" class="coulmnPrimaryOppConfidence"></td>
+                                <td title="" class="coulmnPrimaryOppValue"></td>
+                                <td title="" class="coulmnPrimaryOppUser"></td>
+                                <td title="" class="coulmnLastOppStatusChangeDate"></td>
+                                <td title="" class="coulmnOpportunities"></td>
+                                <td title="" class="coulmnActiveOpportunities"></td>
+                                <td title="" class="coulmnWonOpportunities"></td>
+                                <td title="" class="coulmnLostOpportunities"></td>
+
+                                <td title="" class="coulmnNextTask"></td>
+                                <td title="" class="coulmnNextTaskDate"></td>
+                                <td title="" class="coulmnNextTaskUser"></td>
+                                <td title="" class="coulmnTasks text-right"></td>
+                                <td title="" class="coulmnCompletedTasks"></td>
+                                <td title="" class="coulmnIncompleteTasks"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="tipsRow" class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <div class="tipsBox">
+                    <h3><span>Tip:</span> Add some leads…</h3>
+                    <p>You don't have many leads/contacts yet! <a href="#/leads">Learn about the many ways to add leads into Close.io</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Email Modal-->
+        <div class="modal fade" id="emailLeadmodal" role="dialog" my-modal>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" ng-hide="SecondPage">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Send Bulk Email</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h1><span class="fontBold">{{LeadsCounter}} </span><small>leads will be emailed</small></h1>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Search query:</h5>
+                                <span>* ({{query}})</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="fontBold">Template:</h5>
+                                <select ng-model="chosenTemplate" id="bulkSelectTemplate" ng-click="showSecondEmailMenu(chosenTemplate)" class="form-control">
+                                    <option selected value="ChooseTemplate">Choose a template…</option>
+                                    <option disabled="disabled"></option>
+                                    <option ng-repeat="temp in allEmailTemplates track by temp._id"
+                                            value="{{temp._id}}">
+                                        {{temp.Title}}
+                                    </option>
+                                    <option value="separator" disabled="disabled"></option>
+                                    <option value="ManageTemplates">Manage Templates →</option>
+                                </select>
+
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="fontBold">For each lead, email…</h5>
+                                <select ng-model="contactsOption" class="form-control">
+                                    <option value="FirstOnly">Only the first contact</option>
+                                    <option value="AllContacts">All contacts</option>
+                                </select>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="clear3"></div>
+                                <p class="small">If a contact has multiple email addresses, only the first one will be emailed.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="alert alert-danger" role="alert">
+                                    You need to <a> configure email sending </a> before you can send bulk email. <a>Learn more</a>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" ng-click="SecondPage=true">Preview »</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-content" ng-show="SecondPage">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Send Bulk Email</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h1><span class="fontBold">{{LeadsCounter}} </span><small>leads will be emailed</small></h1>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Search query:</h5>
+                                <span>* ({{query}})</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="adjustTemplateInModal" ng-bind-html="renderHtml(templateContent)"></div>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default" ng-click="SecondPage=false">« Back</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="EmailAllLeads()">Send email to ~{{LeadsCounter}} leads</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Edit Modal-->
+        <div class="modal fade" id="editLeadmodal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" id="editAllLeadsDv">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Bulk Update</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h1><span class="fontBold">{{LeadsCounter}} </span><small>leads will be affected</small></h1>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Search query:</h5>
+                                <span>* ({{query}})</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="fontBold">Bulk action type:</h5>
+                                <select ng-model="actionToEdit" ng-change="showSecondEditMenu(actionToEdit)" class="form-control">
+                                    <option selected>Choose an action…</option>
+                                    <option disabled=""></option>
+                                    <option value="updateLeadStatus">Update the lead status</option>
+                                    <option value="updateCustomField">Update a custom field</option>
+                                    <option value="clearCustomField">Clear a custom field</option>
+                                    <option value="DeleteAllLeads">Delete the leads</option>
+                                </select>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+
+                        <div class="row" ng-show="updateLeadStatusChoices">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="fontBold">New status:</h5>
+
+                                <select ng-model="AllLeadsNewStatus" id="newAllLeadsStatus" ng-change="chooseNewStatus()" class="form-control">
+                                    <option value="0" selected>Choose One…</option>
+                                    <option value="1" disabled=""></option>
+                                    <option value="{{status._id}}" ng-repeat="status in OrganizationLeadsStatuses track by status._id">{{status.Title}}</option>
+                                </select>
+
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+                        <div class="row" ng-show="updateCustomFieldChoices">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="fontBold">Custom field to set:</h5>
+                                <select class="form-control">
+                                    <option>Choose One…</option>
+                                    <option disabled=""></option>
+                                    <option value="Potential">Potential</option>
+                                    <option value="Qualified">Qualified</option>
+                                    <option value="Bad Fit">Bad Fit</option>
+                                    <option value="Customer">Customer</option>
+                                </select>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+                        <div class="row" ng-show="clearCustomFieldChoices">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="fontBold">Custom field to remove:</h5>
+                                <select class="form-control">
+                                    <option>Choose One…</option>
+                                    <option disabled=""></option>
+                                    <option value="Potential">Potential</option>
+                                    <option value="Qualified">Qualified</option>
+                                    <option value="Bad Fit">Bad Fit</option>
+                                    <option value="Customer">Customer</option>
+                                </select>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="clear3"></div>
+                                <p class="small">Email <a>support@close.io</a> for other types of bulk edit/delete requests not available here.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" onclick="showEditLeadsPreview()">Next »</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-content hide" id="editLeadsPreview">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Bulk Update › Confirm</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Search query:</h5>
+                                <span>* ({{query}})</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Leads affected:</h5>
+                                <span>~{{LeadsCounter}}</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Action to be performed:</h5>
+                                <span>{{actionText}}</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Warning:</h5>
+                                <span>This action <span class="fontBold">cannot be undone.</span></span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default" onclick="backToEditLeadsDv()">« Back</button>
+                            <button type="button" ng-click="updateAllLeads()" class="btn btn-primary" data-dismiss="modal">Bulk update ~{{LeadsCounter}} leads</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Export Modal-->
+        <div class="modal fade" id="exportLeadmodal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Export</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <span>Choose the type and the format of an export and we will email you a link to a generated file.</span>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Type</h5>
+                                <form role="form">
+                                    <div class="radio">
+                                        <label><input  ng-model="exportOptions.Type" value="Leads" type="radio" name="optradio">Leads</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="Contacts"  ng-model="exportOptions.Type" name="optradio">Contacts</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio"value="Opp" ng-model="exportOptions.Type" name="optradio">Opportunities</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Format</h5>
+                                <form role="form">
+                                    <div class="radio">
+                                        <label><input type="radio" name="optFormat" value="CSV" ng-model="exportOptions.Format" onclick="hideActivitiesCheck()">CSV / Excel</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="JSON" ng-model="exportOptions.Format" name="optFormat">JSON</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" ng-click="exportLeads()" data-dismiss="modal">Export</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        
+        <!--Smart View-->
+        <div class="modal fade" id="smartViewmodal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Save smart view</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+                                <label>Name</label>
+                                <input type="text" ng-model="newSmartView.Name" class="form-control" />
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h5 class="fontBold">Sharing options</h5>
+                                <form role="form">
+                                    <div class="radio">
+                                        <label><input type="radio" checked ng-model="newSmartView.Shared.Type" value="All" name="optradio">Share with the whole orgnization</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" ng-model="newSmartView.Shared.Type" value="Users" name="optradio" disabled>Share with specific users</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" ng-model="newSmartView.Shared.Type" value="Private" name="optradio">Keep private</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clear3"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" ng-click="saveSmartView()" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

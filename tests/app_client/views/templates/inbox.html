@@ -1,0 +1,928 @@
+﻿<div>
+    <div class="inboxPage">
+        <div class="row" ng-click="resetInbox()">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                    <h1>Inbox <small class="grayFont">({{InboxCounter}})</small></h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right h5 rightIcons">
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-calendar grayFont cursorPointer" data-toggle="modal" data-target="#taskCalendermodal"></span>
+                        &nbsp; <span class="fa fa-keyboard-o grayFont cursorPointer" data-toggle="modal" data-target="#keyboardmodal"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-click="resetInbox()">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                    <div class="pull-left">
+                        <input type="checkbox" ng-click="CheckAll()">
+                        <button class="btn btn-default" ng-click="multiDone()">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            Done
+                        </button>
+
+                        <button id="snoozeInbox" class="btn btn-default timeRangePickerInput" type="button" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-time"></span>
+                            Snooze
+                            <span class="caret"></span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6 col-sm-6 col-xs-6 dvFilters noPaddingLeft">
+                    <div>
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 text-right noPaddingLeft noPaddingRight">
+                            <ul class="nav nav-pills">
+                                <li><a>Showing:</a></li>
+                                <li class="cursorPointer" ng-class="{'active': isActive('All')}"><a ng-click="filterType('All')">All</a></li>
+                                <li class="cursorPointer" ng-class="{'active': isActive('Email')}"><a ng-click="filterType('Email')">Emails</a></li>
+                                <li class="cursorPointer" ng-class="{'active': isActive('Call')}"><a ng-click="filterType('Call')">Calls</a></li>
+                                <li class="cursorPointer" ng-class="{'active': isActive('Task')}"><a ng-click="filterType('Task')">Tasks</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 text-right dvButtons noPaddingLeft">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user"></span>All Users <b class="caret"></b>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a ng-click="filterUser('All')"><input type="checkbox" checked /> All Users</a></li>
+                                    <li class="divider"></li>
+                                    <li ng-repeat="user in allUsers"><a ng-click="filterUser(user)"><input type="checkbox" /> {{user.FirstName}}&nbsp;{{user.LastName}}</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <strong>Sort by:</strong> Oldest First <b class="caret"></b>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a ng-click="order('Older')">
+                                            <input type="radio" checked />
+                                            Oldest First
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="order('Sooner')">
+                                            <input type="radio" />
+                                            Newset First
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear2"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="inboxTable" ng-repeat="oneInbox in allInboxList" ng-switch="oneInbox.Activities.Type">
+                    <!-- BEGIN: Template for Email. -->
+                    <div ng-switch-when="Email">
+                       
+
+                        <!--collapsd-->
+                        <div class="row cursorPointer" ng-hide="oneInbox.InboxDetailsPart" ng-mouseenter="hoverinbox(oneInbox)" ng-mouseleave="hoverinbox(oneInbox)">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow nonCollapsedView">
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inboxCoulmn">
+                                        <input type="checkbox" ng-model="oneInbox.Check" />
+                                        <span class="inboxIcon text-center">
+                                            <span class="glyphicon glyphicon-envelope"></span>
+                                        </span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-2 col-md-2 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <span>
+                                            <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>&nbsp;
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <div class="btn-group btn-group-sm pull-right" role="group" id="btnGroup1" ng-show="oneInbox.showInboxActions">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-7 col-md-7 col-sm-7 col-xs-7 adjustEmailBody inboxCoulmn">
+                                        <span>{{oneInbox.Activities.Attributes.Subject}}</span>&nbsp;
+                                        <span class="grayFont" ng-bind-html="renderHtml(oneInbox.Activities.Attributes.Text)"></span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn pull-right text-right noPaddingLeft">
+                                        <span class="glyphicon glyphicon-calendar grayFont hide"></span>
+                                        <span class="glyphicon glyphicon-time grayFont hide"></span>
+                                        <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Un collapsed-->
+                        <div class="row" ng-show="oneInbox.InboxDetailsPart">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow row collapsedView" id="collapsed1">
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12 collapsedViewHeader">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 noPaddingLeft">
+                                            <span class="inboxIcon text-center">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                            <h4>{{oneInbox.Activities.Attributes.Subject}}</h4>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5 text-right">
+                                            <div class="pull-right">
+                                                <button class="btn btn-small btn-success" ng-click="itemDone(oneInbox)">
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                    Done
+                                                </button>
+
+                                                <button class="btn btn-small btn-default inboxDateRangePickerInput"
+                                                        id="snoozeOneInbox{{$index}}"
+                                                        type="button" data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-time "></span>
+                                                    <span class="spanDate">Snooze</span>
+                                                    <span class="caret"></span>
+                                                </button>
+
+                                                <span ng-click="showInboxDetails(oneInbox,$index)" class=" glyphicon glyphicon-remove cursorPointer grayFont"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                                            <span>
+                                                <!--<span>Steli...</span>-->
+                                                <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <span>Email</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                                <span>Call</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!--reply part-->
+                                    <div ng-include="'views/templates/replyinbox.html'" ng-if="oneInbox.isReplyIncluded"></div>
+
+                                    <div>
+                                        <div ng-hide="oneInbox.collapsedMail" >
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lightGrayBackground">
+                                                <div class=" cursorPointer">
+                                                    <div class="row" ng-click="showCollapsedMail(oneInbox)">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                                                            <span class="caret"></span>
+                                                            <span id="userMail"> {{oneInbox.LeadLabel}} &lt;{{oneInbox.Activities.Attributes.To}}&gt;</span>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row secondRow">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left" ng-click="showCollapsedMail(oneInbox)">
+                                                            <strong class="fontBold">To</strong>:<span class="h5">{{UserEmail}}</span>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                                            <span class="fa fa-reply grayFont cursorPointer" ng-click="mailReply($index,oneInbox,0)"></span>
+                                                            <span class="fa fa-reply-all grayFont cursorPointer" ng-click="mailReply($index,oneInbox,1)"></span>
+                                                            <span class="fa fa-arrow-right grayFont cursorPointer" ng-click="mailReply($index,oneInbox,2)"></span>
+                                                            <span class="fa fa-trash grayFont cursorPointer" ng-click="deleteEmail(oneInbox)"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="whiteBackground">
+                                                    <div class="pull-left">
+                                                        <p ng-bind-html="renderHtml(oneInbox.Activities.Attributes.Text)"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear3"></div>
+                                        </div>
+
+                                        <div class="collapsedMessage" ng-show="oneInbox.collapsedMail" ng-click="showCollapsedMail(oneInbox)">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 cursorPointer messageContainer">
+                                                <div class="">
+                                                    <div class="whiteBackground">
+
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 messageSubject pull-left grayFont">
+                                                                <span class="glyphicon glyphicon-play"></span>
+                                                                <span>{{oneInbox.Activities.Attributes.Subject}}</span>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-7 messageBody noPaddingRight noPaddingLeft">
+                                                                <span ng-bind-html="renderHtml(oneInbox.Activities.Attributes.Text)"></span>
+                                                            </div>
+                                                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-right pull-right">
+                                                                <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Template for Email. -->
+
+                    <!-- BEGIN: Template for Task. -->
+                    <div ng-switch-when="Task">
+                        <!--collapsed-->
+                        <div class="row cursorPointer" ng-hide="oneInbox.InboxDetailsPart" ng-mouseenter="hoverinbox(oneInbox)" ng-mouseleave="hoverinbox(oneInbox)">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow nonCollapsedView">
+
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inboxCoulmn">
+                                        <input type="checkbox" ng-model="oneInbox.Check"/>
+                                        <span class="inboxIcon text-center">
+                                            <span class="glyphicon glyphicon-check"></span>
+                                        </span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-2 col-md-2 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <span>
+                                            <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>&nbsp;
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <div class="btn-group btn-group-sm pull-right" role="group" id="btnGroup1" ng-show="oneInbox.showInboxActions">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-7 col-md-7 col-sm-7 col-xs-7 inboxCoulmn">
+                                        <span>{{oneInbox.Activities.Attributes.Text}}</span>
+                                        <span class="grayFont"></span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn pull-right text-right noPaddingLeft">
+                                        <span class="glyphicon glyphicon-calendar grayFont hide"></span>
+                                        <span class="glyphicon glyphicon-time grayFont hide"></span>
+                                        <span>
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Un collapsed-->
+                        <div class="row" ng-show="oneInbox.InboxDetailsPart">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow row collapsedView" id="collapsed2">
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12 collapsedViewHeader">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 noPaddingLeft">
+                                            <span class="inboxIcon text-center">
+                                                <span class="glyphicon glyphicon-check"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <h4>{{oneInbox.Activities.Attributes.Text}}</h4>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">
+                                            <div class="pull-right">
+                                                <button ng-click="itemDone(oneInbox)" class="btn btn-small btn-success">
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                    Done
+                                                </button>
+
+                                                <button class="btn btn-small btn-default inboxDateRangePickerInput" id="snoozeOneInbox{{$index}}" type="button" data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-time "></span>
+                                                    <span class="spanDate">Snooze</span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <span ng-click="showInboxDetails(oneInbox,$index)" class=" glyphicon glyphicon-remove cursorPointer grayFont"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                                            <span>
+                                                <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <span>Email</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                                <span>Call</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Template for Task. -->
+
+                    <!-- BEGIN: Template for NewTask. -->
+                    <div ng-switch-when="NewTask">
+                        <!--collapsed-->
+                        <div class="row cursorPointer" ng-hide="oneInbox.InboxDetailsPart" ng-mouseenter="hoverinbox(oneInbox)" ng-mouseleave="hoverinbox(oneInbox)">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow nonCollapsedView">
+
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inboxCoulmn">
+                                        <input type="checkbox" ng-model="oneInbox.Check" />
+                                        <span class="inboxIcon text-center">
+                                            <span class="glyphicon glyphicon-check"></span>
+                                        </span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-2 col-md-2 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <span>
+                                            <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>&nbsp;
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <div class="btn-group btn-group-sm pull-right" role="group" id="btnGroup1" ng-show="oneInbox.showInboxActions">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-7 col-md-7 col-sm-7 col-xs-7 inboxCoulmn">
+                                        <span>{{oneInbox.Activities.Attributes.Text}}</span>
+                                        <span class="grayFont"></span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn pull-right text-right noPaddingLeft">
+                                        <span class="glyphicon glyphicon-calendar grayFont hide"></span>
+                                        <span class="glyphicon glyphicon-time grayFont hide"></span>
+                                        <span>
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Un collapsed-->
+                        <div class="row" ng-show="oneInbox.InboxDetailsPart">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow row collapsedView" id="collapsed2">
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12 collapsedViewHeader">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 noPaddingLeft">
+                                            <span class="inboxIcon text-center">
+                                                <span class="glyphicon glyphicon-check"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <h4>{{oneInbox.Activities.Attributes.Text}}</h4>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">
+                                            <div class="pull-right">
+                                                <button ng-click="itemDone(oneInbox)" class="btn btn-small btn-success">
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                    Done
+                                                </button>
+
+                                                <button id="snoozeOneInbox{{$index}}" class="btn btn-small btn-default inboxDateRangePickerInput" type="button" data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-time "></span>
+                                                    <span class="spanDate">Snooze</span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <span ng-click="showInboxDetails(oneInbox,$index)" class=" glyphicon glyphicon-remove cursorPointer grayFont"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                                            <span>
+                                                <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <span>Email</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                                <span>Call</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Template for NewTask. -->
+
+                    <!-- BEGIN: Template for CreatedTask. -->
+                    <div ng-switch-when="CreatedTask">
+                        <!--collapsed-->
+                        <div class="row cursorPointer" ng-hide="oneInbox.InboxDetailsPart" ng-mouseenter="hoverinbox(oneInbox)" ng-mouseleave="hoverinbox(oneInbox)">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow nonCollapsedView">
+
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inboxCoulmn">
+                                        <input type="checkbox" ng-model="oneInbox.Check" />
+                                        <span class="inboxIcon text-center">
+                                            <span class="glyphicon glyphicon-check"></span>
+                                        </span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-2 col-md-2 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <span>
+                                            <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>&nbsp;
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <div class="btn-group btn-group-sm pull-right" role="group" id="btnGroup1" ng-show="oneInbox.showInboxActions">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-7 col-md-7 col-sm-7 col-xs-7 inboxCoulmn">
+                                        <span>{{oneInbox.Activities.Attributes.Text}}</span>
+                                        <span class="grayFont"></span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn pull-right text-right noPaddingLeft">
+                                        <span class="glyphicon glyphicon-calendar grayFont hide"></span>
+                                        <span class="glyphicon glyphicon-time grayFont hide"></span>
+                                        <span>
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Un collapsed-->
+                        <div class="row" ng-show="oneInbox.InboxDetailsPart">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow row collapsedView" id="collapsed2">
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12 collapsedViewHeader">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 noPaddingLeft">
+                                            <span class="inboxIcon text-center">
+                                                <span class="glyphicon glyphicon-check"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <h4>{{oneInbox.Activities.Attributes.Text}}</h4>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">
+                                            <div class="pull-right">
+                                                <button ng-click="itemDone(oneInbox)" class="btn btn-small btn-success">
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                    Done
+                                                </button>
+
+                                                <button id="snoozeOneInbox{{$index}}" class="btn btn-small btn-default inboxDateRangePickerInput" type="button" data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-time "></span>
+                                                    <span class="spanDate">Snooze</span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <span ng-click="showInboxDetails(oneInbox,$index)" class=" glyphicon glyphicon-remove cursorPointer grayFont"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                                            <span>
+                                                <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <span>Email</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                                <span>Call</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Template for CreatedTask. -->
+
+                    <!-- BEGIN: Template for opportunities. -->
+                    <div ng-switch-when="opportunities">
+                        <!--collapsed-->
+                        <div class="row cursorPointer" ng-hide="oneInbox.InboxDetailsPart" ng-mouseenter="hoverinbox(oneInbox)" ng-mouseleave="hoverinbox(oneInbox)">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="inboxRow nonCollapsedView">
+
+                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inboxCoulmn">
+                        <input type="checkbox" ng-model="oneInbox.Check" />
+                        <span class="inboxIcon text-center">
+                            <span class="fa fa-trophy"></span>
+                        </span>
+                    </div>
+                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-2 col-md-2 col-sm-1 col-xs-1 inboxCoulmn">
+                        <span>
+                            <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>&nbsp;
+                        </span>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn">
+                        <div class="btn-group btn-group-sm pull-right" role="group" id="btnGroup1" ng-show="oneInbox.showInboxActions">
+                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                <span class="glyphicon glyphicon-earphone"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-7 col-md-7 col-sm-7 col-xs-7 inboxCoulmn">
+                        <span>{{oneInbox.Activities.Attributes.Text}}</span>
+                        <span class="grayFont"></span>
+                    </div>
+                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn pull-right text-right noPaddingLeft">
+                        <span class="glyphicon glyphicon-calendar grayFont hide"></span>
+                        <span class="glyphicon glyphicon-time grayFont hide"></span>
+                        <span>
+                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <!--Un collapsed-->
+                        <div class="row" ng-show="oneInbox.InboxDetailsPart">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="inboxRow row collapsedView" id="collapsed2">
+                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12 collapsedViewHeader">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 noPaddingLeft">
+                            <span class="inboxIcon text-center">
+                                <span class="fa fa-trophy"></span>
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <h4>{{oneInbox.Activities.Attributes.Text}}</h4>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">
+                            <div class="pull-right">
+                                <button ng-click="itemDone(oneInbox)" class="btn btn-small btn-success">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    Done
+                                </button>
+
+                                <button id="snoozeOneInbox{{$index}}" class="btn btn-small btn-default inboxDateRangePickerInput" type="button" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-time "></span>
+                                    <span class="spanDate">Snooze</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <span ng-click="showInboxDetails(oneInbox,$index)" class=" glyphicon glyphicon-remove cursorPointer grayFont"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                            <span>
+                                <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                <span>Email</span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                <span class="glyphicon glyphicon-earphone"></span>
+                                <span>Call</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clear3"></div>
+                </div>
+            </div>
+        </div>
+                    </div>
+                    <!-- End: Template for opportunities. -->
+
+                    <!-- BEGIN: Template for voicemail. -->
+                    <div ng-switch-when="Voicemail">
+                        <!--collapsed-->
+                        <div class="row cursorPointer" ng-hide="oneInbox.InboxDetailsPart" ng-mouseenter="hoverinbox(oneInbox)" ng-mouseleave="hoverinbox(oneInbox)">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow nonCollapsedView">
+
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 inboxCoulmn">
+                                        <input type="checkbox" ng-model="oneInbox.Check" />
+                                        <span class="inboxIcon text-center">
+                                            <span class="glyphicon glyphicon-earphone"></span>
+                                        </span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-2 col-md-2 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <span>
+                                            <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>&nbsp;
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn">
+                                        <div class="btn-group btn-group-sm pull-right" role="group" id="btnGroup1" ng-show="oneInbox.showInboxActions">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-7 col-md-7 col-sm-7 col-xs-7 inboxCoulmn">
+                                        <span>{{oneInbox.Activities.Attributes.Text}}</span>
+                                        <span class="grayFont"></span>
+                                    </div>
+                                    <div ng-click="showInboxDetails(oneInbox,$index)" class="col-lg-1 col-md-1 col-sm-1 col-xs-1 inboxCoulmn pull-right text-right noPaddingLeft">
+                                        <span class="glyphicon glyphicon-calendar grayFont hide"></span>
+                                        <span class="glyphicon glyphicon-time grayFont hide"></span>
+                                        <span>
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Un collapsed-->
+                        <div class="row" ng-show="oneInbox.InboxDetailsPart">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="inboxRow row collapsedView" id="collapsed2">
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12 collapsedViewHeader">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 noPaddingLeft">
+                                            <span class="inboxIcon text-center">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <h4>{{oneInbox.Activities.Attributes.Text}}</h4>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">
+                                            <div class="pull-right">
+                                                <button ng-click="itemDone(oneInbox)" class="btn btn-small btn-success">
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                    Done
+                                                </button>
+
+                                                <button id="snoozeOneInbox{{$index}}" class="btn btn-small btn-default inboxDateRangePickerInput" type="button" data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-time "></span>
+                                                    <span class="spanDate">Snooze</span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <span ng-click="showInboxDetails(oneInbox,$index)" class=" glyphicon glyphicon-remove cursorPointer grayFont"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                                            <span>
+                                                <a class="cursorPointer" href="#/leadprofile/{{oneInbox._id}}">{{oneInbox.LeadLabel}}</a>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                                            <span class="grayFont">{{oneInbox.Activities.Due | date:'MM/dd/yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="whiteBackground col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-default" ng-click="emailThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                                <span>Email</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default" ng-click="callThisLead(oneInbox._id)">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                                <span>Call</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="clear3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: Template for voicemail. -->
+
+                </div>
+                <div ng-show="!allInboxList.length">
+                    <div class="noInboxDv text-center whiteBackground">
+                        <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                        <h4>Great job!</h4>
+                        <p class="grayFont">You've got no items left to handle!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--task Calender Modal-->
+        <div class="modal fade" id="taskCalendermodal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Tasks calendar feed</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p>
+                                    View <span class="fontBold">incomplete</span> tasks
+                                    assigned to <span class="fontBold">john adam</span>
+                                    in your calendar with this iCal URL.
+                                </p>
+                                <h4>Step 1: Copy this iCal URL:</h4>
+                                <input type="text" class="form-control" readonly ng-model="CalendarLink" />
+                                <h4>Step 2: Subscribe to it in your calendar application</h4>
+                                <p>
+                                    <a href="https://help.close.io/customer/portal/articles/1057888-calendar-tasks-integration" target="_blank">
+                                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                        See instructions for common calendar applications
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--keyboard Modal-->
+        <div class="modal fade" id="keyboardmodal" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Keyboard shortcuts</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="pull-left half-width">
+                                        <h4>On any page</h4>
+                                        <dl class="dl-horizontal">
+                                            <dt><span class="key">?</span></dt>
+                                            <dd>Show keyboard shortcuts</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">F</span></dt>
+                                            <dd>Focus the search input</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">L</span></dt>
+                                            <dd>Create a new lead</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Enter</span></dt>
+                                            <dd>Submit the current form</dd>
+
+                                            <dt class="platform-mac-only hide"><span class="key meta"></span><span class="key">[</span><span class="text-muted">or</span> <span class="key meta"></span><span class="key">←</span></dt>
+                                            <dt class="platform-windows-only"><span class="key">Backspace</span></dt>
+                                            <dt class="platform-other-only hide"><span class="key">Alt</span><span class="key">←</span></dt>
+                                            <dd>Go back to the previous page</dd>
+
+                                            <dt class="platform-mac-only hide"><span class="key meta"></span><span class="key">]</span><span class="text-muted">or</span> <span class="key meta"></span><span class="key">→</span></dt>
+                                            <dt class="platform-windows-only"><span class="key">Shift</span><span class="key">Backspace</span></dt>
+                                            <dt class="platform-other-only hide"><span class="key">Alt</span><span class="key">→</span></dt>
+                                            <dd>Go forward to the next page</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">r</span></dt>
+                                            <dd>Reload the page</dd>
+                                        </dl>
+
+                                        <h4>On a lead page</h4>
+                                        <dl class="dl-horizontal">
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">D</span></dt>
+                                            <dd>Dial/call lead's primary phone number</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">E</span></dt>
+                                            <dd>Email lead's primary email address</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">O</span></dt>
+                                            <dd>Create a new note</dd>
+                                        </dl>
+
+                                        <h4>On a call</h4>
+                                        <dl class="dl-horizontal">
+                                            <dt><span class="key meta"></span><span class="key">.</span></dt>
+                                            <dd>Hang up current call</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="pull-left half-width">
+                                        <h4>On Inbox, Leads search, or Smart Views</h4>
+                                        <dl class="dl-horizontal">
+                                            <dt><span class="key">j</span><span class="text-muted">/</span> <span class="key">k</span></dt>
+                                            <dd>Select the next/previous item in the list</dd>
+
+                                            <dt><span class="key">Enter</span></dt>
+                                            <dd>
+                                                In Search: go to selected lead<br>
+                                                In Inbox: expand selected item
+                                            </dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Enter</span></dt>
+                                            <dd>Open selected lead in a new window</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">D</span></dt>
+                                            <dd>Call currently selected lead</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">E</span></dt>
+                                            <dd>Email currently selected lead</dd>
+                                        </dl>
+
+                                        <h4>On Inbox</h4>
+                                        <dl class="dl-horizontal">
+                                            <dt><span class="key">x</span></dt>
+                                            <dd>Check or uncheck active item</dd>
+
+                                            <dt><span class="key">y</span><span class="text-muted">or</span> <span class="key">e</span></dt>
+                                            <dd>Mark selected item(s) as "Done"</dd>
+
+                                            <dt><span class="key">r</span></dt>
+                                            <dd>Reply to currently opened email</dd>
+
+                                            <dt><span class="key">a</span></dt>
+                                            <dd>Reply All to currently opened email</dd>
+
+                                            <dt><span class="key">f</span></dt>
+                                            <dd>Forward currently opened email</dd>
+
+                                            <dt><span class="key meta"></span><span class="key">Shift</span><span class="key">Enter</span></dt>
+                                            <dd>Go to the lead of the active item</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

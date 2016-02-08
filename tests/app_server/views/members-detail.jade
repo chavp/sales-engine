@@ -1,0 +1,13 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+  form#update-member(method="POST", action="/members/#{_id}")
+    input(value="#{userName}", name="userName")
+    label #{message}
+    p
+      +formatDate(updatedAt)
+    p= updatedAt
+    div= password
+  button(type="submit", form="update-member") Save

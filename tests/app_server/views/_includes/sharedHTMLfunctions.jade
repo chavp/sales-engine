@@ -1,0 +1,20 @@
+mixin outputRating(rating)
+  - for (var i = 1; i <= rating; i++)
+    span.glyphicon.glyphicon-star
+  - for (i = rating; i < 5; i++)
+    span.glyphicon.glyphicon-star-empty
+
+mixin formatDate(dateString)
+  -var date = new Date(dateString);
+  -var d = date.getDate();
+  -var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+  -var dayInWeeks = ["Sun", "Mon", "Tue", "Web", "Thu", "Fri", "Sat"];
+  -var m = monthNames[date.getMonth()];
+  -var y = date.getFullYear();
+  -var day = dayInWeeks[date.getDay()];
+  -var H = date.getHours();
+  -var M = date.getMinutes();
+  -var S = date.getSeconds();
+  -var output = day + ', ' + d + ' ' + m + ' ' + y + ' ' + H + ':' + M + ':' + S;
+  -output = date.toGMTString();
+  =output

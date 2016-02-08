@@ -1,4 +1,5 @@
-var salesHubApp = angular.module("salesHubApp", ['ngRoute']).run(function ($templateCache, $http) {
+var salesHubApp = angular.module("salesHubApp", ['ngRoute'])
+.run(function ($templateCache, $http) {
 
     $http.get('views/templates/login.html', { cache: $templateCache });
     $http.get('views/templates/forgotpassword.html', { cache: $templateCache });
@@ -36,10 +37,10 @@ var salesHubApp = angular.module("salesHubApp", ['ngRoute']).run(function ($temp
 
 salesHubApp.config(function ($routeProvider) {
     $routeProvider
-        .when("/", {
-            controller: "LoginController",
-            templateUrl: "views/templates/login.html"
-        })
+    .when("/", {
+        controller: "LoginController",
+        templateUrl: "views/templates/login.html"
+    })
     .when("/Users/:invitationURL", {
         controller: "LoginController",
         templateUrl: "views/templates/login.html"
@@ -148,4 +149,3 @@ salesHubApp.config(function ($routeProvider) {
     ;
     //$routeProvider.otherwise({ "redirectTo": "/" });
 });
-

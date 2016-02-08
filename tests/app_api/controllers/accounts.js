@@ -111,6 +111,70 @@ module.exports.accountReadOne = function(req, res) {
       });
 }
 
+/* GET account */
+module.exports.accounts = function(req, res) {
+  console.log('Get account', req.params);
+  console.log('Get account', req.query);
+
+  Member
+      .find({})
+      .exec(function(err, members) {
+        if (err) {
+          console.log(err);
+          sendJsonResponse(res, BAD_REQUEST, err);
+          return;
+        }
+        var memberList = members.map(function(m){
+            return {
+                _id: m._id,
+                userName: m.userName,
+                createdAt: m.createdAt,
+                updatedAt: m.updatedAt
+            };
+        });
+        console.log(memberList);
+        sendJsonResponse(res, OK, memberList);
+      });
+}
+
+/* PUT update account */
+module.exports.accountUpdate = function(req, res) {
+  console.log('Update account', req.body);
+  if (!req.body.userName) {
+    sendJsonResponse(res, NOT_FOUND, {
+      "message": "Not found, user name is required"
+    });
+    return;
+  }
+  Member
+      .findById(req.params.memberId)
+      .exec(function(err, member) {
+        if (err) {
+          console.log(err);
+          sendJsonResponse(res, BAD_REQUEST, err);
+          return;
+        }
+        if(!member){
+          sendJsonResponse(res, NOT_FOUND, {
+            "message": "This member not registered."
+          });
+          return;
+        }
+        member.userName = req.body.userName;
+        member.save(function(err){
+          if (err) {
+            console.log(err);
+            sendJsonResponse(res, BAD_REQUEST, err);
+            return;
+          }
+
+          sendJsonResponse(res, OK, {
+            "message": "Update account successful."
+          });
+
+        });
+      });
+};
 
 /* PUT save profile */
 module.exports.saveProfile = function(req, res) {

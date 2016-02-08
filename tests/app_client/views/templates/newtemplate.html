@@ -1,0 +1,105 @@
+﻿<div ng-controller="EmailSettingsController">
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" id="newTemplate">
+                    <div class="row">
+                        <h1>{{orgTitle}} - Email Templates</h1>
+                    </div>
+                    <div class="row">
+                        <a href="#/settings/emailtemplatesetting" class="pointer">Back to template list</a>
+
+                    </div>
+                    <div class="row">
+                        <h2>
+                            New Template
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <label>Template's Name (optional)</label>
+                    </div>
+                    <div class="row form-group">
+
+                        <input type="text" ng-model="templateName" class="form-control" />
+                    </div>
+                    <div class="row">
+                        <label>Subject</label>
+                    </div>
+                    <div class="row form-group">
+
+                        <input type="text" class="form-control" ng-model="templateSubject" />
+                    </div>
+                    <div class="row">
+                        <label class="pull-left">body</label>
+                        <a href="#" class="pull-right">Learn about template tags</a>
+                    </div>
+                    <div class="row">
+
+                        <textarea class="txtBody"></textarea>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"></div>
+
+                    <div class="row">
+                        <h4>Shared with Organization</h4>
+                    </div>
+                    <div class="row form-group">
+                        <select class="form-control selShared" ng-model="selector">
+                            <option value="Shared" selected>Yes</option>
+                            <option value="Private">No</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <h4>Attachments</h4>
+                    </div>
+                    <div class="row">
+                        <input type="file" accept="" id="uploadAttachfile1" onchange="angular.element(this).scope().upload(this)">
+
+                        <div ng-repeat="oneFile in filesList">
+                            <h5>
+                                <a>{{oneFile.Name}}</a>
+                                <span ng-click="removeFile(oneFile)" class="glyphicon glyphicon-remove cursorPointer"></span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="clear2"></div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 noPaddingLeft">
+                            <span ng-show="showdeleteTemplate" class="glyphicon glyphicon-trash grayFont cursorPointer" ng-click="deleteTemplate()"></span>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 noPaddingRight">
+                            <button class="btn btn-primary pull-right btnSaveTemplate" ng-click="saveNewTemplate()" type="submit" role="button">Save</button>
+                            <a class="btn btn-default pull-right" role="button" href="#/settings/emailtemplatesetting">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

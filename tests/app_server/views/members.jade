@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  div(ng-controller="memberListCtrl")
+    ul
+      each member in members
+        li 
+          a(href="/members/#{member._id}") #{member.userName}

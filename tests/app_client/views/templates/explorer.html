@@ -1,0 +1,106 @@
+﻿
+<div ng-controller="ReportsController">
+    <div class="clear2"></div>
+    <div class="actionReportPage explorerPage">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+                <h1>Explorer</h1>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form">
+                    <form>
+                        <fieldset>
+                            <ul>
+                                <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                                    <label>Graph</label>
+                                    <div class="">
+                                        <div class="">
+                                            <select class="form-control" name="y"><option value="">Leads</option><optgroup label="Lead &amp; Contacts"><option value="lead.contacts">Contacts</option><option value="lead.count">Leads</option></optgroup><optgroup label="Communication"><option value="call.duration">Call duration</option><option value="call.count">Calls</option><option value="email.count">Emails</option><option value="lead.times_communicated">Times communicated</option></optgroup><optgroup label="Opportunities"><option value="opportunity.count">Opportunities</option><option value="opportunity.value">Opportunity value</option></optgroup><optgroup label="Other"><option value="note.count">Notes</option><option value="task.count">Tasks</option></optgroup><optgroup label="Custom Fields"></optgroup></select>
+                                        </div>
+                                        <div class="">
+                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3">All leads</label>
+                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 noPaddingRight">
+                                                <select class="form-control" name="filter"><option value="">All leads</option><optgroup label="Smart Views"><option value="saved_search:save_EyQoNuLVNcWosWhgL0IegZYLqwyFePrkd7JjHNZ7zNY">Never Contacted</option><option value="saved_search:save_i2rpQZxiDzvE06CkYZTI3oh8MNSopnWMmXc0KKD8vQU">Opened Email</option><option value="saved_search:save_RusbkozgFYJ21afPZmF9DmZDnqn3JCoifMYfwxoEBhj">Recently Created</option><option value="saved_search:save_FR4xD57EnfAWDSbiKlnyOjNOkMRv9p45RsWz56he1TP">Status: Bad Fit</option><option value="saved_search:save_PWP0xXVZ79n6ohQp8PbAvTo2DFOtKtGUHfCXmoJDoGx">Status: Customer</option><option value="saved_search:save_0mCM8zzr5jhUWhmNv6NkwoN4WeKv8ufxSQJFjvSRhqy">Status: Potential</option><option value="saved_search:save_XDvqlBvrtgv8M4Krghmwbj9iTizwwkyQEuPqyBtYNq4">Status: Qualified</option></optgroup><optgroup label="Statuses"><option value="lead_status:stat_eu85MVxBRB4joxzMccquosxH7RX7q9isHsq4zWxy8gT">Potential</option><option value="lead_status:stat_wx8IQ6XCW4NQ9rkaLibQ9aVGqyl6r6TmB0zTE8D0j1z">Bad Fit</option><option value="lead_status:stat_QneRy01sOIQ4YTHzzIyFbO0TTClcEVU2H5j4GrROcEl">Qualified</option><option value="lead_status:stat_f5vvvMrLjNJqHSCvVPyJ8QInnznbgCcYjERv66eBkux">Customer</option></optgroup></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                                    <label>By</label>
+                                    <select class="form-control" name="x"><option value="">Date created</option><optgroup label="Lead"><option value="lead.addresses">Addresses</option><option value="lead.contacts">Contacts</option><option value="lead.created_by">Creator</option><option value="lead.date_created">Date created</option><option value="lead.date_updated">Date last updated</option><option value="lead.last_lead_status_change_date">Date of latest status change</option><option value="lead.email_addresses">Email addresses</option><option value="lead.original_lead_status">Initial lead status</option><option value="lead.updated_by">Last updated by</option><option value="lead.status">Lead status</option><option value="lead.phone_numbers">Phone numbers</option><option value="lead.last_old_lead_status_label">Previous lead status</option><option value="lead.source">Source</option></optgroup><optgroup label="Emails"><option value="lead.email_first_opened">Date of earliest email open</option><option value="lead.email_last_opened">Date of latest email open</option><option value="lead.emails">Emails</option><option value="lead.emails_opened">Emails - Opened</option><option value="lead.incoming_emails">Emails - Received</option><option value="lead.sent_emails">Emails - Sent</option></optgroup><optgroup label="Calls"><option value="lead.calls">Calls</option><option value="lead.incoming_calls">Calls - Incoming</option><option value="lead.missed_calls">Calls - Missed</option><option value="lead.outgoing_calls">Calls - Outgoing</option><option value="lead.voicemails">Calls - Voicemails received</option><option value="lead.longest_call_duration">Longest call duration</option><option value="lead.total_call_duration">Total call duration</option></optgroup><optgroup label="Tasks"><option value="lead.tasks">Tasks</option><option value="lead.completed_tasks">Tasks - Completed</option><option value="lead.open_tasks">Tasks - Open</option></optgroup><optgroup label="Opportunities"><option value="lead.opportunity_first_closed">Date of earliest closed opportunity</option><option value="lead.opportunity_first_created">Date of earliest opportunity</option><option value="lead.opportunity_last_closed">Date of latest closed opportunity</option><option value="lead.opportunity_last_created">Date of latest opportunity</option><option value="lead.opportunities">Opportunities</option><option value="lead.active_opportunities">Opportunities - Active</option><option value="lead.annual_opportunities">Opportunities - Annual</option><option value="lead.lost_opportunities">Opportunities - Lost</option><option value="lead.monthly_opportunities">Opportunities - Monthly</option><option value="lead.one_time_opportunities">Opportunities - One-Time</option><option value="lead.won_opportunities">Opportunities - Won</option><option value="lead.total_annual_opportunity_value">Opportunity value - annual</option><option value="lead.total_annual_active_opportunity_value">Opportunity value - annual active</option><option value="lead.total_annual_lost_opportunity_value">Opportunity value - annual lost</option><option value="lead.total_annual_won_opportunity_value">Opportunity value - annual won</option><option value="lead.total_annualized_opportunity_value">Opportunity value - annualized</option><option value="lead.total_annualized_active_opportunity_value">Opportunity value - annualized active</option><option value="lead.total_annualized_lost_opportunity_value">Opportunity value - annualized lost</option><option value="lead.total_annualized_won_opportunity_value">Opportunity value - annualized won</option><option value="lead.total_monthly_opportunity_value">Opportunity value - monthly</option><option value="lead.total_monthly_active_opportunity_value">Opportunity value - monthly active</option><option value="lead.total_monthly_lost_opportunity_value">Opportunity value - monthly lost</option><option value="lead.total_monthly_won_opportunity_value">Opportunity value - monthly won</option><option value="lead.total_one_time_opportunity_value">Opportunity value - one time</option><option value="lead.total_one_time_active_opportunity_value">Opportunity value - one time active</option><option value="lead.total_one_time_lost_opportunity_value">Opportunity value - one time lost</option><option value="lead.total_one_time_won_opportunity_value">Opportunity value - one time won</option></optgroup><optgroup label="Activities"><option value="lead.activities">Activities</option><option value="lead.last_activity_date">Latest activity date</option><option value="lead.notes">Notes</option></optgroup><optgroup label="Communication"><option value="lead.first_communication">Earliest communication date</option><option value="lead.first_communication_type">Earliest communication type</option><option value="lead.first_communication_user">Earliest communication user</option><option value="lead.last_activity_user">Latest activity user</option><option value="lead.last_communication">Latest communication date</option><option value="lead.last_communication_type">Latest communication type</option><option value="lead.last_communication_user">Latest communication user</option><option value="lead.times_communicated">Times communicated</option></optgroup><optgroup label="Custom Fields"><option value="lead.custom.date">date</option><option value="lead.custom.ddd">ddd</option><option value="lead.custom.jj">jj</option></optgroup></select>
+                                </li>
+                                <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                                    <label>By</label>
+                                    <select class="form-control" name="group_by"><option value="">(None)</option><optgroup label="Lead"><option value="lead.created_by">Creator</option><option value="lead.first_communication_type">Earliest communication type</option><option value="lead.first_communication_user">Earliest communication user</option><option value="lead.import">Import</option><option value="lead.original_lead_status">Initial lead status</option><option value="lead.updated_by">Last updated by</option><option value="lead.last_activity_user">Latest activity user</option><option value="lead.last_communication_type">Latest communication type</option><option value="lead.last_communication_user">Latest communication user</option><option value="lead.status">Lead status</option><option value="lead.last_old_lead_status_label">Previous lead status</option><option value="lead.source">Source</option></optgroup><optgroup label="Custom Fields"><option value="lead.custom.ddd">ddd</option></optgroup></select>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-default rangeFilter" id="rangeFilterExplorer">
+            <i class="glyphicon glyphicon-calendar"></i><span> All Time </span><b class="caret"></b>
+        </button>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 chart">
+                    <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 adjustVerticalWord noPaddingRight">
+                            <h5 class="verticalWord"># Leads</h5>
+                        </div>
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 noPaddingLeft">
+                            <canvas id="canvas"></canvas>
+                            <div class="clear"></div>
+                            <h5 class="text-center">Date Created</h5>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clear3"></div>
+        <div class="row">
+            <div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pull-left">
+                    <table class="table table-bordered tblLeads">
+                        <thead>
+                            <tr>
+                                <th colspan="2" class="text-center"># Leads</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-right numeric">3</td>
+                                <td class="text-left">Total</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pull-right text-right chartTools">
+                    <a class="cursorPointer grayFont">
+                        <span class="glyphicon glyphicon-calendar"></span><span>CSV</span>
+                    </a>&nbsp;
+                    <a class="cursorPointer grayFont">
+                        <span class="glyphicon glyphicon-picture"></span><span>PNG</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+
+
+    </div>
+</div>

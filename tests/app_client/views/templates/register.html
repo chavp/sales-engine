@@ -1,0 +1,207 @@
+﻿<div class="dirtyBackground">
+    <!--top Bar-->
+    <div class="row  topBar">
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <img src="../../images/new_logo_only_80.png" class="img-responsive logo" />
+            <a class="white pull-left">Close.iO</a>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <button class="btn btn-primary pull-right" ng-click="goLogin()">Login</button>
+        </div>
+    </div>
+    <!--end top Bar-->
+    <div class="clear"></div>
+    <div class="clear"></div>
+    <!--body container-->
+    <div class="row col-lg-12">
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
+        <!--form register-->
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 boxWrapper pull-left">
+            <form role="form" novalidate class="" id="register" name="register">
+                <div class="row headrer">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h2 class="text-center ">Start free trial</h2>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="row input-group-lg ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="text" ng-model="company" required class="form-control box" placeholder="Company/Organization" id="txtCompany" name="txtCompany" />
+                        <span class="errorFont" ng-show="register.txtCompany.$dirty && register.txtCompany.$invalid">
+                            <span ng-show="register.txtCompany.$error.required">This field is required..</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row input-group-lg">
+                    <div class="col-lg-6 col-md-6 col-sm-6 ">
+                        <input type="text" ng-model="firstName" required class="form-control box" placeholder="First name" id="txtFirstName" name="txtFirstName" />
+                        <span class="errorFont" ng-show="register.txtFirstName.$dirty && register.txtFirstName.$invalid">
+                            <span ng-show="register.txtFirstName.$error.required">This field is required..</span>
+                        </span>
+                        <div class="help-block"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" ng-model="lastName" class="form-control box" placeholder="Last name" id="txtLastName" name="txtLastName" />
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row input-group-lg">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="email" ng-model="email" required class="form-control box" placeholder="Email" id="txtEmail" name="txtEmail" />
+                        <span class="errorFont" ng-show="register.txtEmail.$dirty && register.txtEmail.$invalid">
+                            <span ng-show="register.txtEmail.$error.required">This field is required.</span>
+                            <span ng-show="register.txtEmail.$error.email">Invalid email address.</span>
+                        </span>
+                        <span class="errorFont" ng-hide="login.txtEmail.$error.required || login.txtEmail.$error.email">{{afterRegisterError}}</span>
+
+                    </div>
+                </div>
+
+                <div class="help-block"></div>
+                <div class="row input-group-lg">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="password" ng-model="password" required class="form-control box" minlength="8" placeholder="Password( 8+ characters)" id="txtPassword" name="txtPassword" />
+                        <span class="errorFont" ng-show="register.txtPassword.$dirty && register.txtPassword.$invalid">
+                            <span ng-show="register.txtPassword.$error.required">This field is required.</span>
+                            <span ng-show="register.txtPassword.$error.minlength">Password must be at least 8 characters long.</span>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="help-block"></div>
+                <div class="row  input-group-lg">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <input type="tel" ng-model="phone" required class="form-control box" placeholder="Phone (+1 555 555 1234)" id="txtPhone" name="txtPhone" />
+                        <span class="errorFont" ng-show="register.txtPhone.$dirty && register.txtPhone.$invalid">
+                            <span ng-show="register.txtPhone.$error.required">This field is required.</span>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label>How many people on your team might use Close.io?</label>
+                        <select ng-model="selector" required class="form-control box" id="selectTeamSize" name="selectTeamSize">
+                            <option disabled>-- Choose One --</option>
+                            <option disabled></option>
+                            <option ng-repeat="HM in HMP" value="{{HM.value}}">{{HM.value}}</option>
+                        </select>
+                        <span class="errorFont" ng-show="register.selectTeamSize.$dirty && register.selectTeamSize.$invalid">
+                            <span ng-show="register.selectTeamSize.$error.required">This field is required.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 input-group-lg">
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="checkFree" name="checkFree" ng-model="checkfree" />I'd also like a free, opt-out-any time email course on improving our sales success
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+
+                        <label>By clicking "Start Free Trial" you agree to our<a href="#">Terms</a>.</label>
+                    </div>
+                </div>
+                <div class="help-block"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center input-group-lg">
+
+                        <button type="submit" class="btn btnGreen btn-large btn-success" ng-click="registerForm(register)" id="btnCreateCompany" name="btnCreateCompany">
+                            Start Free Trial
+                        </button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- end form -->
+        <!-- Right contant-->
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 detailsBox pull-left">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h1>Close.io helps you close more deals</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <ul class="fontMedium">
+                        <li>Make &amp; receive calls with 1 click</li>
+                        <li>Emails sent &amp; received are automatically tracked</li>
+                        <li>One beautiful sales workflow with no manual data entry</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 fontTextItalic">
+                    <h4>“ Close.io radically increased the number of calls and  emails to our leads by logging everything automatically so the reps can focus on talking not logging. ”</h4>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 ">
+
+
+                    <img width="60" height="60" src="../../images/jeff_zwelling.jpg" alt="" class="img-circle  pull-left imgGry" />
+                    <span class="name">
+                        Jeff Zwelling
+                        <br />
+                        <span class="position">Co-Founder, Convertro</span>
+                    </span>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 text-center fontUltraLight ">
+                    <h4>Trusted by:</h4>
+                </div>
+            </div>
+
+            <div class="clear3"></div>
+
+            <!--Customer Photos -->
+            <div class="row customers imgbox">
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <img src="../../images/hellosign.png" class="img-responsive  pull-right" />
+
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <img src="../../images/bench.png" class="img-responsive   pull-right" />
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="row customers imgbox">
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <img src="../../images/foursquare.png" class="img-responsive pull-right" />
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 ">
+                    <img src="../../images/krossover.png" class="img-responsive pull-right" />
+                </div>
+            </div>
+            <!--End Customer Photos -->
+        </div>
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 text-center semi-bold linkLogin">
+            <a href="#/">Already have an account? Log in</a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+        </div>
+        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
+    </div>
+    <div class="clear"></div>
+</div>

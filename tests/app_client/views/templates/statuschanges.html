@@ -1,0 +1,147 @@
+﻿
+<div ng-controller="ReportsController">
+    <div class="clear2"></div>
+    <div class="actionReportPage statusChangesPage">
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+                <h1>Status Change Report</h1>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+
+            </div>
+        </div>
+
+        <div class="clear3"></div>
+        <div class="row">
+            <div id="buttonsRow">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-left">
+
+
+                        <button class="btn btn-default rangeFilter" id="rangeFilterStatusChanges">
+                            <i class="glyphicon glyphicon-calendar"></i><span> All Time </span><b class="caret"></b>
+                        </button>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-download-alt"></span> <b class="caret"></b>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a><span class="fa fa-table"></span>&nbsp; CSV / Excel (Leads)</a></li>
+                                <li><a><span class="fa fa-table"></span>&nbsp; CSV / Excel (Opportunities)</a></li>
+                                <li><a><span class="fa fa-cloud-download"></span>  JSON</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear3"></div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="bottomDottedBorder">Leads<small class="grayFont fontMediumItalic">&nbsp; &nbsp; How leads changed statuses in a time period</small></h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tableRow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Entered</th>
+                            <th>Left</th>
+                            <th>Standered</th>
+                            <th>Ended</th>
+                            <th>NetChange</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="leadsViewRow1" onclick="toggleLeadsGraphRow(1, 'Potential', 'Created', 2, 'Qualified', 1)">
+                            <td><span id="leadsIcon1" class="glyphicon glyphicon-play tinyFont"></span><span>&nbsp;Potential</span></td>
+                            <td>3</td>
+                            <td>-</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td class="greenFont text-right">3</td>
+                        </tr>
+                        <tr id="leadsGraphRow1" class="hide">
+                            <td colspan="6" class="graphPlot"><div id="LeadsCanvas1"></div></td>
+                        </tr>
+                        <tr id="leadsViewRow2" onclick="toggleLeadsGraphRow(2, 'Qualified', 'Created', 1, 'Potential', 1)">
+                            <td><span id="leadsIcon2" class="glyphicon glyphicon-play tinyFont"></span><span>&nbsp;Qualified</span></td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td class="greenFont text-right">1</td>
+                        </tr>
+                        <tr id="leadsGraphRow2" class="hide">
+                            <td colspan="6" class="graphPlot"><div id="LeadsCanvas2"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clear3"></div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="bottomDottedBorder">Opportunities<small class="grayFont fontMediumItalic">&nbsp; &nbsp; How opportunities changed statuses in a time period</small></h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-small btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> All Users <b class="caret"></b>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a><input type="checkbox" /> All Users</a></li>
+                        <li class="divider"></li>
+                        <li><a><input type="checkbox" /> John Adam</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear3"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tableRow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Entered</th>
+                            <th>Left</th>
+                            <th>Standered</th>
+                            <th>Ended</th>
+                            <th>NetChange</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="opportunitiesViewRow1" onclick="toggleopportunitiesGraphRow(1, ' Active', 'Created', 3, 'Null', 0)">
+                            <td><span id="opportnitiesIcon1" class="glyphicon glyphicon-play tinyFont"></span><span>&nbsp;Active</span></td>
+                            <td>3</td>
+                            <td>-</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td class="greenFont text-right">3</td>
+                        </tr>
+                        <tr id="opportunitiesGraphRow1" class="hide">
+                            <td colspan="6" class="graphPlot"><div id="opportunitiesCanvas1"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+</div>

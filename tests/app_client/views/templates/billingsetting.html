@@ -1,0 +1,91 @@
+﻿<div ng-controller="SettingsController">
+    <div class="settingsPage">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="settingsMenu">
+                        <h5>You</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/accountsetting">Account</a></li>
+                            <li><a class="pointer" href="#/settings/organization">Organizations</a></li>
+                        </ul>
+                    </div>
+                    <div class="settingsMenu">
+                        <h5>info</h5>
+                        <ul>
+                            <li><a class="pointer" href="#/settings/phonesetting">Your Phone Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailsetting">Your Email Settings</a></li>
+                            <li><a class="pointer" href="#/settings/emailtemplatesetting">Your Email Templates</a></li>
+                            <li><a class="pointer" href="#/settings/apisetting">Your API Keys</a></li>
+                            <li><a class="pointer" href="#/settings/customizationsetting">Customizations</a></li>
+                            <li><a class="pointer" href="#/settings/membersetting">Team &amp; Plans</a></li>
+                            <li><a class="pointer" href="#/settings/billingsetting">Billing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9  " id="billingSetting">
+                    <div class="row">
+                        <h1>{{orgTitle}} - Billing</h1>
+
+                    </div>
+                    <div class="row">
+                        <h4>Users</h4>
+
+                    </div>
+
+
+                    <div class="row">
+                        <h5>This organization will be billed for 1 user.<a href="#">Add/remove users</a> </h5>
+
+                    </div>
+                    <div class="row">
+                        <h5>Plans<a href="#"> our plan types</a> </h5>
+
+                    </div>
+                    <div class="radio row">
+                        <label>
+                            <input type="radio" checked>Keep users on their current plans. Manage users & plans
+                        </label>
+                    </div>
+                    <div class="radio row form-group">
+                        <label>
+                            <input type="radio">Change all users to…
+                        </label>
+                        <select class="form-control selectPlan">
+
+                            <option>Basic ($65/user/mo.)</option>
+
+                            <option>Pro ($110/user/mo.)</option>
+
+                            <option>Business ($165/user/mo.)</option>
+
+                        </select>
+                    </div>
+                    <div class="checkbox row">
+                        <label>
+                            <input type="checkbox">Save 10% by prepaying for 12 months
+                        </label>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <a class="btn btn-primary input-lg btnSavePlan" role="button">
+                            <h5>Continue with</h5>
+                            <h5>162$/month</h5>
+
+                        </a>
+
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <p>For any sales or billing questions, please contact us<a href="#"> by email .</a>or call 1-855-CLOSEIO. </p>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

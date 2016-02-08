@@ -1,0 +1,113 @@
+﻿    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " id="dvReplyEmail{{$index}}">
+    <div class="lightGrayBackground">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                <span class="caret"></span>
+                <span id="initialSenderName{{$index}}"></span><span> &lt;<span id="initialSenderMail{{$index}}"></span>&gt;</span>
+                <span class="label label-default">draft</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right pull-right">
+                <span class="grayFont">Now</span>
+            </div>
+        </div>
+        <div class="row secondRow">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-left">
+                <strong class="fontBold">To</strong>: <span class="h5" id="initialMailTo{{$index}}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="whiteBackground">
+            <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">To: </span>
+                        <input type="text" class="form-control txtNewEmailTo" id="txtNewEmailTo{{$index}}" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <a ng-click="activity.addCCPart = !activity.addCCPart" ng-hide="activity.addCCPart">Add CC</a>&emsp;
+                    <a ng-click="activity.addBCCPart = !activity.addBCCPart" ng-hide="activity.addBCCPart">Add BCC</a>
+                </div>
+            </div>
+            <div class="clear2"></div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="activity.addCCPart" ng-hide="!activity.addCCPart">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon2">CC:</span>
+                    <input type="text" class="form-control txtNewEmailCC" id="txtNewEmailCC{{$index}}" aria-describedby="basic-addon2">
+                </div>
+                <div class="clear2"></div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="activity.addBCCPart" ng-hide="!activity.addBCCPart">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">BCC:</span>
+                    <input type="text" class="form-control txtNewEmailBCC" id="txtNewEmailBCC{{$index}}" aria-describedby="basic-addon3">
+                </div>
+                <div class="clear2"></div>
+            </div>
+
+            <div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <input class="form-control" id="txtSubject{{$index}}" placeholder="Subject" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                    <select id="selectTemplate{{$index}}" ng-model="activity.Attributes.Template" ng-click="chooseTemplate($index)" class="form-control">
+                        <option value="0">Choose a template…</option>
+                        <option ng-repeat="temp in allEmailTemplates track by temp._id"
+                                value="{{temp._id}}">
+                            {{temp.Title}}
+                        </option>
+                        <option value="manageTemplates">Manage Templates →</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clear2"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <textarea class="form-control newMessageBody" id="txtBody{{$index}}"></textarea>
+            </div>
+            <div class="clear2"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label><input id="reminderCheckbox{{$index}}" type="checkbox">&nbsp;Remind me to follow up if no reply</label>
+                <span>
+                    <button class="btn btn-default dropup dropdown-toggle leadprofileNewMessageDateRangePickerInput" type="button" id="leadprofileNewMessageDateRangePickerInput{{$index}}" data-toggle="dropdown" aria-expanded="true">
+                        <span> 3 weeks</span>
+                        <i class="caret"></i>
+                    </button>
+                </span>
+                <span id="hiddenReindReplyDate{{$index}}" class="hide"></span>
+            </div>
+            <div class="clear2"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="dvAttachments">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="dvChoiceOptions" ng-repeat="oneFile in filesList" ng-model="filesList">
+                            <h5>
+                                <a>{{oneFile.Name}}</a>
+                                <span ng-click="removeFile(oneFile)" class="glyphicon glyphicon-remove cursorPointer"></span>
+                            </h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear2"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pull-left dvIcons">
+                    <span class="glyphicon glyphicon-trash grayFont cursorPointer" ng-click="deleteReply($index,activity)"></span> &nbsp;
+                    <span class="glyphicon glyphicon-paperclip grayFont cursorPointer" onclick=$("#uploadAttachfile1").click()></span>
+                    <input type="file" accept="" id="uploadAttachfile1" onchange="angular.element(this).scope().upload(this)" class="hide" />
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-default" ng-click="addDraftReply($index,activity)">Save Draft</button>
+                    <button class="btn btn-primary" ng-click="addSentReply($index,activity)">Send</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear3"></div>
+    </div>
+
