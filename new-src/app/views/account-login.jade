@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    .clear
+    .clear.hidden-md
+    .clear.hidden-md.hidden-sm
+    .row.col-lg-12.col-md-12.col-sm-12.col-xs-12.centerLoginBox
+      .col-lg-4.col-md-3.col-sm-2.hidden-xs
+      .col-lg-4.col-md-6.col-sm-8.col-xs-12
+        .row.whiteBackgroungColor.loginBox
+          .col-lg-12.col-md-12.col-sm-12.col-xs-12
+            .row
+              .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                h3 Login to Sales Hub
+            form(novalidate='', name='login', ng-hide='resetPasswordMode')
+              .input-group-md
+                input.form-control(type='email', required='', placeholder='Email', name='Email')
+              .clear2
+              .input-group-md
+                input.form-control(type='password', required='', placeholder='Password', name='Password')
+              .clear2
+              .input-group-sm
+                button.btn.btn-primary(type='submit')  Log in
+              .clear
+        .clear3
+        .row.loginNavigation
+          a.pull-left(href='#/forgot') Forgot your password?
+          a.pull-right(href='#/register') Create an account
+      .col-lg-4.col-md-3.col-sm-2.hidden-xs
