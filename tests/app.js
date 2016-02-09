@@ -13,6 +13,8 @@ require('./app_api/controllers/_const');
 require('./app_api/models/db');
 require('./app_api/models/dbs');
 
+require('./app_api/config/passport');
+
 //var accountsPage = require('./app_server/routes/accounts');
 var accountsApi = require('./app_api/routes/accounts');
 var organizationsApi = require('./app_api/routes/organizations');
@@ -23,26 +25,34 @@ var app = express();
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade');
 
-var appClientFiles = [
-    'app_client/app.js',
-    'app_client/appRoutes.js',
-
-    'app_client/lib/services/warehouse.js',
-    'app_client/lib/services/localstorage.js',
-
-    'app_client/lib/controllers/logincontroller.js',
-    'app_client/lib/controllers/forgotcontroller.js',
-    'app_client/lib/controllers/registercontroller.js',
-    'app_client/lib/controllers/invitationscontroller.js'
+/*var appClientFiles = [
+  'app/app.js',
+  'app/home/home.controller.js',
+  'app/about/about.controller.js',
+  'app/auth/login/login.controller.js',
+  'app/auth/register/register.controller.js',
+  'app/locationDetail/locationDetail.controller.js',
+  'app/reviewModal/reviewModal.controller.js',
+  'app/common/services/authentication.service.js',
+  'app/common/services/geolocation.service.js',
+  'app/common/services/loc8rData.service.js',
+  'app/common/filters/formatDistance.filter.js',
+  'app/common/filters/addHtmlLineBreaks.filter.js',
+  'app/common/directives/navigation/navigation.controller.js',
+  'app/common/directives/navigation/navigation.directive.js',
+  'app/common/directives/footerGeneric/footerGeneric.directive.js',
+  'app/common/directives/pageHeader/pageHeader.directive.js',
+  'app/common/directives/ratingStars/ratingStars.directive.js'
 ];
-var uglified = uglifyJs.minify(appClientFiles, { compress : true });
-fs.writeFile('public/salesHubApp.min.js', uglified.code, function (err){
+var uglified = uglifyJs.minify(appClientFiles, { compress : false });
+
+fs.writeFile('public/angular/loc8r.min.js', uglified.code, function (err){
   if(err) {
     console.log(err);
   } else {
-    console.log("Script generated and saved:", 'salesHubApp.min.js');
+    console.log("Script generated and saved:", 'loc8r.min.js');
   }
-});
+});*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -52,6 +62,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_client')));
+
+//app.use(passport.initialize());
 
 //app.use('/', accountsPage);
 app.use('/api', accountsApi);
@@ -69,6 +81,13 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+// Catch unauthorised errors
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
+});
 
 // development error handler
 // will print stacktrace

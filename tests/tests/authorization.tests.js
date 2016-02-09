@@ -3,14 +3,16 @@ var utils = require('./utils');
  describe("Organization add Admin Role", function () {
  	it("add Chavp org", function(done){
  		var chavpMember = new Member({
- 			userName: 'my-chavp',
+ 			email: "my-chavp@saleshub.com",
+ 			username: 'my-chavp',
  			password: '5647888'
  		});
 
  		chavpMember.save();
 
  		var chavp2Member = new Member({
- 			userName: 'my-chavp-2',
+ 			email: "my-chavp-2@saleshub.com",
+ 			username: 'my-chavp-2',
  			password: '5647888'
  		});
 

@@ -3,11 +3,19 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     relationship = require("mongoose-relationship");
 
+var jwt = require('jsonwebtoken');
+
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 
 var memberSchema = new Schema({
-	userName:{
+	email:{
+		type: String,
+		require: true,
+		unique: true
+	},
+	
+	username:{
 		type: String,
 		require: true,
 		unique: true
@@ -38,13 +46,25 @@ memberSchema.pre('save', function(next) {
     next();
 });
 
-memberSchema.methods.login = function(candidatePassword) {
+memberSchema.methods.validPassword = function(candidatePassword) {
 	var member = this;
     return bcrypt.compareSync(candidatePassword, member.password); // true 
 };
 
-memberSchema.statics.findOneByUserName = function (userName, cb) {
-  return this.findOne({ userName: userName }, cb);
+memberSchema.methods.generateJwt = function() {
+  var expiry = new Date();
+  expiry.setDate(expiry.getDate() + 7);
+
+  return jwt.sign({
+    _id: this._id,
+    email: this.email,
+    name: this.username,
+    exp: parseInt(expiry.getTime() / 1000),
+  }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!
+};
+
+memberSchema.statics.findOneByUsername = function (username, cb) {
+  return this.findOne({ username: username }, cb);
 }
 
 /*memberSchema.virtual('profile').get(function () {

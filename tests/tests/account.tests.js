@@ -6,11 +6,12 @@ describe("Member", function () {
 
 	it("add ding password 123456789", function(done){
 		var ding = new Member({
-			userName: memberName,
+			email: memberName + "@saleshub.com",
+			username: memberName,
 			password: "123456789"
 		});
 		ding.save(function(err){
-			Member.count({userName: memberName}, function(err, c){
+			Member.count({username: memberName}, function(err, c){
 				c.should.be.equal(1);
 				done();
 			});
@@ -19,15 +20,15 @@ describe("Member", function () {
 	});
 
 	it("check ding dupplicate member", function(done){
-		Member.create({userName: memberName}, function(err){
+		Member.create({username: memberName}, function(err){
 			should.exist(err);
 			done();
 		});
 	});
 
 	it("check ding valid password", function(done){
-		Member.findOne({userName: memberName}, function(err, member){
-			var valid = member.login("123456789");
+		Member.findOne({username: memberName}, function(err, member){
+			var valid = member.validPassword("123456789");
 			//console.log(valid);
 			valid.should.equal(true);
 			done();
@@ -35,8 +36,8 @@ describe("Member", function () {
 	});
 
 	it("check ding invalid password", function(done){
-		Member.findOne({userName: memberName}, function(err, member){
-			var valid = member.login("999999999");
+		Member.findOne({username: memberName}, function(err, member){
+			var valid = member.validPassword("999999999");
 			//console.log(valid);
 			valid.should.equal(false);
 			done();
@@ -50,28 +51,35 @@ describe("Member with profile", function () {
 		var memberName = "ding2";
 
 		var ding = new Member({
-			userName: memberName,
+			email: memberName + "@saleshub.com",
+			username: memberName,
 			password: "123456789"
 		});
-		ding.save();
 
-		var dingProfile = new MemberProfile({
-			firstName: "Parinya",
-			lastName: "Chavp",
-			phone: "0812598962",
-			email: "my.parinya@gmail.com",
-			member: ding._id
-		});
+		ding.save(function(err){
+			if(!err){
+				var dingProfile = new MemberProfile({
+					firstName: "Parinya",
+					lastName: "Chavp",
+					phone: "0812598962",
+					email: "my.parinya@gmail.com",
+					member: ding
+				});
 
-		dingProfile.save(function(err){
-			Member
-			 .findOne({userName: memberName})
-			 .populate('profile')
-			 .exec(function(err, member){
-				//console.log(member.profile);
-				should.exist(member.profile);
+				dingProfile.save(function(err){
+					Member
+					 .findOne({username: memberName})
+					 .populate('profile')
+					 .exec(function(err, member){
+						//console.log(member.profile);
+						should.exist(member.profile);
+						done();
+					});
+				});
+			}else{
+				console.log(err);
 				done();
-			});
+			}
 		});
 
 		//done();
@@ -121,7 +129,7 @@ describe("Organization with members", function () {
 	var memberName = "ding2";
 	it("check member $ profile $ org relationship", function(done){
 		Member
-		 .findOne({userName: memberName}, function(err, member){
+		 .findOne({username: memberName}, function(err, member){
 			should.exist(member.profile);
 			try{
 				member.organizations.forEach(function(org){

@@ -1,4 +1,5 @@
-﻿angular.module("salesHubApp").controller("LoginController", function ($scope, $routeParams, localstorage, Warehouse) {
+﻿angular.module("salesHubApp")
+.controller("LoginController", function ($scope, $routeParams, localstorage, Warehouse) {
     $scope.text = "login page";
     $scope.email = '';
     $scope.password = '';

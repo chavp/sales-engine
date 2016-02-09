@@ -3120,3 +3120,28 @@ table {
     margin-left: 2%;
     border: 1px solid #ccc;
 }
+
+/* new */
+.login-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 274px;
+    height: 280px;
+    margin: -140px 0 0 -137px;
+}
+
+.login-box .inner {
+    background: #fff;
+    box-sizing: border-box;
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 0 0 3px #ccc;
+    background-color: #fbfbfb;
+    background-image: linear-gradient(to bottom,#fcfcfc,#f9f9f9);
+    background-repeat: repeat-x;
+}
+
+.bottom10{
+    margin-bottom: 10px;
+}

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var passport = require('passport');
 
 function sendJsonResponse(res, status, content) {
   res.status(status);
@@ -8,7 +9,7 @@ function sendJsonResponse(res, status, content) {
 /* POST login */
 module.exports.login = function(req, res) {
   console.log('Login', req.body);
-  if (!req.body.userName) {
+  if (!req.body.username) {
     sendJsonResponse(res, NOT_FOUND, {
       "message": "Not found, email address is required"
     });
@@ -20,7 +21,7 @@ module.exports.login = function(req, res) {
     });
     return;
   }
-  Member
+  /*Member
       .findOneByUserName( req.body.userName )
       .exec(function(err, member) {
       	if (err) {
@@ -42,7 +43,26 @@ module.exports.login = function(req, res) {
         }
         console.log(member);
         sendJsonResponse(res, OK, member);
+      });*/
+
+  passport.authenticate('local', function(err, user, info){
+    var token;
+
+    if (err) {
+      sendJsonResponse(res, 404, err);
+      return;
+    }
+    //console.log(user);
+
+    if(user){
+      token = user.generateJwt();
+      sendJsonResponse(res, 200, {
+        "token" : token
       });
+    } else {
+      sendJsonResponse(res, 401, info);
+    }
+  })(req, res);
 };
 
 /* POST signup */
