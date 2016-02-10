@@ -62,7 +62,6 @@ describe("Member with profile", function () {
 					firstName: "Parinya",
 					lastName: "Chavp",
 					phone: "0812598962",
-					email: "my.parinya@gmail.com",
 					member: ding
 				});
 

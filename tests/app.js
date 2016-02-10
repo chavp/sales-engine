@@ -16,8 +16,8 @@ require('./app_api/models/dbs');
 require('./app_api/config/passport');
 
 //var accountsPage = require('./app_server/routes/accounts');
-var accountsApi = require('./app_api/routes/accounts');
-var organizationsApi = require('./app_api/routes/organizations');
+var routesApi = require('./app_api/routes/index');
+//var organizationsApi = require('./app_api/routes/organizations');
 
 var app = express();
 
@@ -25,34 +25,21 @@ var app = express();
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade');
 
-/*var appClientFiles = [
-  'app/app.js',
-  'app/home/home.controller.js',
-  'app/about/about.controller.js',
-  'app/auth/login/login.controller.js',
-  'app/auth/register/register.controller.js',
-  'app/locationDetail/locationDetail.controller.js',
-  'app/reviewModal/reviewModal.controller.js',
-  'app/common/services/authentication.service.js',
-  'app/common/services/geolocation.service.js',
-  'app/common/services/loc8rData.service.js',
-  'app/common/filters/formatDistance.filter.js',
-  'app/common/filters/addHtmlLineBreaks.filter.js',
-  'app/common/directives/navigation/navigation.controller.js',
-  'app/common/directives/navigation/navigation.directive.js',
-  'app/common/directives/footerGeneric/footerGeneric.directive.js',
-  'app/common/directives/pageHeader/pageHeader.directive.js',
-  'app/common/directives/ratingStars/ratingStars.directive.js'
+var appClientFiles = [
+  'app_client/app.js',
+  'app_client/home/home.controller.js',
+  'app_client/auth/login/login.controller.js',
+  'app_client/common/services/accounts.service.js'
 ];
 var uglified = uglifyJs.minify(appClientFiles, { compress : false });
 
-fs.writeFile('public/angular/loc8r.min.js', uglified.code, function (err){
+fs.writeFile('public/angular/saleshub.min.js', uglified.code, function (err){
   if(err) {
     console.log(err);
   } else {
-    console.log("Script generated and saved:", 'loc8r.min.js');
+    console.log("Script generated and saved:", 'saleshub.min.js');
   }
-});*/
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -66,8 +53,9 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 //app.use(passport.initialize());
 
 //app.use('/', accountsPage);
-app.use('/api', accountsApi);
-app.use('/api', organizationsApi);
+//app.use('/api', accountsApi);
+//app.use('/api', organizationsApi);
+app.use('/api', routesApi);
 
 app.use(function(req, res) {
   res.sendFile(path.join(__dirname, 'app_client', 'index.html'));

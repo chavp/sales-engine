@@ -5,10 +5,10 @@
 
     homeCtrl.$inject = ['$scope', '$location', 'accounts'];
     function homeCtrl($scope, $location, accounts) {
-    	// Nasty IE9 redirect hack (not recommended)
-	    
     	var vm = this;
 
+        vm.currentPath = $location.path();
+        
     	vm.message = "Hello";
 
     	vm.doLogout = function(){

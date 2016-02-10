@@ -7,7 +7,6 @@
     	.service('accounts', accounts);
 
     accounts.$inject = ['$http', '$window'];
-
     function accounts ($http, $window) {
 
     	var saveToken = function (token) {
@@ -23,21 +22,32 @@
 
 	      if(token){
 	        var payload = JSON.parse($window.atob(token.split('.')[1]));
-
 	        return payload.exp > Date.now() / 1000;
 	      } else {
 	        return false;
 	      }
 	    };
 
-	    var currentUser = function() {
+	    var getCurrentUser = function(callback) {
 	      if(isLoggedIn()){
 	        var token = getToken();
 	        var payload = JSON.parse($window.atob(token.split('.')[1]));
-	        return {
-	          email : payload.email,
-	          name : payload.name
-	        };
+	        //console.log(payload);
+	        var memberId = payload._id;
+	        $http.get('/api/accounts/' + memberId, {
+		        headers: {
+		          Authorization: 'Bearer '+ token
+		        }
+		    }).success(function(data){
+		    	if(callback){
+		        	callback({
+		          		email : data.email,
+		          		name : data.profile.firstName + " " + data.profile.lastName,
+		          		phone: data.profile.phone
+		        	});
+	        	}
+	        	//console.log(_currentUser);
+		    });
 	      }
 	    };
 
@@ -59,7 +69,7 @@
 	    };
 
     	return {
-	      currentUser : currentUser,
+	      getCurrentUser : getCurrentUser,
 	      saveToken : saveToken,
 	      getToken : getToken,
 	      isLoggedIn : isLoggedIn,

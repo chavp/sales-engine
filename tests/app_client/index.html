@@ -4,27 +4,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Sales Hub</title>
-    <base html="#">
     <!--css-->
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/fontawesome/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/fontawesome/font-awesome.min.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
 
   </head>
   <body ng-view>
-
     <!--angular js-->
-    <script type="text/javascript" src="js/general/angular.min.js"></script>
-    <script type="text/javascript" src="js/general/angular-route.min.js"></script>
-    <script type="text/javascript" src="js/general/angular-sanitize.min.js"></script>
+    <script src="/js/general/angular.min.js"></script>
+    <script src="/lib/angular-route.min.js"></script>
+    <script src="/lib/angular-sanitize.min.js"></script>
+    <script src="/lib/ui-bootstrap-custom-0.12.0.min.js"></script>
+    <script src="/lib/ui-bootstrap-custom-tpls-0.12.0.min.js"></script>
 
-    <script src="app.js"></script>
-    <script src="auth/login/login.controller.js"></script>
-    <script src="home/home.controller.js"></script>
+    <!--<script type="text/javascript" src="angular/saleshub.min.js"></script>-->
+    <script src="/app.js"></script>
+    <script src="/auth/login/login.controller.js"></script>
+    <script src="/home/home.controller.js"></script>
+    <script src="/common/services/accounts.service.js"></script>
+    <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
+    <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>
+    <script src="/common/directives/leftNavigation/leftNavigation.controller.js"></script>
+    <script src="/common/directives/leftNavigation/leftNavigation.directive.js"></script>
 
-    <script src="common/services/accounts.service.js"></script>
-
-    <script type="text/javascript" src="js/general/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="js/general/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/general/jquery-1.11.1.min.js"></script>
+    <script  src="/js/general/bootstrap/bootstrap.min.js"></script>
   </body>
 </html>

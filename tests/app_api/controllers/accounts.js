@@ -116,7 +116,7 @@ module.exports.accountReadOne = function(req, res) {
       .populate('organizations')
       .exec(function(err, member) {
       	if (err) {
-          console.log(err);
+          //console.log(err);
           sendJsonResponse(res, BAD_REQUEST, err);
           return;
         }
@@ -126,7 +126,7 @@ module.exports.accountReadOne = function(req, res) {
           });
           return;
         } 
-        console.log(member);
+        //console.log(member);
         sendJsonResponse(res, OK, member);
       });
 }

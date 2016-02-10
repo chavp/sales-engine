@@ -12,15 +12,12 @@ var memberProfileSchema = new Schema({
 		type: String,
 		require: true
 	},
+
 	phone:{
 		type: String,
 		require: true
 	},
-	email:{
-		type: String,
-		require: true
-	},
-
+	
 	member: {
 		type: Schema.ObjectId,
 		ref: 'Member',

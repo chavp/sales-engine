@@ -1,0 +1,61 @@
+<div class="navbar navbar-default navbar-fixed-top toptoolbar">
+  <button class="btn new-lead" title="Ctrl+Shift+L" href="#">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+    </span>
+     New Lead
+  </button>
+  <div class="search-box">
+    <form class="form-search" style="right: 183.906px;">
+      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      <div class="clear-btn" style="display: none;"></div>
+      <textarea type="search" class="search-query" placeholder="Search" autocorrect="off" spellcheck="false" tabindex="1" style="overflow: hidden; word-wrap: break-word; resize: none; height: 30px;"></textarea>
+    </form>
+  </div>
+  <div class="top-right-btns">
+    <div class="dropdown profile-button">
+      <button class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        {{ ttbarvm.currentUser.name }}
+        <img class="profile-pic" width="40" height="40" src="https://secure.gravatar.com/avatar/8bb6915c4385389dd338212b45969295?d=mm&amp;r=x&amp;s=40" alt="">
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="current-org">
+            <div>
+              <div class="info">
+                <strong>{{ ttbarvm.currentUser.name }}</strong>
+                <br>
+                  {{ ttbarvm.currentUser.email }}
+                <br>
+
+                <div class="phone-number">
+                  {{ ttbarvm.currentUser.phone }}
+                </div>
+
+              </div>
+            </div>
+        </li>
+        <li>
+          <a href="" ng-click="ttbarvm.logout()"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--<div class="container">
+    <div class="navbar-header"><a href="/" class="navbar-brand">Loc8r</a>
+      <button type="button" data-toggle="collapse" data-target="#navbar-main" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+    </div>
+    <div id="navbar-main" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/#about">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-hide="ttbarvm.isLoggedIn"><a href="/#login/?page={{ ttbarvm.currentPath }}">Sign in</a></li>
+        <li ng-show="ttbarvm.isLoggedIn" class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">{{ ttbarvm.currentUser.name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="" ng-click="ttbarvm.logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>-->
+</div>

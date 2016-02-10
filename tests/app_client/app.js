@@ -1,6 +1,7 @@
 (function(){
+	
 	angular
-	  .module('salesHubApp', ['ngRoute', 'ngSanitize']);
+	  .module('salesHubApp', ['ngRoute', 'ngSanitize', 'ui.bootstrap']);
 
 	function config ($routeProvider, $locationProvider) {
 		$routeProvider

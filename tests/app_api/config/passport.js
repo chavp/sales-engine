@@ -6,19 +6,27 @@ var Member = mongoose.model('Member');
 passport.use(new LocalStrategy({},
   function(username, password, done) {
     //console.log(username);
-    Member.findOne({ email: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, {
-          message: 'Incorrect username.'
-        });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, {
-          message: 'Incorrect password.'
-        });
-      }
-      return done(null, user);
-    });
+    Member
+      .findOne({ email: username })
+      .populate('profile')
+      .exec(
+        function (err, user) {
+          if (err) { return done(err); }
+          if (!user) {
+            return done(null, false, {
+              message: 'Invalid email address or password.'
+            });
+          }
+          if (!user.validPassword(password)) {
+            return done(null, false, {
+              message: 'Invalid email address or password.'
+            });
+          }
+
+          
+          //console.log(user);
+          return done(null, user);
+        }
+      );
   }
 ));
