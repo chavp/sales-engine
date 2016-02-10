@@ -7,7 +7,7 @@ passport.use(new LocalStrategy({},
   function(username, password, done) {
     //console.log(username);
     Member
-      .findOne({ email: username })
+      .findOne({ username: username })
       .populate('profile')
       .exec(
         function (err, user) {

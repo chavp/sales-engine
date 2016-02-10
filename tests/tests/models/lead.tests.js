@@ -54,7 +54,7 @@ var utils = require('./utils');
 				//console.log(org.leads);
 				//done();
 			}catch (err){
-			  return done(err);
+			  done(err);
 			}
 		});
  	});

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
               quiet: false,
               require: 'blanket'
             },
-            src: ['./tests/**/*.js']
+            src: ['./tests/models/*.js', './tests/api/*.js']
           },
           coverage: {
             options: {

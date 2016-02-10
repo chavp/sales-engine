@@ -1,9 +1,10 @@
+require('dotenv').load();
 mongoose = require('mongoose');
 
 var dbURI = 'mongodb://localhost/saleshub';
 
 // BRING IN YOUR SCHEMAS & MODELS
-require('../app_api/models/dbs');
+require('../../app_api/models/dbs');
 
 should = require('chai').should();
 

@@ -2,11 +2,11 @@ var utils = require('./utils');
 
 /////////////////////////////////////////////////////////////////////////////
 describe("Member", function () {
-	var memberName = "ding";
+	var memberName = "ding@saleshub.com";
 
 	it("add ding password 123456789", function(done){
 		var ding = new Member({
-			email: memberName + "@saleshub.com",
+			email: memberName,
 			username: memberName,
 			password: "123456789"
 		});
@@ -48,17 +48,18 @@ describe("Member", function () {
 /////////////////////////////////////////////////////////////////////////////
 describe("Member with profile", function () {
 	it("add ding with profile", function(done){
-		var memberName = "ding2";
+		var memberName = "ding2@saleshub.com";
 
 		var ding = new Member({
-			email: memberName + "@saleshub.com",
+			email: memberName,
 			username: memberName,
 			password: "123456789"
 		});
 
 		ding.save(function(err){
-			if(!err){
-				var dingProfile = new MemberProfile({
+			if(err) return done(err);
+			var dingProfile = new MemberProfile({
+					email: memberName,
 					firstName: "Parinya",
 					lastName: "Chavp",
 					phone: "0812598962",
@@ -71,14 +72,14 @@ describe("Member with profile", function () {
 					 .populate('profile')
 					 .exec(function(err, member){
 						//console.log(member.profile);
-						should.exist(member.profile);
-						done();
+						try{
+							should.exist(member.profile);
+							done();
+						}catch (err){
+						  done(err);
+						}
 					});
 				});
-			}else{
-				console.log(err);
-				done();
-			}
 		});
 
 		//done();
@@ -125,26 +126,27 @@ describe("Organization with members", function () {
         });
 	});
 
-	var memberName = "ding2";
+	var memberName = "ding2@saleshub.com";
 	it("check member $ profile $ org relationship", function(done){
 		Member
-		 .findOne({username: memberName}, function(err, member){
-			should.exist(member.profile);
+		 .findOne({username: memberName})
+		 .populate('profile')
+		 .populate('organizations')
+		 .exec(function(err, member){
 			try{
-				member.organizations.forEach(function(org){
+			   should.exist(member.profile);
+			   member.organizations.forEach(function(org){
 					try{
 						should.exist(org);
+						done();
 					}catch(err){
-						throw err;
+						return done(err);
 					}
 				});
-				done();
 			}catch(err){
-				done(err);
+				return done(err);
 			}
-		  })
-		  .populate('profile')
-		  .populate('organizations');
+		  });
 	});
 });
 

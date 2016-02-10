@@ -4,6 +4,11 @@ var mongoose = require('mongoose'),
     relationship = require("mongoose-relationship");
 
 var memberProfileSchema = new Schema({
+	email:{
+		type: String,
+		require: true
+	},
+
 	firstName:{
 		type: String,
 		require: true
