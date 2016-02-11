@@ -40,13 +40,18 @@
 		        }
 		    }).success(function(data){
 		    	if(callback){
-		        	callback({
+		        	callback(true, {
 		          		email : data.email,
 		          		name : data.profile.firstName + " " + data.profile.lastName,
 		          		phone: data.profile.phone
 		        	});
 	        	}
 	        	//console.log(_currentUser);
+		    }).error(function(err){
+		    	//console.log(err);
+		    	//throw err;
+		    	logout();
+		    	callback(false, err);
 		    });
 	      }
 	    };

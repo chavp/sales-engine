@@ -1,7 +1,14 @@
 (function(){
-	
+	// feature config
+  	window.angularFeaturesConf = {
+  		forgtPassword: false,
+  		createAccount: false,
+  		searchLead: false
+  	};
+
 	angular
-	  .module('salesHubApp', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap', 'smart-table']);
+	  .module('salesHubApp', 
+	  	['ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap', 'smart-table', 'yh.featureToggle']);
 
 	function config ($routeProvider, $locationProvider) {
 		$routeProvider
@@ -29,6 +36,7 @@
     		enabled: true,
   			requireBase: false
   		});
+
 	};
 	
 	angular

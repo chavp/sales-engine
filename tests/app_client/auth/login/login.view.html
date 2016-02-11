@@ -17,7 +17,7 @@
 			</form>
 
 		</div>
-		<a class="pull-left under" href="/forgot">Forgot your password?</a>
-		<a class="pull-right under signup" href="/signup" data-bypass="true">Create an account</a>
+		<a class="pull-left under" href="/forgot" ng-show="vm.forgtPassword">Forgot your password?</a>
+		<a class="pull-right under signup" href="/signup" data-bypass="true" ng-show="vm.createAccount">Create an account</a>
 	</div>
 </div>

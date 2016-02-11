@@ -8,6 +8,11 @@ var bodyParser = require('body-parser');
 var uglifyJs = require("uglify-js");
 var fs = require('fs');
 var passport = require('passport');
+var featureToggles = require('feature-toggles');
+var toggles = {
+  searchLead: true
+};
+featureToggles.load(toggles);
 
 require('./app_api/controllers/_const');
 require('./app_api/models/db');
@@ -20,6 +25,8 @@ var routesApi = require('./app_api/routes/index');
 //var organizationsApi = require('./app_api/routes/organizations');
 
 var app = express();
+
+app.use(featureToggles.middleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));

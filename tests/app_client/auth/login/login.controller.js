@@ -3,11 +3,15 @@
 	  .module('salesHubApp')
       .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', '$window', 'accounts'];
-    function loginCtrl($location, $window, accounts) {
+    loginCtrl.$inject = ['$location', '$window', 'featureToggle', 'accounts'];
+    function loginCtrl($location, $window, featureToggle, accounts) {
     	var vm = this;
       vm.currentPath = $location.path();
       
+      // tooglefeature
+      vm.forgtPassword = featureToggle.isEnabled('forgtPassword');
+      vm.createAccount = featureToggle.isEnabled('createAccount');
+
     	vm.message = "TEST";
     	vm.credentials = {
 	      username : "",
@@ -50,8 +54,8 @@
             vm.formError = err.message;
             //console.log(err);
           })
-          .then(function(){
-            //console.log("5555");
+          .then(function(response){
+            console.log(response);
             //$location.search('page', null); 
             //$location.path('/home');
             $window.location = '/home';

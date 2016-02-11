@@ -4,20 +4,27 @@
     .module('salesHubApp')
     .controller('toptoolbarCtrl', navigationCtrl);
 
-  navigationCtrl.$inject = ['$window', '$location', '$uibModal', 'accounts'];
-  function navigationCtrl($window, $location, $uibModal, accounts) {
+  navigationCtrl.$inject = ['$window', '$location', '$uibModal', 'accounts', 'featureToggle'];
+  function navigationCtrl($window, $location, $uibModal, accounts, featureToggle) {
     var vm = this;
 
+    //console.log(featureToggle.isEnabled('searchLead'));
     // Features
-    vm.searchFeature = false;
+    vm.isSearchLead = featureToggle.isEnabled('searchLead');
 
     vm.currentPath = $location.path();
 
     vm.isLoggedIn = accounts.isLoggedIn();
 
     vm.currentUser = {};
-    accounts.getCurrentUser(function(data){
-      vm.currentUser = data;
+    accounts.getCurrentUser(function(success, data){
+      if(success){
+        vm.currentUser = data;
+      }else{
+        //$location.path('/');
+        //accounts.logout();
+        $window.location = '/';
+      }
     });
 
     //vm.currentUser = accounts.getCurrentUser();

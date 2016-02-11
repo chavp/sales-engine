@@ -14,8 +14,9 @@ var mongoose = require('mongoose'),
 		ref: 'Member',
 		childPath:"leads" 
 	},
- 	organizationName:{
-		type: String
+ 	companyName:{
+		type: String,
+		require: true
 	},
 	description:{
 		type: String
