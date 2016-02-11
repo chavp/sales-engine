@@ -1,0 +1,38 @@
+<h1>{{vm.title}}</h1>
+
+<div class="results-count pull-left bottom10">{{vm.leadResults.length}} total results</div>
+
+<div class="search-tools pull-right">
+	
+</div>
+
+<div class="lead-results">
+	<table st-table="vm.leadResults" class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Company</th>
+				<th title="Email" class="col-email text-center"><span class="glyphicon glyphicon-envelope"></th>
+				<th title="Call" class="col-call text-center"><span class="glyphicon glyphicon-earphone"></span></th>
+				<th>Contacts</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr st-select-row="row" ng-repeat="row in vm.leadResults" class="row-lead">
+				<td>{{row.company}}</td>
+				<td>
+					<button type="button" class="btn btn-sm" ng-disabled="row.email === ''">
+						<i class="glyphicon glyphicon-envelope"></i>
+					</button>
+				</td>
+				<td>
+					<button type="button" class="btn btn-sm" ng-disabled="row.phone === ''">
+						<i class="glyphicon glyphicon-earphone"></i>
+					</button>
+				</td>
+				<td>{{row.contacts}}</td>
+				<td>{{row.status}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

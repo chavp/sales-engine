@@ -1,5 +1,12 @@
-<div class="left-nav">
+<div class="left-nav" ng-show="navvm.isLoggedIn">
 	<div class="left-nav-scroller">
-		
+		<ul class="nav nav-pills">
+			<li role="presentation" class="nav-leads" ng-class="navvm.getClass('/home')">
+				<a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
+			</li>
+			<li role="presentation" class="nav-leads" ng-class="navvm.getClass('/leads')">
+				<a href="/leads"><span class="fa fa-newspaper-o" aria-hidden="true"></span> Leads</a>
+			</li>
+		</ul>
 	</div>
 </div>

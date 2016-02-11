@@ -1,0 +1,25 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="vm.doCancel()"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">{{vm.title}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+          <label for="companyName">Company/Organization Name</label>
+          <input type="text" class="form-control" id="companyName" ng-model="vm.lead.companyName">
+        </div>
+        <div class="col-md-6 bottom10">
+           <label for="contactName">Contact Name</label>
+          <input type="text" class="form-control" id="contactName" ng-model="vm.lead.contactName">
+        </div>
+        <div class="col-md-12">
+          <span class="error-font" ng-hide="vm.formError == ''">{{vm.formError}}</span>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.doCancel()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="vm.doCreateLead()">Save changes</button>
+  </div>
+</div><!-- /.modal-content -->

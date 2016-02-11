@@ -7,21 +7,45 @@
     <!--css-->
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/fontawesome/font-awesome.min.css" />
+    <link rel="stylesheet" href="/lib/ui-grid.min.css" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
 
   </head>
-  <body ng-view>
+  <body>
+    <!-- MAIN CONTENT AND INJECTED VIEWS -->
+    <div id="main">
+        <toptoolbar></toptoolbar>
+        <div class="content-area-wrap">
+            <left-navigation></left-navigation>
+            <div class="content-area">
+                <div class="content-area-inner">
+                    <div class="app-top"></div>
+                    <div class="app-content-wrap">
+                        <div class="app-content">
+                            <div class="app-content-inner">
+                                <div ng-view/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--angular js-->
     <script src="/js/general/angular.min.js"></script>
     <script src="/lib/angular-route.min.js"></script>
     <script src="/lib/angular-sanitize.min.js"></script>
-    <script src="/lib/ui-bootstrap-custom-0.12.0.min.js"></script>
-    <script src="/lib/ui-bootstrap-custom-tpls-0.12.0.min.js"></script>
+    <script src="/lib/angular-animate.min.js"></script>
+    <script src="/lib/ui-bootstrap-tpls-1.1.2.min.js"></script>
+    <script src="/lib/smart-table.min.js"></script>
 
     <!--<script type="text/javascript" src="angular/saleshub.min.js"></script>-->
     <script src="/app.js"></script>
     <script src="/auth/login/login.controller.js"></script>
     <script src="/home/home.controller.js"></script>
+    <script src="/leads/leads.controller.js"></script>
+    <script src="/leads/newlead/newlead.controller.js"></script>
     <script src="/common/services/accounts.service.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>

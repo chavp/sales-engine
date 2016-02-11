@@ -1,7 +1,7 @@
 (function(){
 	
 	angular
-	  .module('salesHubApp', ['ngRoute', 'ngSanitize', 'ui.bootstrap']);
+	  .module('salesHubApp', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap', 'smart-table']);
 
 	function config ($routeProvider, $locationProvider) {
 		$routeProvider
@@ -13,6 +13,11 @@
 	      .when('/home', {
 	        templateUrl: '/home/home.view.html',
 	        controller: 'homeCtrl',
+	        controllerAs: 'vm'
+	      })
+	      .when('/leads', {
+	        templateUrl: '/leads/leads.view.html',
+	        controller: 'leadsCtrl',
 	        controllerAs: 'vm'
 	      })
 	      .otherwise({
@@ -29,12 +34,17 @@
 	angular
       .module('salesHubApp')
       .config(['$routeProvider', '$locationProvider', config])
-      .run(['$rootScope', '$location', 'accounts', 
-      	function ($rootScope, $location, accounts) {
+      .run(['$rootScope', '$location', '$window', 'accounts', 
+      	function ($rootScope, $location, $window, accounts) {
       		//console.log(accounts.isLoggedIn());
       		if (!accounts.isLoggedIn()) {
-      			event.preventDefault();
+      			//event.preventDefault();
       			$location.path('/');
+      			//$window.location.reload();
+      		}else{
+      			if($location.path() === '/'){
+      				$location.path('/home');
+      			}
       		}
       	}]);
 

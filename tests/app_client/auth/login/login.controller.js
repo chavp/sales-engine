@@ -3,8 +3,8 @@
 	  .module('salesHubApp')
       .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', 'accounts'];
-    function loginCtrl($location, accounts) {
+    loginCtrl.$inject = ['$location', '$window', 'accounts'];
+    function loginCtrl($location, $window, accounts) {
     	var vm = this;
       vm.currentPath = $location.path();
       
@@ -52,13 +52,17 @@
           })
           .then(function(){
             //console.log("5555");
-            $location.search('page', null); 
-            $location.path('/home');
+            //$location.search('page', null); 
+            //$location.path('/home');
+            $window.location = '/home';
+            //$window.location.reload();
           });
     	}
 
-      if(accounts.isLoggedIn())
+      if(accounts.isLoggedIn()){
+        leftNavigationCtrl.isLoggedIn;
         $location.path('/home');
+      }
     }
     
 })();

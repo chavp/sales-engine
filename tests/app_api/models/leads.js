@@ -9,6 +9,11 @@ var mongoose = require('mongoose'),
 		ref: 'Organization',
 		childPath:"leads" 
 	},
+	createdBy: {
+		type: Schema.ObjectId,
+		ref: 'Member',
+		childPath:"leads" 
+	},
  	organizationName:{
 		type: String
 	},

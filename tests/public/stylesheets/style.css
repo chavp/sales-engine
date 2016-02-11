@@ -29,6 +29,21 @@ img {
     -ms-interpolation-mode: bicubic;
 }
 
+h1 {
+    font-size: 29px;
+}
+
+h1, h2, h3, h4 {
+    margin: 0 0 10px 0;
+    font-weight: normal;
+    color: #4a4e56;
+}
+
+ul, ol {
+    padding: 0;
+    margin: 0 0 10px 25px;
+}
+
 .container{
     width: 100%;
     min-width: 1024px;
@@ -36,8 +51,8 @@ img {
 
 .login-box{
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 43%;
+    top: 43%;
     width: 274px;
     height: 280px;
     margin: -140px 0 0 -137px;
@@ -54,7 +69,7 @@ img {
     background-repeat: repeat-x;
 }
 
-.bottom10{
+.bottom10 {
     margin-bottom: 10px;
 }
 
@@ -81,6 +96,16 @@ img {
     border-left: solid 1px #f7f7f9;
 }
 
+.app-top {
+    display: table-row;
+}
+
+.content-area-inner{
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
 .app-content-wrap{
     display: table-row;
     height: 100%;
@@ -101,7 +126,6 @@ img {
     padding: 20px;
 }
 
-
 .toptoolbar {
     height: 52px;
     padding: 0 10px;
@@ -119,6 +143,19 @@ img {
     bottom: 0;
     border-right: solid 1px #bcbdbe;
 }
+
+.left-nav ul {
+    list-style: none;
+    margin: 0 0 20px 15px;
+}
+
+.left-nav a {
+    display: block;
+    color: #3e3e3e;
+    font-size: 14px;
+    padding: 7px 0;
+}
+
 
 .left-nav-scroller{
 	overflow: auto;
@@ -323,4 +360,12 @@ a, a:visited, a:hover, a:active {
 
 .dropup, .dropdown {
     position: relative;
+}
+
+.col-email, .col-call{
+    width: 40px;
+}
+
+.row-lead:hover{
+    cursor:pointer;
 }

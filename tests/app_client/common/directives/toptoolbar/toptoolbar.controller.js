@@ -4,9 +4,12 @@
     .module('salesHubApp')
     .controller('toptoolbarCtrl', navigationCtrl);
 
-  navigationCtrl.$inject = ['$location', 'accounts'];
-  function navigationCtrl($location, accounts) {
+  navigationCtrl.$inject = ['$window', '$location', '$uibModal', 'accounts'];
+  function navigationCtrl($window, $location, $uibModal, accounts) {
     var vm = this;
+
+    // Features
+    vm.searchFeature = false;
 
     vm.currentPath = $location.path();
 
@@ -22,8 +25,21 @@
 
     vm.logout = function() {
       accounts.logout();
-      $location.path('/');
+      //$location.path('/');
+      $window.location = '/';
     };
 
+    vm.newLead = function(){
+       var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: './leads/newlead/newlead.view.html',
+          controller: 'newleadCtrl',
+          controllerAs: 'vm',
+          size: 'md',
+          resolve: {
+            
+          }
+       });
+    };
   }
 })();

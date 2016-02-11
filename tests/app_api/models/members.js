@@ -33,6 +33,11 @@ var memberSchema = new Schema({
 	organizations:[{
 		type: Schema.ObjectId,
 		ref: 'Organization'
+	}],
+
+	leads: [{
+		type:Schema.ObjectId, 
+		ref:"Lead"
 	}]
 });
 
