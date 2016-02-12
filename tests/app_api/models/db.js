@@ -1,5 +1,6 @@
 require('dotenv').load();
 var mongoose = require('mongoose');
+var seeder = require('mongoose-seeder');
 
 var gracefulShutdown;
 var dbURI = 'mongodb://localhost/saleshub';
@@ -7,8 +8,17 @@ if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
 
+// Seed database
+mongoose.connect(dbURI, function(){
+    var data = require('./seeddata-file.json');
+    seeder.seed(data, {dropCollections: true})
+        .then(function(dbData) {
+        // ...
+        }).catch(function(err) {
+        // handle error
+        });
+});
 
-mongoose.connect(dbURI);
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function() {

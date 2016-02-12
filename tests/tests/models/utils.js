@@ -11,6 +11,13 @@ expect = require('chai').expect;
 
 function clearDB(done) {
 	for (var i in mongoose.connection.collections) {
+		//console.log(mongoose.connection.collections[i].name);
+		var collection_name = mongoose.connection.collections[i].name;
+		if(collection_name === 'contacttypes' || 
+		   collection_name === 'defaultleadstatuses' ||
+		   collection_name === 'defaultopportunitystatuses'||
+		   collection_name === 'choices'||
+		   collection_name === 'questions') continue;
 		mongoose.connection.collections[i].remove(function() {});
 	}
 	return done();

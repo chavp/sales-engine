@@ -1,0 +1,108 @@
+{
+	"contacttypes":{
+		"_model": "ContactType",
+		"off": {
+			"_id": "OFF",
+			"name": "Office"
+		},
+		"mob": {
+			"_id": "MOB",
+			"name": "Mobile"
+		},
+		"home": {
+			"_id": "HOM",
+			"name": "Home"
+		},
+		"fax": {
+			"_id": "FAC",
+			"name": "Fax"
+		},
+		"url": {
+			"_id": "URL",
+			"name": "URL"
+		}
+	},
+	"defaultleadstatuses": {
+		"_model": "DefaultLeadStatus",
+		"ls1": {
+			"_id": "1",
+			"name": "Potential",
+			"order": "1"
+		},
+		"ls2": {
+			"_id": "2",
+			"name": "Bad Fit",
+			"order": "2"
+		},
+		"ls3": {
+			"_id": "3",
+			"name": "Qualified",
+			"order": "3"
+		},
+		"ls4": {
+			"_id": "4",
+			"name": "Customer",
+			"order": "4"
+		}
+	},
+	"defaultopportunitystatuses": {
+		"_model": "DefaultOpportunityStatus",
+		"os1": {
+			"_id": "1",
+			"name": "Active",
+			"order": "1"
+		},
+		"os2": {
+			"_id": "2",
+			"name": "Won",
+			"order": "2"
+		},
+		"os3": {
+			"_id": "3",
+			"name": "Lost",
+			"order": "3"
+		}
+	},
+	"choices": {
+		"_model": "Choice",
+		"ch1": {
+			"_id": "1",
+			"result": "Just me!"
+		},
+		"ch2": {
+			"_id": "2",
+			"result": "2-5"
+		},
+		"ch3": {
+			"_id": "3",
+			"result": "6-10"
+		},
+		"ch4": {
+			"_id": "4",
+			"result": "11-30"
+		},
+		"ch5": {
+			"_id": "5",
+			"result": "30-99"
+		},
+		"ch6": {
+			"_id": "6",
+			"result": "We're hunge! (100+)"
+		}
+	},
+	"questions": {
+		"_model": "Question",
+		"q1": {
+			"_id": "1",
+			"sentence": "How many people on your team might use Close.io?",
+			"choices": [
+				"->choices.ch1",
+				"->choices.ch2",
+				"->choices.ch3",
+				"->choices.ch4",
+				"->choices.ch5",
+				"->choices.ch6"
+			]
+		}
+	}
+}

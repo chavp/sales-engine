@@ -33,6 +33,11 @@
 	        controller: 'leadsCtrl',
 	        controllerAs: 'vm'
 	      })
+	      .when('/leads/:leadId', {
+	        templateUrl: '/leads/leads.view.html',
+	        controller: 'leadsCtrl',
+	        controllerAs: 'vm'
+	      })
 	      .otherwise({
 	      	redirectTo: '/'
 	      });
