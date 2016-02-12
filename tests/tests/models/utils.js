@@ -7,6 +7,7 @@ var dbURI = 'mongodb://localhost/saleshub';
 require('../../app_api/models/dbs');
 
 should = require('chai').should();
+expect = require('chai').expect;
 
 function clearDB(done) {
 	for (var i in mongoose.connection.collections) {

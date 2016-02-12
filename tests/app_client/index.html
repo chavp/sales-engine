@@ -15,15 +15,17 @@
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
     <div id="main">
         <toptoolbar></toptoolbar>
-        <div class="content-area-wrap">
-            <left-navigation></left-navigation>
-            <div class="content-area">
-                <div class="content-area-inner">
-                    <div class="app-top"></div>
-                    <div class="app-content-wrap">
-                        <div class="app-content">
-                            <div class="app-content-inner">
-                                <div ng-view/>
+        <div class="container">
+            <div class="content-area-wrap">
+                <left-navigation></left-navigation>
+                <div class="content-area">
+                    <div class="content-area-inner">
+                        <div class="app-top"></div>
+                        <div class="app-content-wrap">
+                            <div class="app-content">
+                                <div class="app-content-inner">
+                                    <div ng-view/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,6 +50,7 @@
     <script src="/leads/leads.controller.js"></script>
     <script src="/leads/newlead/newlead.controller.js"></script>
     <script src="/common/services/accounts.service.js"></script>
+    <script src="/common/services/leads.service.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>
     <script src="/common/directives/leftNavigation/leftNavigation.controller.js"></script>

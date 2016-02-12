@@ -5,7 +5,7 @@ var utils = require('./utils');
  	it("create simple lead", function(done){
 
  		var leader = new Lead({
- 			organizationName: 'new-org',
+ 			companyName: 'new-org',
  			description: 'new-desc',
  			url: 'http://5555.org'
  		});
@@ -34,7 +34,7 @@ var utils = require('./utils');
  		  	  //console.log(lead);
  		  });
 
- 		/// Organization add lead
+ 		// Organization add lead
  		Organization.findOneByName("The-Home", function(err, org){
 					//console.log(org);
 			try{
@@ -59,5 +59,49 @@ var utils = require('./utils');
 		});
  	});
 
-    
+    it("new lead with company name", function(done){
+
+    	Member
+    		.findOneByUsername("ding2@saleshub.com")
+    		.populate('organizations')
+    		.exec(function(err, mem){
+    			if(err) return done(err);
+
+    			var firstOrg = mem.organizations[0];
+
+    			Lead.create({
+	 				companyName: "TheHome-new Lead",
+	 				organization: firstOrg,
+	 				createdBy: mem
+	 			}, function(err, lead){
+	 				if(err) return done(err);
+
+	 				Organization
+	 					.findById(firstOrg._id)
+	 					.exec(function(err, x){
+	 						try{
+	 							expect('' + x.leads[1]).to.equal('' + lead._id);
+			 					//x.leads[1].should.equal(lead._id);
+			 					Member
+			 						.findById(mem._id)
+			 						//.populate('leads')
+			 						.exec(function(err, x){
+			 							if(err) return done(err);
+
+			 							try{
+			 								//console.log(x.leads);
+			 								expect('' + x.leads[0]).to.equal('' + lead._id);
+											done();
+			 							}catch (err){
+										  return done(err);
+										}
+			 						});
+			 				//console.log(org);
+			 				}catch (err){
+							  return done(err);
+							}
+	 					});
+	 			});
+    		});
+    });
  });

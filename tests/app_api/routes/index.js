@@ -8,6 +8,7 @@ var auth = jwt({
 
 var ctrAccounts = require('../controllers/accounts');
 var ctrOrganizations = require('../controllers/organizations');
+var ctrLeads = require('../controllers/leads');
 
 // Accounts
 router.get('/accounts', auth, ctrAccounts.accounts);
@@ -26,9 +27,21 @@ router.get('/organizations/:organizationId', auth, ctrOrganizations.organization
 router.put('/organizations/:organizationId/name', auth, ctrOrganizations.saveOrganizationName);
 
 // Leads
+router.get('/leads', auth, ctrLeads.leads);
+router.get('/leads/members/:memberId/organizations/:organizationId', auth, ctrLeads.leadsByOwnerAndOrg);
+router.get('/leads/organizations/:organizationId', auth, ctrLeads.leadsByOrg);
+router.get('/leads/members/:memberId', auth, ctrLeads.leadsByMemberLiveOrg);
 
 // Tasks
 
 // Reporting
 
 module.exports = router;
+
+function sendJsonResponse(res, status, content) {
+  res.status(status);
+  res.json(content);
+};
+
+// static method
+module.export = sendJsonResponse;

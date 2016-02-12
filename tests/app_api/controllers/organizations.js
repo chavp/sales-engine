@@ -1,9 +1,5 @@
 var mongoose = require('mongoose');
-
-function sendJsonResponse(res, status, content) {
-  res.status(status);
-  res.json(content);
-};
+var helper = require('./helper');
 
 /* GET read organization */
 module.exports.organizationReadOne = function(req, res) {

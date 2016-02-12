@@ -8,7 +8,8 @@ passport.use(new LocalStrategy({},
     //console.log(username);
     Member
       .findOne({ username: username })
-      .populate('profile')
+      //.populate('profile')
+      //.populate('organizations')
       .exec(
         function (err, user) {
           if (err) { return done(err); }
@@ -23,7 +24,6 @@ passport.use(new LocalStrategy({},
             });
           }
 
-          
           //console.log(user);
           return done(null, user);
         }

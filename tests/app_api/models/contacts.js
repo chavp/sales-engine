@@ -1,0 +1,25 @@
+var mongoose = require('mongoose'),
+    timestamps = require('mongoose-timestamp'),
+    Schema = mongoose.Schema,
+    relationship = require("mongoose-relationship");
+
+ var contactSchema = new Schema({
+ 	name:{
+		type: String
+	},
+
+	title:{
+		type: String
+	},
+
+	lead: {
+		type: Schema.ObjectId,
+		ref: 'Lead',
+		childPath:"contacts" 
+	}
+ });
+
+ contactSchema.plugin(timestamps);
+ contactSchema.plugin(relationship, { relationshipPathName:'lead' });
+
+ mongoose.model('Contact', contactSchema);

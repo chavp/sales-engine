@@ -30,6 +30,11 @@ var memberSchema = new Schema({
 		ref: 'MemberProfile'
 	},
 
+	liveOrganization: {
+		type: Schema.ObjectId,
+		ref: 'Organization'
+	},
+
 	organizations:[{
 		type: Schema.ObjectId,
 		ref: 'Organization'

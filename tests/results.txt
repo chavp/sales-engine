@@ -2,28 +2,29 @@
 
 [0m[0m
 [0m  Member[0m
-[2K[0G  [32m  √[0m[90m add ding password 123456789[0m[31m (296ms)[0m
+[2K[0G  [32m  √[0m[90m add ding password 123456789[0m[31m (357ms)[0m
 [2K[0G  [32m  √[0m[90m check ding dupplicate member[0m
-[2K[0G  [32m  √[0m[90m check ding valid password[0m[31m (269ms)[0m
-[2K[0G  [32m  √[0m[90m check ding invalid password[0m[31m (271ms)[0m
+[2K[0G  [32m  √[0m[90m check ding valid password[0m[31m (335ms)[0m
+[2K[0G  [32m  √[0m[90m check ding invalid password[0m[31m (331ms)[0m
 
 [0m  Member with profile[0m
-[2K[0G  [32m  √[0m[90m add ding with profile[0m[31m (282ms)[0m
+[2K[0G  [32m  √[0m[90m add ding with profile[0m[31m (352ms)[0m
 
 [0m  Organization with members[0m
 [2K[0G  [32m  √[0m[90m add the-home org with all members[0m
 [2K[0G  [32m  √[0m[90m check member $ profile $ org relationship[0m
 
 [0m  Organization add Admin Organization Role[0m
-[2K[0G  [32m  √[0m[90m add Chavp org[0m[31m (539ms)[0m
+[2K[0G  [32m  √[0m[90m add Chavp org[0m[31m (667ms)[0m
 
 [0m  Leads[0m
 [2K[0G  [32m  √[0m[90m create simple lead[0m
+[2K[0G  [32m  √[0m[90m new lead with company name[0m
 
 [0m  Accounts API[0m
-[2K[0G  [32m  √[0m[90m valid Login[0m[31m (269ms)[0m
-[2K[0G  [32m  √[0m[90m invalid Login[0m[31m (265ms)[0m
+[2K[0G  [32m  √[0m[90m valid Login[0m[31m (343ms)[0m
+[2K[0G  [32m  √[0m[90m invalid Login[0m[31m (339ms)[0m
 
 
-[92m [0m[32m 11 passing[0m[90m (2s)[0m
+[92m [0m[32m 12 passing[0m[90m (3s)[0m
 

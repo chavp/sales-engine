@@ -3,8 +3,8 @@
 	  .module('salesHubApp')
       .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', '$window', 'featureToggle', 'accounts'];
-    function loginCtrl($location, $window, featureToggle, accounts) {
+    loginCtrl.$inject = ['$location', '$window', 'featureToggle', 'config', 'accounts'];
+    function loginCtrl($location, $window, featureToggle, config, accounts) {
     	var vm = this;
       vm.currentPath = $location.path();
       
@@ -14,8 +14,8 @@
 
     	vm.message = "TEST";
     	vm.credentials = {
-	      username : "",
-	      password : ""
+	      username : "ding2@saleshub.com",
+	      password : "123456789"
 	    };
       vm.errorEmail = "";
       vm.errorPassword = "";
@@ -55,17 +55,17 @@
             //console.log(err);
           })
           .then(function(response){
-            console.log(response);
+            //console.log(response);
             //$location.search('page', null); 
             //$location.path('/home');
-            $window.location = '/home';
+            $window.location = config.DEFAULT_PATH;
             //$window.location.reload();
           });
     	}
 
       if(accounts.isLoggedIn()){
         leftNavigationCtrl.isLoggedIn;
-        $location.path('/home');
+        $location.path(config.DEFAULT_PATH);
       }
     }
     

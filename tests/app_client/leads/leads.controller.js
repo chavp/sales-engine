@@ -3,8 +3,8 @@
 	  .module('salesHubApp')
       .controller('leadsCtrl', leadsCtrl);
 
-    leadsCtrl.$inject = ['$scope', '$location'];
-    function leadsCtrl($scope, $location) {
+    leadsCtrl.$inject = ['$scope', '$location', 'config', 'leads'];
+    function leadsCtrl($scope, $location, config, leads) {
     	var vm = this;
 
         vm.currentPath = $location.path();
@@ -15,24 +15,18 @@
         vm.totalResults = 0;
         
         vm.formError = "";
+        vm.leadResults = [];
 
-        vm.leadResults = [
-            { 
-                company: "My HOME",
-                email: "asdasd@asdasd.ccc",
-                phone: "56745465465",
-                contacts: "Ding",
-                status: "Potential"
-            },
-            {
-                company: "ddddd",
-                email: "asdasd@asdasd.ccc",
-                phone: "56745465465",
-                contacts: "dddd",
-                status: "Qualified"
+        leads.getAllLeads(function(success, data){
+            if(success){
+                console.log(data);
+                vm.leadResults = data;
             }
-        ];
+        });
 
+        vm.isSelected = function(data){
+            console.log(this);
+        }
     }
     
 })();

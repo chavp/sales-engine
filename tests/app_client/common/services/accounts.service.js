@@ -1,20 +1,18 @@
 (function () {
 	
-	var TOKEN_NAME = 'sales_hub_token';
-
 	angular
     	.module('salesHubApp')
     	.service('accounts', accounts);
 
-    accounts.$inject = ['$http', '$window'];
-    function accounts ($http, $window) {
+    accounts.$inject = ['$http', '$window', 'config'];
+    function accounts ($http, $window, config) {
 
     	var saveToken = function (token) {
-	      $window.localStorage[TOKEN_NAME] = token;
+	      $window.localStorage[config.TOKEN_NAME] = token;
 	    };
 
 	    var getToken = function () {
-	      return $window.localStorage[TOKEN_NAME];
+	      return $window.localStorage[config.TOKEN_NAME];
 	    };
 
 	    var isLoggedIn = function() {
@@ -40,11 +38,12 @@
 		        }
 		    }).success(function(data){
 		    	if(callback){
+		    		//console.log(data);
 		        	callback(true, {
 		          		email : data.email,
 		          		name : data.profile.firstName + " " + data.profile.lastName,
 		          		phone: data.profile.phone
-		        	});
+					});
 	        	}
 	        	//console.log(_currentUser);
 		    }).error(function(err){
@@ -70,7 +69,7 @@
 	    };
 
 	    logout = function() {
-	      $window.localStorage.removeItem(TOKEN_NAME);
+	      $window.localStorage.removeItem(config.TOKEN_NAME);
 	    };
 
     	return {

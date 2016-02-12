@@ -4,6 +4,16 @@ var mongoose = require('mongoose'),
     relationship = require("mongoose-relationship");
 
  var leadSchema = new Schema({
+ 	companyName:{
+		type: String,
+		require: true
+	},
+
+	contacts: [{
+		type:Schema.ObjectId, 
+		ref:"Contact"
+	}],
+
  	organization: {
 		type: Schema.ObjectId,
 		ref: 'Organization',
@@ -14,10 +24,6 @@ var mongoose = require('mongoose'),
 		ref: 'Member',
 		childPath:"leads" 
 	},
- 	companyName:{
-		type: String,
-		require: true
-	},
 	description:{
 		type: String
 	},
@@ -27,8 +33,8 @@ var mongoose = require('mongoose'),
  });
 
 leadSchema.plugin(timestamps);
-
 leadSchema.plugin(relationship, { relationshipPathName:'organization' });
+leadSchema.plugin(relationship, { relationshipPathName:'createdBy' });
 
 //leadSchema.plugin(relationship, { relationshipPathName:'organization' });
 

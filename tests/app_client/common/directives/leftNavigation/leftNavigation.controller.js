@@ -4,9 +4,11 @@
     .module('salesHubApp')
     .controller('leftNavigationCtrl', leftNavigationCtrl);
 
-  leftNavigationCtrl.$inject = ['$location', 'accounts'];
-  function leftNavigationCtrl($location, accounts) {
+  leftNavigationCtrl.$inject = ['$location', 'accounts', 'featureToggle'];
+  function leftNavigationCtrl($location, accounts, featureToggle) {
     var vm = this;
+
+    vm.isHome = featureToggle.isEnabled('home');
 
     vm.currentPath = $location.path();
     vm.isLoggedIn = accounts.isLoggedIn();
