@@ -31,6 +31,11 @@ router.get('/leads', auth, ctrLeads.leads);
 router.get('/leads/members/:memberId/organizations/:organizationId', auth, ctrLeads.leadsByOwnerAndOrg);
 router.get('/leads/organizations/:organizationId', auth, ctrLeads.leadsByOrg);
 router.get('/leads/members/:memberId', auth, ctrLeads.leadsByMemberLiveOrg);
+router.post('/leads', auth, ctrLeads.leadSave);
+router.get('/leads/:leadId', auth, ctrLeads.leadById);
+router.put('/leads/:leadId', auth, ctrLeads.leadUpdate);
+router.post('/leads/:leadId/contacts', auth, ctrLeads.leadSaveContact);
+router.put('/leads/:leadId/contacts/:contactId', auth, ctrLeads.leadUpdateContact);
 
 // Tasks
 

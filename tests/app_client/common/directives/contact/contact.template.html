@@ -1,0 +1,24 @@
+<div class="input-group" ng-hide="convm.isEditing || convm.isEmpaty()">
+    <label type="text" class="lead-contact form-control" ng-click="convm.edit()">
+      {{convm.contact.title}} {{convm.contact.name || 'Unnamed'}}
+    </label>
+    <div class="input-group-btn" role="group" aria-label="...">
+      <button type="button" class="btn btn-default" disabled><span class="glyphicon glyphicon-earphone"></span></button>
+      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>
+    </div>
+</div>
+
+<form class="contacts-form list-group-item" ng-submit="convm.save()" ng-show="convm.isEditing">
+    <div class="form-group">
+      <label for="contact-name">Name</label>
+      <input type="text" class="form-control" name="contact-name" placeholder="" ng-model="convm.contact.name" focus="{{convm.isEditing}}">
+    </div>
+    <div class="form-group">
+      <label for="contact-title">Title</label>
+      <input type="text" class="form-control" name="contact-title" placeholder="" ng-model="convm.contact.title">
+    </div>
+    <div class="form-group text-right">
+        <button type="button" class="btn btn-default" ng-click="convm.cancle()" ng-disabled="convm.saving">Cancle</button>
+        <button type="submit" class="btn btn-primary" ladda="convm.saving" data-style="zoom-out">Save</button>
+    </div>
+</form>

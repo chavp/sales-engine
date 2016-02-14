@@ -39,7 +39,7 @@
 		    }).success(function(data){
 		    	if(callback){
 		    		//console.log(data);
-		        	callback(true, {
+		        	callback(null, {
 		          		email : data.email,
 		          		name : data.profile.firstName + " " + data.profile.lastName,
 		          		phone: data.profile.phone
@@ -49,8 +49,8 @@
 		    }).error(function(err){
 		    	//console.log(err);
 		    	//throw err;
-		    	logout();
-		    	callback(false, err);
+		    	//logout();
+		    	callback(err, null);
 		    });
 	      }
 	    };

@@ -13,7 +13,7 @@
 					<input ng-model="vm.credentials.password" type="password" class="form-control" placeholder="Password">
 					<span class="error-font" ng-hide="vm.errorPassword == ''">{{vm.errorPassword}}</span>
 				</div>
-				<button type="submit" class="btn btn-primary">Log in</button>
+				<button ladda="vm.loading" data-style="zoom-out" type="submit" class="btn btn-primary">Log in</button>
 			</form>
 
 		</div>

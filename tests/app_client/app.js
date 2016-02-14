@@ -9,7 +9,8 @@
 
 	angular
 	  .module('salesHubApp', 
-	  	['ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap', 'smart-table', 'yh.featureToggle'])
+	  	['ngRoute', 'ngSanitize', 'ngAnimate', 
+	  	'ui.bootstrap', 'smart-table', 'angular-ladda', 'blockUI', 'yh.featureToggle'])
 	  .constant("config", {
         	"TOKEN_NAME": "sales_hub_token",
         	"EMPATY_DISPLAY": "Untitled",
@@ -34,8 +35,8 @@
 	        controllerAs: 'vm'
 	      })
 	      .when('/leads/:leadId', {
-	        templateUrl: '/leads/leads.view.html',
-	        controller: 'leadsCtrl',
+	        templateUrl: '/leads/lead/lead.view.html',
+	        controller: 'leadCtrl',
 	        controllerAs: 'vm'
 	      })
 	      .otherwise({
@@ -65,32 +66,25 @@
       				$location.path(config.DEFAULT_PATH);
       			}
       		}
-      		//http://fdietz.github.io/recipes-with-angular-js/urls-routing-and-partials/listening-on-route-changes-to-implement-a-login-mechanism.html
-      		/*$rootScope.$on( "$routeChangeStart", function(event, next, current) {
-		      if (!accounts.isLoggedIn()) {
-		      	$location.path('/');
-		        // no logged user, redirect to /login
-		        if ( next.templateUrl === "partials/login.html") {
-		        } else {
-		          $location.path(config.DEFAULT_PATH);
-		        }
-		      }
-		    });*/
       	}]);
 
-    /*angular
-      .module('salesHubApp', ['$rootScope', '$location', 'accounts'])
-      .run(function ($rootScope, $location, Auth) {
-	    $rootScope.$on('$routeChangeStart', function (event) {
-		    	if (!accounts.isLoggedIn()) {
-		            console.log('DENY');
-		            event.preventDefault();
-		            $location.path('/');
-		        }
-		        else {
-		            console.log('ALLOW');
-		            $location.path('/home');
-		        }
-		    });
-		});*/
+      angular
+      	.module('salesHubApp')
+      	.directive('focus',
+		function($timeout) {
+		 return {
+		 scope : {
+		   trigger : '@focus'
+		 },
+		 link : function(scope, element) {
+		  scope.$watch('trigger', function(value) {
+		    if (value === "true") {
+		      $timeout(function() {
+		       element[0].focus();
+		      });
+		   }
+		 });
+		 }
+		};
+		}); 
 })();

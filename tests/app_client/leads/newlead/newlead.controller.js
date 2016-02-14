@@ -3,30 +3,41 @@
 	  .module('salesHubApp')
       .controller('newleadCtrl', newleadCtrl);
 
-    newleadCtrl.$inject = ['$scope', '$location', '$uibModalInstance'];
-    function newleadCtrl($scope, $location, $uibModalInstance) {
+    newleadCtrl.$inject = [ '$rootScope', '$location', '$log', '$uibModalInstance', 'leads'];
+    function newleadCtrl($rootScope, $location, $log, $uibModalInstance, leads) {
     	var vm = this;
 
         vm.currentPath = $location.path();
         
     	vm.title = "New Lead";
-        vm.lead = {
+        vm.newlead = {
             companyName: "",
             contactName: ""
         };
         vm.formError = "";
+        vm.loading = false;
     	vm.doCreateLead = function(){
             vm.formError = "";
-            if(!vm.lead.companyName && !vm.lead.contactName){
+            if(!vm.newlead.companyName && !vm.newlead.contactName){
                 vm.formError = "Please required Company/Organization Name or Contact Name.";
                 return;
             }
-    	 	alert("OK");
+            vm.loading = true;
+            leads.saveLead(vm.newlead, function(err, result){
+                vm.loading = false;
+                if(err) $log.error(err);
+                $log.info(result);
+                //leadsCtrl.refreshLeads();
+                $location.path('/leads');
+                $rootScope.$emit("refreshLeads_event", {});
+            });
+    	 	//alert("OK");
+            $uibModalInstance.close({ success: true, message: 'Save!' });
     	}
 
         vm.doCancel = function () {
             $uibModalInstance.dismiss('cancel');
-
+            
         };
     }
     

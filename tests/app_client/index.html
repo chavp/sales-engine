@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/fontawesome/font-awesome.min.css" />
     <link rel="stylesheet" href="/lib/ui-grid.min.css" />
+
+    <link rel="stylesheet" href="/ladda/ladda-themeless.min.css" />
+    <link rel="stylesheet" href="/lib/angular-block-ui/angular-block-ui.min.css" />
+
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <!--<link rel="stylesheet" href="/css/style.css" />-->
 
   </head>
   <body>
@@ -17,7 +22,9 @@
         <toptoolbar></toptoolbar>
         <div class="container">
             <div class="content-area-wrap">
-                <left-navigation></left-navigation>
+                <div id="sidebar-wrapper">
+                    <left-navigation></left-navigation>
+                </div>
                 <div class="content-area">
                     <div class="content-area-inner">
                         <div class="app-top"></div>
@@ -49,14 +56,59 @@
     <script src="/home/home.controller.js"></script>
     <script src="/leads/leads.controller.js"></script>
     <script src="/leads/newlead/newlead.controller.js"></script>
+    <script src="/leads/lead/lead.controller.js"></script>
+
     <script src="/common/services/accounts.service.js"></script>
     <script src="/common/services/leads.service.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>
     <script src="/common/directives/leftNavigation/leftNavigation.controller.js"></script>
     <script src="/common/directives/leftNavigation/leftNavigation.directive.js"></script>
+    <script src="/common/directives/contact/contact.controller.js"></script>
+    <script src="/common/directives/contact/contact.directive.js"></script>
 
     <script src="/js/general/jquery-1.11.1.min.js"></script>
-    <script  src="/js/general/bootstrap/bootstrap.min.js"></script>
+    <script src="/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/jquery-validation/additional-methods.min.js"></script>
+    <script src="/js/general/bootstrap/bootstrap.min.js"></script>
+
+    <script src="/ladda/spin.min.js"></script>
+    <script src="/ladda/ladda.min.js"></script>
+    <script src="/lib/angular-ladda.min.js"></script>
+    <script src="/lib/angular-block-ui/angular-block-ui.min.js"></script>
+    <script src="/lib/linq.min.js"></script>
+    
+    <script type="text/javascript">
+        function guid() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+        }
+        $(function(){
+            jQuery.extend(jQuery.validator.messages, {
+                required: "This field is required.",
+                remote: "Please fix this field.",
+                email: "Please enter a valid email address.",
+                url: "Invalid URL.",
+                date: "Please enter a valid date.",
+                dateISO: "Please enter a valid date (ISO).",
+                number: "Please enter a valid number.",
+                digits: "Please enter only digits.",
+                creditcard: "Please enter a valid credit card number.",
+                equalTo: "Please enter the same value again.",
+                accept: "Please enter a value with a valid extension.",
+                maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+                minlength: jQuery.validator.format("Please enter at least {0} characters."),
+                rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+                range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+                max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+                min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+            });
+        })
+    </script>
   </body>
 </html>

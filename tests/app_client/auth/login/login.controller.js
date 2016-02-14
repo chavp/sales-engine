@@ -3,8 +3,8 @@
 	  .module('salesHubApp')
       .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location', '$window', 'featureToggle', 'config', 'accounts'];
-    function loginCtrl($location, $window, featureToggle, config, accounts) {
+    loginCtrl.$inject = ['$location', '$window', '$log', 'featureToggle', 'config', 'accounts'];
+    function loginCtrl($location, $window, $log, featureToggle, config, accounts) {
     	var vm = this;
       vm.currentPath = $location.path();
       
@@ -48,10 +48,13 @@
 
     	vm.doLogin = function(){
     	  vm.formError = "";
+        vm.loading = true;
         accounts
           .login(vm.credentials)
           .error(function(err){
             vm.formError = err.message;
+            vm.loading = false;
+            $log.error(err);
             //console.log(err);
           })
           .then(function(response){

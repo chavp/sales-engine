@@ -36,6 +36,13 @@ body {
     margin-top: 5px;
 }
 
+.top10 {
+    margin-top: 10px;
+}
+
+.top20 {
+    margin-top: 20px;
+}
 
 .bottom10 {
     margin-bottom: 10px;
@@ -104,6 +111,14 @@ body {
     background: #545457;
     border-bottom: solid 1px #444;
     position: relative;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 0px;
+    width: 0;
+    height: 100%;
 }
 
 .left-nav {
@@ -248,6 +263,70 @@ a, a:visited, a:hover, a:active {
     width: 40px;
 }
 
-.row-lead:hover{
+.row-lead {
     cursor:pointer;
+}
+
+h1.company {
+    margin-bottom: 10px;
+    cursor: pointer;
+    word-break: break-word;
+}
+
+.add-missing{
+    font-style: italic;
+    color: #999;
+}
+
+.add-missing a {
+    font-style: italic;
+    color: #999;
+}
+
+.add-missing a:hover{
+    text-decoration: underline;
+}
+
+.lead-description{
+    cursor:pointer;
+}
+
+.contacts{
+
+}
+
+.contacts h2{
+    font-size: 15px;
+    line-height: 22px;
+    color: #404143;
+    margin-bottom: 5px;
+    position: relative;
+    border-bottom: dotted 1px #bec0c2;
+}
+
+.contacts a{
+    text-decoration: none;
+}
+
+.contacts a.add{
+    float: right;
+    font-weight: normal;
+    font-size: 12px;
+    color: #4c4d4f;
+}
+
+ul.contacts-list .contact {
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    color: #222;
+}
+
+.lead-contact{
+    cursor:pointer;
+}
+
+.none {
+    color: #777;
+    font-size: .85em;
 }

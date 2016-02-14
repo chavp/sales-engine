@@ -1,0 +1,69 @@
+<div class="page-lead">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="lead-profile">
+                <div ng-show="!vm.editing">
+                    <h1 class="company" ng-click="vm.edit('company')" title="Click to edit">{{vm.lead.companyName || 'Untitled
+    '}}</h1>
+                    <p ng-show="vm.validUrl()">
+                        <a ng-href="{{vm.lead.url}}" target="_blank">
+                            {{vm.lead.url}}
+                        </a>
+                    </p>
+                    <p ng-show="vm.validDescription()">
+                        <span class="inner-text lead-description" ng-click="vm.edit('description')" title="Click to edit">{{vm.lead.description}}</span>
+                    </p>
+                    <div class="add-missing">
+                        <a href="#" ng-hide="vm.validDescription()" class="add-description" title="Click to add description" ng-click="vm.edit('description')">
+                            {{vm.lead.description || 'Add description'}}
+                        </a>
+                        <a href="#" ng-hide="vm.validUrl()" class="add-url" e-name="url" title="Click to add a URL" ng-click="vm.edit('url')">
+                            <span ng-show="vm.validDescription()">Add URL</span>
+                            <span ng-hide="vm.validDescription()">,URL </span>
+                        </a>
+                        <a href="#" class="add-address" title="Click to add an address">
+                            <span ng-show="!vm.validDescription()">, or </span>
+                            <span ng-show="vm.validUrl() && vm.validDescription()">Add </span>
+                            <span ng-show="!vm.validUrl() && vm.validDescription()">, </span>
+                            address
+                        </a>
+                    </div>
+                </div>
+                <div ng-show="vm.editing">
+                    <form class="form-horizontal top10" id="edit-lead-form" ng-submit="vm.save()">
+                        <div class="form-group">
+                            <input class="form-control input-lg lead-input-form" type="text" placeholder="Unnamed" ng-model="vm.lead.companyName" focus="{{vm.focusCompanyName}}">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-lg lead-input-form" type="text" placeholder="URL" ng-model="vm.lead.url" focus="{{vm.focusURL}}" type="url" name="url">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control lead-input-form" type="text" placeholder="Description" ng-model="vm.lead.description" focus="{{vm.focusDescription}}"></textarea>
+                        </div>
+                        <div class="form-group text-right">
+                              <button type="button" class="btn btn-default" ng-click="vm.cancle()" ng-disabled="vm.loading">Cancle</button>
+                              <button type="submit" class="btn btn-primary" ladda="vm.loading" data-style="zoom-out">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="contacts top20">
+                <h2>
+                    Contacts
+                    <a class="add add-contact" href="#" ng-click="vm.addContact()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add</a>
+                </h2>
+                <div class="contacts-list list-group">
+                    <span ng-if="vm.isEmpaty()"> 
+                        <p class="none">None</p>
+                    </span>
+                    <div ng-hide="vm.isEmpaty()" class="top5" ng-repeat="contact in vm.contacts">
+                        <contact data="contact"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            {{vm.focusCompanyName}}
+        </div>
+    </div>
+</div>

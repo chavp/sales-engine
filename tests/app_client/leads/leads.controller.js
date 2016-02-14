@@ -3,9 +3,16 @@
 	  .module('salesHubApp')
       .controller('leadsCtrl', leadsCtrl);
 
-    leadsCtrl.$inject = ['$scope', '$location', 'config', 'leads'];
-    function leadsCtrl($scope, $location, config, leads) {
+    leadsCtrl.$inject = ['$rootScope', '$location', 'config', 'blockUI', 'leads'];
+    function leadsCtrl($rootScope, $location, config, blockUI, leads) {
     	var vm = this;
+
+        $rootScope.$on('refreshLeads_event', function(){
+            //console.log(params);
+            vm.refreshLeads();
+
+            
+        });
 
         vm.currentPath = $location.path();
         
@@ -17,16 +24,24 @@
         vm.formError = "";
         vm.leadResults = [];
 
-        leads.getAllLeads(function(success, data){
-            if(success){
-                console.log(data);
-                vm.leadResults = data;
-            }
-        });
+        vm.itemsByPage = 10;
 
-        vm.isSelected = function(data){
-            console.log(this);
+        //var leadResultsBlock = blockUI.instances.get('lead-results-block');
+        vm.refreshLeads = function(){
+            //vm.isLoading = true;
+
+            blockUI.start();
+            leads.getAllLeads(function(err, data){
+                //vm.isLoading = false;
+                blockUI.stop();
+                if(!err){
+                    //console.log(data);
+                    vm.leadResults = data;
+                }
+            });
         }
+
+        vm.refreshLeads();
     }
     
 })();

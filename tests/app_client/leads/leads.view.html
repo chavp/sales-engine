@@ -7,11 +7,12 @@
 </div>
 
 <div class="lead-results">
-	<table st-table="vm.leadResults" class="table table-bordered table-hover">
+	<table st-table="vm.leadResults" 
+		   class="table table-bordered table-condensed table-hover">
 		<thead>
 			<tr>
 				<th>Company</th>
-				<th title="Email" class="col-email text-center"><span class="glyphicon glyphicon-envelope"></th>
+				<th title="Email" class="col-email text-center"><span class="glyphicon glyphicon-envelope"></span></th>
 				<th title="Call" class="col-call text-center"><span class="glyphicon glyphicon-earphone"></span></th>
 				<th>Contacts</th>
 				<th>Status</th>
@@ -36,5 +37,12 @@
 				<td>{{row.status}}</td>
 			</tr>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5" class="text-center">
+					<div st-pagination="" st-items-by-page="vm.itemsByPage" st-displayed-pages="7"></div>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>
