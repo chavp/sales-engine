@@ -35,8 +35,18 @@
                 //vm.isLoading = false;
                 blockUI.stop();
                 if(!err){
-                    //console.log(data);
-                    vm.leadResults = data;
+                    console.log(data);
+                    var results = data.map(function(d){
+                        return {
+                            _id: d._id,
+                            company : d.companyName || config.EMPATY_DISPLAY,
+                            contacts : d.contacts,
+                            phone: data.phone || '',
+                            email: data.email || '',
+                            status: ""
+                        }
+                    });
+                    vm.leadResults = results;
                 }
             });
         }

@@ -52,20 +52,24 @@
 
     <!--<script type="text/javascript" src="angular/saleshub.min.js"></script>-->
     <script src="/app.js"></script>
+    <!-- controllers -->
     <script src="/auth/login/login.controller.js"></script>
     <script src="/home/home.controller.js"></script>
     <script src="/leads/leads.controller.js"></script>
     <script src="/leads/newlead/newlead.controller.js"></script>
     <script src="/leads/lead/lead.controller.js"></script>
-
+    <!-- services -->
     <script src="/common/services/accounts.service.js"></script>
     <script src="/common/services/leads.service.js"></script>
+    <!-- directives -->
     <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>
     <script src="/common/directives/leftNavigation/leftNavigation.controller.js"></script>
     <script src="/common/directives/leftNavigation/leftNavigation.directive.js"></script>
     <script src="/common/directives/contact/contact.controller.js"></script>
     <script src="/common/directives/contact/contact.directive.js"></script>
+    <!-- filters -->
+    <script src="/common/filters/formatContacts.filter.js"></script>
 
     <script src="/js/general/jquery-1.11.1.min.js"></script>
     <script src="/jquery-validation/jquery.validate.min.js"></script>
@@ -85,8 +89,7 @@
               .toString(16)
               .substring(1);
           }
-          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
+          return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
         }
         $(function(){
             jQuery.extend(jQuery.validator.messages, {

@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     relationship = require("mongoose-relationship");
 
- var contactSchema = new Schema({
+var contactSchema = new Schema({
  	name:{
 		type: String
 	},
@@ -16,10 +16,23 @@ var mongoose = require('mongoose'),
 		type: Schema.ObjectId,
 		ref: 'Lead',
 		childPath:"contacts" 
-	}
- });
+	},
 
- contactSchema.plugin(timestamps);
- contactSchema.plugin(relationship, { relationshipPathName:'lead' });
+	contactChannels: [{
+		type: Schema.ObjectId,
+		ref: 'ContactChannel'
+	}]
+});
+
+contactSchema.pre('remove', function(next) {
+	//console.log('contact.remove');
+    var contact = this;
+    //console.log(contact._id);
+    ContactChannel.remove({ contact: contact }).exec();
+    next();
+});
+
+contactSchema.plugin(timestamps);
+contactSchema.plugin(relationship, { relationshipPathName:'lead' });
 
  mongoose.model('Contact', contactSchema);

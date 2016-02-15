@@ -36,6 +36,7 @@ router.get('/leads/:leadId', auth, ctrLeads.leadById);
 router.put('/leads/:leadId', auth, ctrLeads.leadUpdate);
 router.post('/leads/:leadId/contacts', auth, ctrLeads.leadSaveContact);
 router.put('/leads/:leadId/contacts/:contactId', auth, ctrLeads.leadUpdateContact);
+router.delete('/leads/:leadId/contacts/:contactId', auth, ctrLeads.leadDeleteContact);
 
 // Tasks
 

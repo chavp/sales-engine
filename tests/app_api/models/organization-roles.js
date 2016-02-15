@@ -16,8 +16,8 @@ var organizationRoleSchema = new Schema({
 	},
 	role: {
 		type: String, 
-		enum: ['admin', 'user'],
-        default : 'admin'
+		enum: ['Admin', 'User'],
+        default : 'Admin'
 	}
 });
 

@@ -1,24 +1,54 @@
 <div class="input-group" ng-hide="convm.isEditing || convm.isEmpaty()">
     <label type="text" class="lead-contact form-control" ng-click="convm.edit()">
-      {{convm.contact.title}} {{convm.contact.name || 'Unnamed'}}
+      {{convm.contact.name || 'Unnamed'}}
     </label>
     <div class="input-group-btn" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" disabled><span class="glyphicon glyphicon-earphone"></span></button>
-      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>
+      <button type="button" class="btn btn-default" ng-disabled="convm.containEmail()"><span class="glyphicon glyphicon-earphone"></span></button>
+      <button type="button" class="btn btn-default" ng-disabled="convm.containPhone()"><span class="glyphicon glyphicon-envelope"></span></button>
     </div>
 </div>
 
-<form class="contacts-form list-group-item" ng-submit="convm.save()" ng-show="convm.isEditing">
+<form class="contacts-form list-group-item" id="{{convm.uuid}}" ng-submit="convm.save()" ng-show="convm.isEditing">
     <div class="form-group">
       <label for="contact-name">Name</label>
-      <input type="text" class="form-control" name="contact-name" placeholder="" ng-model="convm.contact.name" focus="{{convm.isEditing}}">
+      <input type="text" class="form-control" name="contact-name" placeholder="" ng-model="convm.contact.name" focus="{{convm.isEditing}}" ng-disabled="convm.saving || convm.deleting">
     </div>
     <div class="form-group">
       <label for="contact-title">Title</label>
-      <input type="text" class="form-control" name="contact-title" placeholder="" ng-model="convm.contact.title">
+      <input type="text" class="form-control" name="contact-title" placeholder="" ng-model="convm.contact.title" ng-disabled="convm.saving || convm.deleting">
     </div>
-    <div class="form-group text-right">
-        <button type="button" class="btn btn-default" ng-click="convm.cancle()" ng-disabled="convm.saving">Cancle</button>
-        <button type="submit" class="btn btn-primary" ladda="convm.saving" data-style="zoom-out">Save</button>
+    <div class="row contact-chanel-list">
+
+      <div class="contact-channel-item row">
+        <div class="form-inline bottom5" id="{{conChanel.uuid}}" ng-repeat="conChanel in convm.contact.contactChannels">
+          <div class="form-group">
+            <input type="text" class="form-control input-sm" placeholder="Phone, email or URL" ng-model="conChanel.name" focus="{{conChanel.isEditing}}">
+            <select class="form-control input-sm" ng-model="conChanel.type">
+              <option value="Office">Office</option>
+              <option value="Mobile">Mobile</option>
+              <option value="Home">Home</option>
+              <option value="Direct">Direct</option>
+              <option value="Fax">Fax</option>
+              <option value="URL">URL</option>
+              <option value="Other">Other</option>
+            </select>
+            <button tabindex="-1" type="button" class="btn btn-sm" ng-click="convm.deleteChannel(conChanel)"><span class="glyphicon glyphicon-remove"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-chanel-tools">
+        <a href="#" ng-click="convm.newChannel()"><span class="glyphicon glyphicon-plus"></span> Add phone/email</a>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="form-group text-left col-md-6">
+          <button type="button" class="btn btn-danger" ng-click="convm.delete()" ladda="convm.deleting" ng-disabled="convm.saving" ng-show="convm.canDelete()"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+      <div class="form-group text-right col-md-6">
+          <button type="button" class="btn btn-default" ng-click="convm.cancle()" ng-disabled="convm.saving || convm.deleting">Cancle</button>
+          <button type="submit" class="btn btn-primary" ladda="convm.saving" data-style="zoom-out" ng-disabled="convm.deleting">Save</button>
+      </div>
     </div>
 </form>

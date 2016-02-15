@@ -1,27 +1,4 @@
 {
-	"contacttypes":{
-		"_model": "ContactType",
-		"off": {
-			"_id": "OFF",
-			"name": "Office"
-		},
-		"mob": {
-			"_id": "MOB",
-			"name": "Mobile"
-		},
-		"home": {
-			"_id": "HOM",
-			"name": "Home"
-		},
-		"fax": {
-			"_id": "FAC",
-			"name": "Fax"
-		},
-		"url": {
-			"_id": "URL",
-			"name": "URL"
-		}
-	},
 	"defaultleadstatuses": {
 		"_model": "DefaultLeadStatus",
 		"ls1": {

@@ -32,6 +32,14 @@ var mongoose = require('mongoose'),
 	}
  });
 
+leadSchema.pre('remove', function(next) {
+	var lead = this;
+    // 'this' is the client being removed. Provide callbacks here if you want
+    // to be notified of the calls' result.
+    Contact.remove({ lead: lead }).exec();
+    next();
+});
+
 leadSchema.plugin(timestamps);
 leadSchema.plugin(relationship, { relationshipPathName:'organization' });
 leadSchema.plugin(relationship, { relationshipPathName:'createdBy' });

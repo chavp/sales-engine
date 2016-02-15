@@ -11,9 +11,17 @@
 
         $rootScope.$on('refreshLead_event', function(event, params){
             //console.log(params);
-            var result = Enumerable
-                .From(vm.contacts)
-                .Where(function(i){return i.uuid == params.uuid && i._id == null}).SingleOrDefault();
+            var result = null;
+            if(params.event === 'cancle'){
+                result = Enumerable
+                    .From(vm.contacts)
+                    .Where(function(i){return i.uuid == params.uuid && i._id == null;}).SingleOrDefault();
+
+            } else if(params.event === 'deleted'){
+                result = Enumerable
+                    .From(vm.contacts)
+                    .Where(function(i){return i.uuid == params.uuid;}).SingleOrDefault();
+            }
 
             if(result){
                 for (var i = 0; i < vm.contacts.length; i++) {
@@ -38,11 +46,32 @@
         };
 
         vm.oldLead = {};
-
         vm.contacts = [];
+        vm.editing = false;
+        vm.errorUrl = "";
+
+        var resetForm = function(){
+            vm.editing = false;
+            vm.focusCompanyName = false;
+            vm.focusURL = false;
+            vm.focusDescription = false;
+
+            vm.errorUrl = "";
+        }
+
+        var newContact = function(){
+            return {
+                uuid: guid(),
+                _id: null,
+                name: "",
+                title: "",
+                lead: vm.lead._id,
+                contactChannels: []
+            };
+        } 
 
     	leads.getLeadById($routeParams.leadId, function	(err, result){
-            //console.log(result);
+            $log.debug(result);
     		if(err) {
                 $location.path('/leads');
                 return false;
@@ -59,31 +88,23 @@
             vm.oldLead = result;
 
             if(result.contacts.length == 0){ // add new contact
-                vm.contacts.push({
-                    uuid: guid(),
-                    _id: null,
-                    name: "",
-                    title: "",
-                    lead: vm.lead._id
-                });
+                vm.contacts.push(newContact());
             }else{
-                vm.contacts = result.contacts;
+                vm.contacts = result.contacts.map(function(contact){
+                    return {
+                        uuid: guid(),
+                        _id: contact._id,
+                        name: contact.name,
+                        title: contact.title,
+                        lead: vm.lead._id,
+                        contactChannels: contact.contactChannels
+                    };
+                });
+                //vm.contacts = result.contacts;
                 //console.log(vm.contacts);
             }
     	});
     	//console.log($routeParams);
-
-        vm.editing = false;
-        vm.errorUrl = "";
-
-        var resetForm = function(){
-            vm.editing = false;
-            vm.focusCompanyName = false;
-            vm.focusURL = false;
-            vm.focusDescription = false;
-
-            vm.errorUrl = "";
-        }
 
         vm.validDescription = function(){
             //$log.info(vm.lead.description);
@@ -160,13 +181,7 @@
 
         vm.addContact = function(){
             //console.log(vm.contacts);
-            vm.contacts.push({
-                uuid: guid(),
-                _id: null,
-                name: "",
-                title: "",
-                lead: vm.lead._id
-            });
+            vm.contacts.push(newContact());
         }
     }
 

@@ -17,17 +17,7 @@
 		    }).success(function(data){
 		    	if(cb){
 		    		//console.log(data);
-		    		var results = data.map(function(d){
-		    			return {
-		    				_id: d._id,
-		    				company : d.companyName || config.EMPATY_DISPLAY,
-			          		contacts : "",
-			          		phone: "",
-			          		email: "",
-			          		status: ""
-		          		}
-		    		});
-		        	cb(null, results);
+		        	cb(null, data);
 	        	}
 	        	//console.log(_currentUser);
 		    }).error(function(err){
@@ -46,9 +36,9 @@
     		$http.post(
     			'/api/leads', 
 		        {
-	    				memberId: memberId,
-	    				companyName: data.companyName,
-	    				contactName: data.contactName
+					memberId: memberId,
+					companyName: data.companyName,
+					contactName: data.contactName
 				},
     			{
     				headers: {
@@ -123,12 +113,12 @@
     	var saveLeadContact = function(data, cb){
     		if(!accounts.isLoggedIn()) return false;
     		var token = accounts.getToken();
-    		console.log();
     		$http.post(
     			'/api/leads/' + data.lead + "/contacts", 
 		        {
 					name: data.name,
-					title: data.title
+					title: data.title,
+					contactChannels: data.contactChannels
 				},
     			{
     				headers: {
@@ -152,13 +142,37 @@
     	var updateLeadContact = function(data, cb){
     		if(!accounts.isLoggedIn()) return false;
     		var token = accounts.getToken();
-    		console.log();
     		$http.put(
     			'/api/leads/' + data.lead + "/contacts/" + data._id, 
 		        {
 					name: data.name,
-					title: data.title
+					title: data.title,
+					contactChannels: data.contactChannels
 				},
+    			{
+    				headers: {
+		          		Authorization: 'Bearer '+ token
+		        	}
+		    	}
+		    ).success(function(data){
+		    	//console.log(data);
+		    	if(cb){
+		        	cb(null, data);
+	        	}
+	        	//console.log(_currentUser);
+		    }).error(function(err){
+		    	//console.log(err);
+		    	//throw err;
+		    	//accounts.logout();
+		    	cb(err, null);
+		    });
+    	}
+ 
+    	var deleteLeadContact = function(data, cb){
+    		if(!accounts.isLoggedIn()) return false;
+    		var token = accounts.getToken();
+    		$http.delete(
+    			'/api/leads/' + data.lead + "/contacts/" + data._id, 
     			{
     				headers: {
 		          		Authorization: 'Bearer '+ token
@@ -184,7 +198,8 @@
     		getLeadById: getLeadById,
     		updateLead: updateLead,
     		saveLeadContact: saveLeadContact,
-    		updateLeadContact: updateLeadContact
+    		updateLeadContact: updateLeadContact,
+    		deleteLeadContact: deleteLeadContact
     	}
     }
 })();

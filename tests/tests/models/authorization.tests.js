@@ -36,7 +36,7 @@ var utils = require('./utils');
 			 		var organizationRole = new OrganizationRole({
 			 			member: chavpMember,
 			 			organization: chavpOrg,
-			 			role: 'user'
+			 			role: 'User'
 			 		});
 
 			 		organizationRole.save(function(err){

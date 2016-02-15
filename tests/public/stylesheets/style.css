@@ -48,6 +48,10 @@ body {
     margin-bottom: 10px;
 }
 
+.bottom5 {
+    margin-bottom: 5px;
+}
+
 .error-font {
     color: darkred;
 }
@@ -329,4 +333,16 @@ ul.contacts-list .contact {
 .none {
     color: #777;
     font-size: .85em;
+}
+
+.contact-chanel-tools{
+    margin-top: -8px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.contact-channel-item{
+    margin-top: -10px;
+    margin-left: 15px;
+    margin-bottom: 10px;
 }
