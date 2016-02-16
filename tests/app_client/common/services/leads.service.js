@@ -143,7 +143,7 @@
     		if(!accounts.isLoggedIn()) return false;
     		var token = accounts.getToken();
     		$http.put(
-    			'/api/leads/' + data.lead + "/contacts/" + data._id, 
+    			'/api/contacts/' + data._id, 
 		        {
 					name: data.name,
 					title: data.title,
@@ -168,11 +168,35 @@
 		    });
     	}
  
-    	var deleteLeadContact = function(data, cb){
+    	var deleteLeadContact = function(contactId, cb){
     		if(!accounts.isLoggedIn()) return false;
     		var token = accounts.getToken();
     		$http.delete(
-    			'/api/leads/' + data.lead + "/contacts/" + data._id, 
+    			'/api/contacts/' + contactId, 
+    			{
+    				headers: {
+		          		Authorization: 'Bearer '+ token
+		        	}
+		    	}
+		    ).success(function(data){
+		    	//console.log(data);
+		    	if(cb){
+		        	cb(null, data);
+	        	}
+	        	//console.log(_currentUser);
+		    }).error(function(err){
+		    	//console.log(err);
+		    	//throw err;
+		    	//accounts.logout();
+		    	cb(err, null);
+		    });
+    	}
+
+    	var deleteContactChannel = function(contactChannelId, cb){
+    		if(!accounts.isLoggedIn()) return false;
+    		var token = accounts.getToken();
+    		$http.delete(
+    			'/api/contactChannles/' + contactChannelId, 
     			{
     				headers: {
 		          		Authorization: 'Bearer '+ token
@@ -193,13 +217,17 @@
     	}
 
     	return {
+    		// lead
     		getAllLeads: getAllLeads,
     		saveLead: saveLead,
     		getLeadById: getLeadById,
     		updateLead: updateLead,
+
+    		// contacts
     		saveLeadContact: saveLeadContact,
     		updateLeadContact: updateLeadContact,
-    		deleteLeadContact: deleteLeadContact
+    		deleteLeadContact: deleteLeadContact,
+    		deleteContactChannel: deleteContactChannel
     	}
     }
 })();

@@ -1,6 +1,8 @@
 <div class="input-group" ng-hide="convm.isEditing || convm.isEmpaty()">
-    <label type="text" class="lead-contact form-control" ng-click="convm.edit()">
+    <label type="text" class="lead-contact form-control" 
+      ng-mouseenter="convm.showEdit()" ng-mouseleave="convm.hideEdit()">
       {{convm.contact.name || 'Unnamed'}}
+      <button ng-show="convm.canEdit" ng-click="convm.edit()" class="btn btn-xs pull-right" title="Edit this contact"><span class="glyphicon glyphicon-pencil blue-font"></span></button>
     </label>
     <div class="input-group-btn" role="group" aria-label="...">
       <button type="button" class="btn btn-default" ng-disabled="!convm.canCall()" title="Call {{convm.contact.phone}}"><span class="glyphicon glyphicon-earphone"></span></button>

@@ -346,3 +346,21 @@ ul.contacts-list .contact {
     margin-left: 15px;
     margin-bottom: 10px;
 }
+
+.blue-font{
+    color: #3781b8 !important;
+}
+
+.btn-edit {
+    background: #999 !important;
+    border-radius: 5px;
+    height: 18px;
+}
+
+.first-column {
+    padding-right: 6%;
+}
+
+.second-column {
+    padding-right: 6%;
+}

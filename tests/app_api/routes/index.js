@@ -9,6 +9,7 @@ var auth = jwt({
 var ctrAccounts = require('../controllers/accounts');
 var ctrOrganizations = require('../controllers/organizations');
 var ctrLeads = require('../controllers/leads');
+var ctrContacts = require('../controllers/contacts');
 
 // Accounts
 router.get('/accounts', auth, ctrAccounts.accounts);
@@ -34,9 +35,16 @@ router.get('/leads/members/:memberId', auth, ctrLeads.leadsByMemberLiveOrg);
 router.post('/leads', auth, ctrLeads.leadSave);
 router.get('/leads/:leadId', auth, ctrLeads.leadById);
 router.put('/leads/:leadId', auth, ctrLeads.leadUpdate);
-router.post('/leads/:leadId/contacts', auth, ctrLeads.leadSaveContact);
-router.put('/leads/:leadId/contacts/:contactId', auth, ctrLeads.leadUpdateContact);
-router.delete('/leads/:leadId/contacts/:contactId', auth, ctrLeads.leadDeleteContact);
+
+// Lead / Contacts
+router.post('/leads/:leadId/contacts', auth, ctrContacts.leadSaveContact);
+router.put('/contacts/:contactId', auth, ctrContacts.updateContact);
+router.delete('/contacts/:contactId', auth, ctrContacts.deleteContact);
+router.delete('/contactChannles/:contactChannelId', auth, ctrContacts.deleteContactChannel);
+
+// Activities
+
+// Opportunities
 
 // Tasks
 

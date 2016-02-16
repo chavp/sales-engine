@@ -28,6 +28,17 @@
 
     vm.phonePrefix = "+66";
 
+    vm.canEdit = false;
+    vm.showEdit = function(){
+      vm.canEdit = true;
+      return vm.canEdit;
+    }
+
+    vm.hideEdit = function(){
+      vm.canEdit = false;
+      return vm.canEdit;
+    }
+
     // inint uuid
     initGuid(vm.contact.contactChannels);
 
@@ -167,7 +178,7 @@
     vm.delete = function(){
       vm.deleting = true;
 
-      leads.deleteLeadContact(vm.contact, function(err, result){
+      leads.deleteLeadContact(vm.contact._id, function(err, result){
         vm.deleting = false;
         if(err) return false;
         //console.log(vm);
@@ -196,18 +207,12 @@
     vm.deleteChannel = function(channel){
       $log.debug(channel);
       if(channel._id){ // delete from contact
-
+          leads.deleteContactChannel(channel._id, function(err, result){
+             if(err) return false;
+             removeByUuid(vm.contact.contactChannels, channel.uuid);
+          })
       } else { // remove channel form
-         var result = Enumerable
-                    .From(vm.contact.contactChannels)
-                    .Where(function(i){return i.uuid == channel.uuid;})
-                    .SingleOrDefault();
-         for (var i = 0; i < vm.contact.contactChannels.length; i++) {
-            if(channel.uuid === vm.contact.contactChannels[i].uuid){
-                vm.contact.contactChannels.splice(i, 1);
-                break;
-            }
-          }
+          removeByUuid(vm.contact.contactChannels, channel.uuid);
       }
     }
   }

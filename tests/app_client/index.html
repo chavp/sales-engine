@@ -114,6 +114,15 @@
             return re.test(phone);
         }
 
+        function removeByUuid(targetArray, uuid){
+            for (var i = 0; i < targetArray.length; i++) {
+            if(uuid === targetArray[i].uuid){
+                targetArray.splice(i, 1);
+                break;
+            }
+          }
+        }
+        
         $(function(){
             jQuery.extend(jQuery.validator.messages, {
                 required: "This field is required.",
