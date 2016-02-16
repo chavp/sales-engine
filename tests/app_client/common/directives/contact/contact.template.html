@@ -3,8 +3,8 @@
       {{convm.contact.name || 'Unnamed'}}
     </label>
     <div class="input-group-btn" role="group" aria-label="...">
-      <button type="button" class="btn btn-default" ng-disabled="convm.containEmail()"><span class="glyphicon glyphicon-earphone"></span></button>
-      <button type="button" class="btn btn-default" ng-disabled="convm.containPhone()"><span class="glyphicon glyphicon-envelope"></span></button>
+      <button type="button" class="btn btn-default" ng-disabled="!convm.canCall()" title="Call {{convm.contact.phone}}"><span class="glyphicon glyphicon-earphone"></span></button>
+      <button type="button" class="btn btn-default" ng-disabled="!convm.canEmail()" title="Email {{convm.contact.email}}"><span class="glyphicon glyphicon-envelope"></span></button>
     </div>
 </div>
 
@@ -20,8 +20,8 @@
     <div class="row contact-chanel-list">
 
       <div class="contact-channel-item row">
-        <div class="form-inline bottom5" id="{{conChanel.uuid}}" ng-repeat="conChanel in convm.contact.contactChannels">
-          <div class="form-group">
+        <div class="form-inline bottom5" ng-repeat="conChanel in convm.contact.contactChannels">
+          <div class="form-group" id="{{conChanel.uuid}}">
             <input type="text" class="form-control input-sm" placeholder="Phone, email or URL" ng-model="conChanel.name" focus="{{conChanel.isEditing}}">
             <select class="form-control input-sm" ng-model="conChanel.type">
               <option value="Office">Office</option>

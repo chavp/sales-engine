@@ -3,8 +3,8 @@
 	  .module('salesHubApp')
       .controller('leadsCtrl', leadsCtrl);
 
-    leadsCtrl.$inject = ['$rootScope', '$location', 'config', 'blockUI', 'leads'];
-    function leadsCtrl($rootScope, $location, config, blockUI, leads) {
+    leadsCtrl.$inject = ['$rootScope', '$location', '$log', 'config', 'blockUI', 'leads'];
+    function leadsCtrl($rootScope, $location, $log, config, blockUI, leads) {
     	var vm = this;
 
         $rootScope.$on('refreshLeads_event', function(){
@@ -25,6 +25,7 @@
         vm.leadResults = [];
 
         vm.itemsByPage = 10;
+        vm.phonePrefix = "+66";
 
         //var leadResultsBlock = blockUI.instances.get('lead-results-block');
         vm.refreshLeads = function(){
@@ -35,14 +36,32 @@
                 //vm.isLoading = false;
                 blockUI.stop();
                 if(!err){
-                    console.log(data);
+                    $log.debug(data);
+
                     var results = data.map(function(d){
+                        if(d.contacts.length > 0){
+                            var conChannels = d.contacts[0].contactChannels;
+                            for (var i = 0; i < conChannels.length; i++) {
+                                var name = conChannels[i].name;
+                                if(validateEmail(name)) {
+                                    d.email = name;
+                                    break;
+                                }
+                            };
+                            for (var i = 0; i < conChannels.length; i++) {
+                                var name = conChannels[i].name;
+                                if(validatePhone(name)) {
+                                    d.phone = vm.phonePrefix + " " + name;
+                                    break;
+                                }
+                            };
+                        }
                         return {
                             _id: d._id,
                             company : d.companyName || config.EMPATY_DISPLAY,
                             contacts : d.contacts,
-                            phone: data.phone || '',
-                            email: data.email || '',
+                            phone: d.phone || '',
+                            email: d.email || '',
                             status: ""
                         }
                     });

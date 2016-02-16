@@ -9,6 +9,8 @@ module.exports.leads = function(req, res) {
 		.find({})
 		.sort({createdAt: 'desc'})
 		.exec(function(err, leads){
+
+			// get first contact
 			helper.sendJsonResponse(res, OK, leads);
 			//return leads;
 		});
@@ -77,7 +79,21 @@ module.exports.leadsByMemberLiveOrg = function(req, res) {
 		          helper.sendJsonResponse(res, BAD_REQUEST, err);
 		          return;
 		        }
-				helper.sendJsonResponse(res, OK, leads);
+
+		        // get first contact
+		        async.eachSeries(
+			     	leads, 
+			     	function iteratee(lead, done) {
+			     		Contact
+			     			.populate(lead.contacts, {
+			     				path: 'contactChannels'
+			     			}, function(err, conChannels){
+			     				done();
+			     			});
+			     	}, 
+			     	function done() {
+						helper.sendJsonResponse(res, OK, leads);
+					});
 				//return leads;
 			});
       });
@@ -138,7 +154,7 @@ module.exports.leadById = function(req, res) {
 		        return;
 		    }
 		    helper.sendJsonResponse(res, OK, led);
-	     })
+	     });
 	  });
 };
 
@@ -185,6 +201,12 @@ module.exports.leadSaveContact = function(req, res) {
 		});
 		return;
 	}
+	if(!req.params.leadId || req.params.leadId == 'null'){
+		helper.sendJsonResponse(res, NOT_FOUND, {
+			"message": "Not found lead Id."
+		});
+		return;
+	}
 	Lead
 	  .findById(req.params.leadId)
 	  .exec	(function(err, led){
@@ -211,7 +233,34 @@ module.exports.leadSaveContact = function(req, res) {
 			        return;
 			     }
 
-			     for (var i = 0; i < req.body.contactChannels.length; i++) {
+			     async.eachSeries(
+			     	req.body.contactChannels, 
+			     	function iteratee(item, done) {
+			     		var name = item.name,
+			     	    type = item.type;
+				     	if(name){
+					     	var contactChannel = new ContactChannel({
+					     		name: name,
+					     		type: type,
+					     		contact: con
+					     	});
+					     	contactChannel.save(function(err){
+					     		done();
+					     	});
+				     	} else {
+				     		done();
+				     	}
+			     	}, 
+			     	function done() {
+						Contact
+						  .findById(con._id)
+						  .populate('contactChannels')
+						  .exec	(function(err, con){
+						  	 helper.sendJsonResponse(res, OK, con);
+						  });
+					});
+
+			     /*for (var i = 0; i < req.body.contactChannels.length; i++) {
 			     	var name = req.body.contactChannels[i].name,
 			     	    type = req.body.contactChannels[i].type;
 			     	if(name){
@@ -224,7 +273,7 @@ module.exports.leadSaveContact = function(req, res) {
 			     	}
 			     };
 
-			     helper.sendJsonResponse(res, OK, con);
+			     helper.sendJsonResponse(res, OK, con);*/
 			});
 	  });
 };
@@ -287,7 +336,7 @@ module.exports.leadUpdateContact = function(req, res) {
 		     						});
 		     					}
 		     				});
-	     			}else{
+	     			} else {
 	     				if(item.name){ // new contact
 					     	var contactChannel = new ContactChannel({
 					     		name: item.name,
@@ -297,10 +346,17 @@ module.exports.leadUpdateContact = function(req, res) {
 					     	contactChannel.save(function(err){
 								callback();
 							});
-				     	} 
+				     	} else {
+				     		callback();
+				     	}
 	     			}
 				}, function done() {
-				    helper.sendJsonResponse(res, OK, con);
+					Contact
+					  .findById(req.params.contactId)
+					  .populate('contactChannels')
+					  .exec	(function(err, con){
+					  	 helper.sendJsonResponse(res, OK, con);
+					  });
 				});
 
 			    /*for (var i = 0; i < req.body.contactChannels.length; i++) {

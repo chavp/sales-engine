@@ -91,6 +91,29 @@
           }
           return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
         }
+        function initGuid(array){
+            for (var i = 0; i < array.length; i++) {
+              array[i].uuid = guid();
+            }
+        }
+        function clearAllArray(array){
+          for (var i = array.length-1; i >= 0; --i) {
+            array.splice(i, 1);
+          }
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            // http://www.w3resource.com/javascript/form/phone-no-validation.php
+            var re = /^\d*$/; 
+            //console.log(re.test(phone));
+            return re.test(phone);
+        }
+
         $(function(){
             jQuery.extend(jQuery.validator.messages, {
                 required: "This field is required.",

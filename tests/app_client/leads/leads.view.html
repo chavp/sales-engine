@@ -24,12 +24,12 @@
 					<a ng-href="/leads/{{row._id}}">{{row.company}}</a>
 				</td>
 				<td>
-					<button type="button" class="btn btn-sm" ng-disabled="row.email === ''">
+					<button type="button" class="btn btn-sm" ng-disabled="row.email === ''" title="{{row.email}}">
 						<i class="glyphicon glyphicon-envelope"></i>
 					</button>
 				</td>
 				<td>
-					<button type="button" class="btn btn-sm" ng-disabled="row.phone === ''">
+					<button type="button" class="btn btn-sm" ng-disabled="row.phone === ''" title="{{row.phone}}">
 						<i class="glyphicon glyphicon-earphone"></i>
 					</button>
 				</td>
