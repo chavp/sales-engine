@@ -111,7 +111,39 @@ module.exports.leadSave = function(req, res) {
 	          return;
 	        }
 
-	        Lead
+	        var newLead = new Lead({
+	        		companyName: req.body.companyName || req.body.contactName,
+	 				organization: mem.liveOrganization,
+	 				createdBy: mem
+	        	});
+
+	        newLead.save(function(err){
+        		if (err) {
+		          //console.log(err);
+		          helper.sendJsonResponse(res, BAD_REQUEST, err);
+		          return;
+		        }
+
+		        if(req.body.contactName){
+		        	var newContact = new Contact({
+		        		name: req.body.contactName,
+		        		lead: newLead
+		        	});
+
+		        	newContact.save(function(err){
+		        		helper.sendJsonResponse(res, OK, 
+							{ "message": "Save lead completed." }
+						);
+		        	});
+
+		        } else {
+			        helper.sendJsonResponse(res, OK, 
+						{ "message": "Save lead completed." }
+					);
+		    	}
+        	});
+
+	        /*Lead
 	        	.create({
 	        		companyName: req.body.companyName || req.body.contactName,
 	 				organization: mem.liveOrganization,
@@ -126,7 +158,7 @@ module.exports.leadSave = function(req, res) {
 			        helper.sendJsonResponse(res, OK, 
 						{ "message": "Save lead completed." }
 					);
-	        	});
+	        	});*/
 		});
 };
 
@@ -144,17 +176,22 @@ module.exports.leadById = function(req, res) {
 	     }
 
 	     //console.log(led.contacts);
-
-	     Contact.populate(led.contacts, {
-	     	path: 'contactChannels'
-	     }, function(err, result){
-	     	if (err) {
-	          //console.log(err);
-		        helper.sendJsonResponse(res, BAD_REQUEST, err);
-		        return;
-		    }
-		    helper.sendJsonResponse(res, OK, led);
-	     });
+	     if(led){
+		     Contact.populate(led.contacts, {
+		     	path: 'contactChannels'
+		     }, function(err, result){
+		     	if (err) {
+		          //console.log(err);
+			        helper.sendJsonResponse(res, BAD_REQUEST, err);
+			        return;
+			    }
+			    helper.sendJsonResponse(res, OK, led);
+		     });
+	 	 } else {
+	 	 	helper.sendJsonResponse(res, NOT_FOUND, {
+	 	 		"message": "Lead not found." 
+	 	 	});
+	 	 }
 	  });
 };
 

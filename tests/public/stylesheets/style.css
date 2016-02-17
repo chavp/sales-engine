@@ -7,11 +7,6 @@ body {
     background-color: #f3f4f6;
 }
 
-.container{
-    width: 100%;
-    min-width: 1024px;
-}
-
 .login-box{
     position: absolute;
     left: 43%;
@@ -358,9 +353,24 @@ ul.contacts-list .contact {
 }
 
 .first-column {
-    padding-right: 6%;
+    padding-right: 25px;
 }
 
 .second-column {
+
     padding-right: 6%;
+}
+
+.timeline-heading{
+
+}
+
+time {
+    color: #aaa;
+    border-bottom: dotted 1px #999;
+    font-size: 1.0em;
+}
+
+.form-note{
+    width: 400px;
 }

@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="/ladda/ladda-themeless.min.css" />
     <link rel="stylesheet" href="/lib/angular-block-ui/angular-block-ui.min.css" />
 
+    <link rel="stylesheet" href="/lib/angular-timeline/angular-timeline.css" />
+    <link rel="stylesheet" href="/lib/angular-timeline/angular-timeline-bootstrap.css" />
+    <link rel="stylesheet" href="/lib/angular-timeline/angular-timeline-animations.css" />
+
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <!--<link rel="stylesheet" href="/css/style.css" />-->
 
@@ -61,6 +65,7 @@
     <!-- services -->
     <script src="/common/services/accounts.service.js"></script>
     <script src="/common/services/leads.service.js"></script>
+    <script src="/common/services/lead-events.service.js"></script>
     <!-- directives -->
     <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>
@@ -70,18 +75,22 @@
     <script src="/common/directives/contact/contact.directive.js"></script>
     <!-- filters -->
     <script src="/common/filters/formatContacts.filter.js"></script>
+    <script src="/common/filters/formatCreatedAt.filter.js"></script>
 
     <script src="/js/general/jquery-1.11.1.min.js"></script>
     <script src="/jquery-validation/jquery.validate.min.js"></script>
     <script src="/jquery-validation/additional-methods.min.js"></script>
     <script src="/js/general/bootstrap/bootstrap.min.js"></script>
-
+    <script src="/js/general/jquery.timeago.js"></script>
+    
     <script src="/ladda/spin.min.js"></script>
     <script src="/ladda/ladda.min.js"></script>
     <script src="/lib/angular-ladda.min.js"></script>
     <script src="/lib/angular-block-ui/angular-block-ui.min.js"></script>
+    <script src="/lib/angular-timeline/angular-scroll-animate.js"></script>
+    <script src="/lib/angular-timeline/angular-timeline.js"></script>
     <script src="/lib/linq.min.js"></script>
-    
+
     <script type="text/javascript">
         function guid() {
           function s4() {
@@ -122,7 +131,7 @@
             }
           }
         }
-        
+
         $(function(){
             jQuery.extend(jQuery.validator.messages, {
                 required: "This field is required.",
@@ -143,6 +152,8 @@
                 max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
                 min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
             });
+
+            $('[data-toggle="tooltip"]').tooltip();
         })
     </script>
   </body>

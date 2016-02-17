@@ -29,7 +29,12 @@ var mongoose = require('mongoose'),
 	},
 	url:{
 		type: String
-	}
+	},
+
+	events: [{
+		type:Schema.ObjectId, 
+		ref:"LeadEvent"
+	}]
  });
 
 leadSchema.pre('remove', function(next) {
@@ -37,6 +42,19 @@ leadSchema.pre('remove', function(next) {
     // 'this' is the client being removed. Provide callbacks here if you want
     // to be notified of the calls' result.
     Contact.remove({ lead: lead }).exec();
+    next();
+});
+
+leadSchema.pre('save', function(next) {
+    var lead = this;
+
+    LeadEvent.create({
+    	title: "Created manually",
+    	riaseFrom: lead.createdBy,
+    	lead: lead,
+    	type: 'Lead'
+    });
+
     next();
 });
 

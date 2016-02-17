@@ -45,10 +45,10 @@
     </div>
     
     <div class="row">
-      <div class="form-group text-left col-md-6">
+      <div class="form-group text-left col-md-5">
           <button type="button" class="btn btn-danger" ng-click="convm.delete()" ladda="convm.deleting" ng-disabled="convm.saving" ng-show="convm.canDelete()"><span class="glyphicon glyphicon-trash"></span></button>
       </div>
-      <div class="form-group text-right col-md-6">
+      <div class="form-group text-right col-md-7">
           <button type="button" class="btn btn-default" ng-click="convm.cancle()" ng-disabled="convm.saving || convm.deleting">Cancle</button>
           <button type="submit" class="btn btn-primary" ladda="convm.saving" data-style="zoom-out" ng-disabled="convm.deleting">Save</button>
       </div>

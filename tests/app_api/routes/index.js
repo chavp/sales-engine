@@ -10,6 +10,7 @@ var ctrAccounts = require('../controllers/accounts');
 var ctrOrganizations = require('../controllers/organizations');
 var ctrLeads = require('../controllers/leads');
 var ctrContacts = require('../controllers/contacts');
+var ctrLeadEvents = require('../controllers/lead-events');
 
 // Accounts
 router.get('/accounts', auth, ctrAccounts.accounts);
@@ -43,6 +44,8 @@ router.delete('/contacts/:contactId', auth, ctrContacts.deleteContact);
 router.delete('/contactChannles/:contactChannelId', auth, ctrContacts.deleteContactChannel);
 
 // Activities
+router.get('/leads/:leadId/events/', auth, ctrLeadEvents.leadEvents);
+router.post('/leads/:leadId/events/', auth, ctrLeadEvents.leadEventsDone);
 
 // Opportunities
 

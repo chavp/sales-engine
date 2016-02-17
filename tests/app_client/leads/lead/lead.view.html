@@ -1,9 +1,9 @@
 <div class="page-lead">
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 first-column">
+        <div class="col-lg-4 col-md-4 col-sm-7 col-xs-7 first-column">
             <div class="lead-profile">
                 <div ng-show="!vm.editing">
-                    <h1 class="company" ng-click="vm.edit('company')" title="Click to edit">
+                    <h1 class="company top10" ng-click="vm.edit('company')" title="Click to edit">
                         {{vm.lead.companyName || 'Untitled'}}</h1>
                     <p ng-show="vm.validUrl()">
                         <a ng-href="{{vm.lead.url}}" target="_blank">
@@ -63,10 +63,69 @@
             </div>
         </div>
 
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second-column">
-            <h1>Activities</h1>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-7 second-column">
+            <div class="row top10">
+                <button type="button" class="btn btn-lg btn-default" ng-click="vm.addNote()"><i class="glyphicon glyphicon-comment"></i> Note</button>
+                <button type="button" class="btn btn-lg btn-default"><i class="glyphicon glyphicon-envelope"></i> Email</button>
+                <button type="button" class="btn btn-lg btn-default"><i class="glyphicon glyphicon-earphone"></i> Call</button>
+            </div>
+            <div class="row top10">
+                <small>Showing: All</small>
+            </div>
+            <div class="row top10">
+                <timeline>
+                    <timeline-event ng-repeat="event in vm.events" 
+                        side="right" 
+                        id="{{event.uuid}}">
+                      <timeline-badge class="{{event.badgeClass}} timeline-hidden container"
+                        when-visible="vm.animateElementIn" when-not-visible="vm.animateElementOut">
+                        <i class="glyphicon {{event.badgeIconClass}}"></i>
+                      </timeline-badge>
 
-            <!-- https://github.com/rpocklin/angular-timeline -->
+                      <timeline-panel ng-if="event.type === 'Lead'" class="{{event.badgeClass}} timeline-hidden">
+                        <timeline-heading>
+                          {{event.title}} 
+                        </timeline-heading>
+                        <p>{{event.content}}</p>
+                        <small>
+                            <time data-toggle="tooltip" data-placement="top" title="{{event.createdAt}}">
+                                <i class="glyphicon glyphicon-time"></i> {{event.createdAt | formatCreatedAt}}
+                            </time>
+                        </small>
+                        <small class="badge pull-right">{{event.riaseFrom.username}}</small>
+                      </timeline-panel>
+
+                      <timeline-panel ng-if="event.type === 'Note'" class="{{event.badgeClass}} timeline-hidden">
+                        <timeline-heading>
+                        </timeline-heading>
+                        <form class="form-note" ng-if="event._id == null">
+                            <div class="form-group">
+                                <textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 70px;" class="form-control" placeholder="Add a note about this lead" type="text" ng-model="vm.oneEvent.content"></textarea>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-6 col-md-6 col-lg-6 text-left">
+                                  <button type="submit" class="btn btn-sm btn-danger" ng-click="vm.deleteEvent()"><span class="glyphicon glyphicon-trash"></span></button>
+                                </div>
+                                <div class="col-xs-6 col-md-6 col-lg-6 text-right">
+                                  <button type="submit" class="btn btn-sm btn-default" ng-click="vm.doneNote()">Done</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div ng-if="event._id != null">
+                            <p>{{event.content}}</p> 
+                            <small>
+                                <time data-toggle="tooltip" data-placement="top" title="{{event.createdAt}}">
+                                    <i class="glyphicon glyphicon-time"></i> {{event.createdAt | formatCreatedAt}}
+                                </time>
+                            </small>
+                            <small class="badge pull-right">{{event.riaseFrom.username}}</small>
+                        </div>
+                      </timeline-panel>
+
+                    </timeline-event>
+                </timeline>
+            </div>
         </div>
     </div>
 </div>

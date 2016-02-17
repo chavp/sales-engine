@@ -11,12 +11,6 @@ module.exports.leadSaveContact = function(req, res) {
 		});
 		return;
 	}
-	if(!req.params.leadId || req.params.leadId == 'null'){
-		helper.sendJsonResponse(res, NOT_FOUND, {
-			"message": "Not found lead Id."
-		});
-		return;
-	}
 	Lead
 	  .findById(req.params.leadId)
 	  .exec	(function(err, led){

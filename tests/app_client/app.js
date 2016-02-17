@@ -9,8 +9,15 @@
 
 	angular
 	  .module('salesHubApp', 
-	  	['ngRoute', 'ngSanitize', 'ngAnimate', 
-	  	'ui.bootstrap', 'smart-table', 'angular-ladda', 'blockUI', 'yh.featureToggle'])
+	  	[
+	  		'ngRoute', 'ngSanitize', 'ngAnimate', 
+	  		'ui.bootstrap', 
+	  		'smart-table', 
+	  		'angular-ladda', 
+	  		'blockUI', 
+	  		'angular-timeline',
+	  		'angular-scroll-animate',
+	  		'yh.featureToggle'])
 	  .constant("config", {
         	"TOKEN_NAME": "sales_hub_token",
         	"EMPATY_DISPLAY": "Untitled",

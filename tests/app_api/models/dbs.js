@@ -12,6 +12,7 @@ require('./default-lead-statuses');
 require('./default-opportunity-statuses');
 require('./questions');
 require('./choices');
+require('./lead-events');
 //require('./question-choices');
 
 Member = mongoose.model('Member');
@@ -25,4 +26,5 @@ DefaultLeadStatus = mongoose.model('DefaultLeadStatus');
 DefaultOpportunityStatus = mongoose.model('DefaultOpportunityStatus');
 Question = mongoose.model('Question');
 Choice = mongoose.model('Choice');
+LeadEvent = mongoose.model('LeadEvent');
 //QuestionChoice = mongoose.model('QuestionChoice');
