@@ -36,6 +36,7 @@ router.get('/leads/members/:memberId', auth, ctrLeads.leadsByMemberLiveOrg);
 router.post('/leads', auth, ctrLeads.leadSave);
 router.get('/leads/:leadId', auth, ctrLeads.leadById);
 router.put('/leads/:leadId', auth, ctrLeads.leadUpdate);
+router.delete('/leads/:leadId', auth, ctrLeads.leadDelete);
 
 // Lead / Contacts
 router.post('/leads/:leadId/contacts', auth, ctrContacts.leadSaveContact);

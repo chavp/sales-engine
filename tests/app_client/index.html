@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="salesHubApp">
+<html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,7 +20,7 @@
     <!--<link rel="stylesheet" href="/css/style.css" />-->
 
   </head>
-  <body>
+  <body ng-app="salesHubApp">
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
     <div id="main">
         <toptoolbar></toptoolbar>
@@ -73,6 +73,8 @@
     <script src="/common/directives/leftNavigation/leftNavigation.directive.js"></script>
     <script src="/common/directives/contact/contact.controller.js"></script>
     <script src="/common/directives/contact/contact.directive.js"></script>
+    <script src="/common/directives/leadProfile/leadProfile.controller.js"></script>
+    <script src="/common/directives/leadProfile/leadProfile.directive.js"></script>
     <!-- filters -->
     <script src="/common/filters/formatContacts.filter.js"></script>
     <script src="/common/filters/formatCreatedAt.filter.js"></script>

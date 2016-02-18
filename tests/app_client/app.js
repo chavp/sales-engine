@@ -10,7 +10,7 @@
 	angular
 	  .module('salesHubApp', 
 	  	[
-	  		'ngRoute', 'ngSanitize', 'ngAnimate', 
+	  		'ngRoute', 'ngSanitize', 'ngAnimate',
 	  		'ui.bootstrap', 
 	  		'smart-table', 
 	  		'angular-ladda', 
@@ -61,8 +61,8 @@
 	angular
       .module('salesHubApp')
       .config(['$routeProvider', '$locationProvider', config])
-      .run(['$rootScope', '$location', '$window', 'config', 'accounts', 
-      	function ($rootScope, $location, $window, config, accounts) {
+      .run(['$rootScope', '$location', '$window', '$timeout', '$log',  'config', 'accounts', 
+      	function ($rootScope, $location, $window, $timeout, $log, config, accounts) {
       		//console.log(accounts.isLoggedIn());
       		if (!accounts.isLoggedIn()) {
       			//event.preventDefault();
@@ -73,6 +73,10 @@
       				$location.path(config.DEFAULT_PATH);
       			}
       		}
+
+      		$timeout(function() {
+				$log.debug('Start app_client');
+			}, 3000);
       	}]);
 
       angular

@@ -1,0 +1,61 @@
+<div class="lead-profile">
+    <div ng-show="!ledvm.editing">
+        <h1 class="company top10" ng-click="ledvm.edit('company')" title="Click to edit">
+            {{ledvm.lead.companyName || 'Untitled'}}</h1>
+        <p ng-show="ledvm.validUrl()">
+            <a ng-href="{{ledvm.lead.url}}" target="_blank">
+                {{ledvm.lead.url}}
+            </a>
+        </p>
+        <p ng-show="ledvm.validDescription()">
+            <span class="inner-text lead-description" ng-click="ledvm.edit('description')" title="Click to edit">{{ledvm.lead.description}}</span>
+        </p>
+        <div class="add-missing">
+            <a href="#" ng-hide="ledvm.validDescription()" class="add-description" title="Click to add description" ng-click="ledvm.edit('description')">
+                {{ledvm.lead.description || 'Add description'}}
+            </a>
+            <a href="#" ng-hide="ledvm.validUrl()" class="add-url" e-name="url" title="Click to add a URL" ng-click="ledvm.edit('url')">
+                <span ng-show="ledvm.validDescription()">Add URL</span>
+                <span ng-hide="ledvm.validDescription()">,URL </span>
+            </a>
+            <a href="#" class="add-address" title="Click to add an address">
+                <span ng-show="!ledvm.validDescription()">, or </span>
+                <span ng-show="ledvm.validUrl() && ledvm.validDescription()">Add </span>
+                <span ng-show="!ledvm.validUrl() && ledvm.validDescription()">, </span>
+                address
+            </a>
+        </div>
+    </div>
+    <div ng-show="ledvm.editing">
+        <form class="form-horizontal top10" id="edit-lead-form" ng-submit="ledvm.save()">
+            <div class="form-group">
+                <input class="form-control input-lg lead-input-form" type="text" placeholder="Unnamed" ng-model="ledvm.lead.companyName" focus="{{ledvm.focusCompanyName}}">
+            </div>
+            <div class="form-group">
+                <input class="form-control input-lg lead-input-form" type="text" placeholder="URL" ng-model="ledvm.lead.url" focus="{{ledvm.focusURL}}" type="url" name="url">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control lead-input-form" type="text" placeholder="Description" ng-model="ledvm.lead.description" focus="{{ledvm.focusDescription}}"></textarea>
+            </div>
+            <div class="form-group text-right">
+                  <button type="button" class="btn btn-default" ng-click="ledvm.cancle()" ng-disabled="ledvm.loading">Cancle</button>
+                  <button type="submit" class="btn btn-primary" ladda="ledvm.loading" data-style="zoom-out">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="contacts top20">
+        <h2>
+            Contacts
+            <a class="add add-contact" href="#" ng-click="ledvm.addContact()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add</a>
+        </h2>
+        <div class="contacts-list list-group">
+            <span ng-if="ledvm.isEmpaty()"> 
+                <p class="none">None</p>
+            </span>
+            <div ng-hide="ledvm.isEmpaty()" class="top5" ng-repeat="contact in ledvm.contacts">
+                <contact data="contact"/>
+            </div>
+        </div>
+    </div>
+</div>

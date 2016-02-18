@@ -67,7 +67,7 @@
     	}
 
       if(accounts.isLoggedIn()){
-        leftNavigationCtrl.isLoggedIn;
+        //leftNavigationCtrl.isLoggedIn;
         $location.path(config.DEFAULT_PATH);
       }
     }

@@ -1,73 +1,23 @@
 <div class="page-lead">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-7 col-xs-7 first-column">
-            <div class="lead-profile">
-                <div ng-show="!vm.editing">
-                    <h1 class="company top10" ng-click="vm.edit('company')" title="Click to edit">
-                        {{vm.lead.companyName || 'Untitled'}}</h1>
-                    <p ng-show="vm.validUrl()">
-                        <a ng-href="{{vm.lead.url}}" target="_blank">
-                            {{vm.lead.url}}
-                        </a>
-                    </p>
-                    <p ng-show="vm.validDescription()">
-                        <span class="inner-text lead-description" ng-click="vm.edit('description')" title="Click to edit">{{vm.lead.description}}</span>
-                    </p>
-                    <div class="add-missing">
-                        <a href="#" ng-hide="vm.validDescription()" class="add-description" title="Click to add description" ng-click="vm.edit('description')">
-                            {{vm.lead.description || 'Add description'}}
-                        </a>
-                        <a href="#" ng-hide="vm.validUrl()" class="add-url" e-name="url" title="Click to add a URL" ng-click="vm.edit('url')">
-                            <span ng-show="vm.validDescription()">Add URL</span>
-                            <span ng-hide="vm.validDescription()">,URL </span>
-                        </a>
-                        <a href="#" class="add-address" title="Click to add an address">
-                            <span ng-show="!vm.validDescription()">, or </span>
-                            <span ng-show="vm.validUrl() && vm.validDescription()">Add </span>
-                            <span ng-show="!vm.validUrl() && vm.validDescription()">, </span>
-                            address
-                        </a>
-                    </div>
-                </div>
-                <div ng-show="vm.editing">
-                    <form class="form-horizontal top10" id="edit-lead-form" ng-submit="vm.save()">
-                        <div class="form-group">
-                            <input class="form-control input-lg lead-input-form" type="text" placeholder="Unnamed" ng-model="vm.lead.companyName" focus="{{vm.focusCompanyName}}">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control input-lg lead-input-form" type="text" placeholder="URL" ng-model="vm.lead.url" focus="{{vm.focusURL}}" type="url" name="url">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control lead-input-form" type="text" placeholder="Description" ng-model="vm.lead.description" focus="{{vm.focusDescription}}"></textarea>
-                        </div>
-                        <div class="form-group text-right">
-                              <button type="button" class="btn btn-default" ng-click="vm.cancle()" ng-disabled="vm.loading">Cancle</button>
-                              <button type="submit" class="btn btn-primary" ladda="vm.loading" data-style="zoom-out">Save</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="row">
+                <lead-profile />
             </div>
-            <div class="contacts top20">
-                <h2>
-                    Contacts
-                    <a class="add add-contact" href="#" ng-click="vm.addContact()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add</a>
-                </h2>
-                <div class="contacts-list list-group">
-                    <span ng-if="vm.isEmpaty()"> 
-                        <p class="none">None</p>
-                    </span>
-                    <div ng-hide="vm.isEmpaty()" class="top5" ng-repeat="contact in vm.contacts">
-                        <contact data="contact"/>
-                    </div>
-                </div>
+            <div class="row top5">
+                <button tabindex="-1" type="button" class="btn btn-sm btn-danger" 
+                ng-click="vm.deleteLead()" 
+                ladda="vm.deleting">
+                <span class="glyphicon glyphicon-trash"></span> Delete lead</button>
             </div>
         </div>
 
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-7 second-column">
             <div class="row top10">
                 <button type="button" class="btn btn-lg btn-default" ng-click="vm.addNote()"><i class="glyphicon glyphicon-comment"></i> Note</button>
-                <button type="button" class="btn btn-lg btn-default"><i class="glyphicon glyphicon-envelope"></i> Email</button>
-                <button type="button" class="btn btn-lg btn-default"><i class="glyphicon glyphicon-earphone"></i> Call</button>
+                <button type="button" class="btn btn-lg btn-default" ng-disabled="!vm.isCanEmail"
+                title="You can email this lead after adding an email address to a contact"><i class="glyphicon glyphicon-envelope"></i> Email</button>
+                <button type="button" class="btn btn-lg btn-default" ng-disabled="!vm.isCanCall"><i class="glyphicon glyphicon-earphone"></i> Call</button>
             </div>
             <div class="row top10">
                 <small>Showing: All</small>
@@ -82,7 +32,8 @@
                         <i class="glyphicon {{event.badgeIconClass}}"></i>
                       </timeline-badge>
 
-                      <timeline-panel ng-if="event.type === 'Lead'" class="{{event.badgeClass}} timeline-hidden">
+                      <timeline-panel 
+                      ng-if="event.type === 'Lead'" class="{{event.badgeClass}} timeline-hidden">
                         <timeline-heading>
                           {{event.title}} 
                         </timeline-heading>
@@ -95,12 +46,16 @@
                         <small class="badge pull-right">{{event.riaseFrom.username}}</small>
                       </timeline-panel>
 
-                      <timeline-panel ng-if="event.type === 'Note'" class="{{event.badgeClass}} timeline-hidden">
+                      <timeline-panel 
+                        data-eventid="{{event._id}}"
+                        ng-if="event.type === 'Note'" 
+                        class="{{event.badgeClass}} timeline-hidden"
+                        when-visible="vm.animateElementIn2">
                         <timeline-heading>
                         </timeline-heading>
                         <form class="form-note" ng-if="event._id == null">
                             <div class="form-group">
-                                <textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 70px;" class="form-control" placeholder="Add a note about this lead" type="text" ng-model="vm.oneEvent.content"></textarea>
+                                <textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 70px;" class="form-control" placeholder="Add a note about this lead" type="text" ng-model="vm.oneEvent.content" focus="{{vm.noteFocus}}"></textarea>
                             </div>
                             <div class="form-group row">
                                 <div class="col-xs-6 col-md-6 col-lg-6 text-left">

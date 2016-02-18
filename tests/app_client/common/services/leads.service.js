@@ -110,6 +110,30 @@
 		    });
     	}
 
+    	var deleteLead = function(leadId, cb){
+    		if(!accounts.isLoggedIn()) return false;
+    		var token = accounts.getToken();
+    		$http.delete(
+    			'/api/leads/' + leadId, 
+    			{
+    				headers: {
+		          		Authorization: 'Bearer '+ token
+		        	}
+		    	}
+		    ).success(function(data){
+		    	//console.log(data);
+		    	if(cb){
+		        	cb(null, data);
+	        	}
+	        	//console.log(_currentUser);
+		    }).error(function(err){
+		    	//console.log(err);
+		    	//throw err;
+		    	//accounts.logout();
+		    	cb(err, null);
+		    });
+    	}
+
     	var saveLeadContact = function(data, cb){
     		if(!accounts.isLoggedIn()) return false;
     		var token = accounts.getToken();
@@ -222,7 +246,8 @@
     		saveLead: saveLead,
     		getLeadById: getLeadById,
     		updateLead: updateLead,
-
+    		deleteLead: deleteLead,
+    		
     		// contacts
     		saveLeadContact: saveLeadContact,
     		updateLeadContact: updateLeadContact,

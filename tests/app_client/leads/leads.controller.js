@@ -3,11 +3,11 @@
 	  .module('salesHubApp')
       .controller('leadsCtrl', leadsCtrl);
 
-    leadsCtrl.$inject = ['$rootScope', '$location', '$log', 'config', 'blockUI', 'leads'];
-    function leadsCtrl($rootScope, $location, $log, config, blockUI, leads) {
+    leadsCtrl.$inject = ['$window', '$rootScope', '$location', '$log', 'config', 'blockUI', 'accounts', 'leads'];
+    function leadsCtrl($window, $rootScope, $location, $log, config, blockUI, accounts, leads) {
     	var vm = this;
 
-        $rootScope.$on('refreshLeads_event', function(){
+        $rootScope.$on('REFRESH_LEAD', function(){
             //console.log(params);
             vm.refreshLeads();
 
@@ -37,7 +37,10 @@
                 blockUI.stop();
                 if(!err){
                     $log.debug(data);
-
+                    if(!data) {
+                        accounts.logout();
+                        $window.location = config.DEFAULT_PATH;
+                    }
                     var results = data.map(function(d){
                         if(d.contacts.length > 0){
                             var conChannels = d.contacts[0].contactChannels;
@@ -65,6 +68,7 @@
                             status: ""
                         }
                     });
+                    
                     vm.leadResults = results;
                 }
             });

@@ -228,3 +228,41 @@ module.exports.leadUpdate = function(req, res) {
 	     });
 	  });
 };
+
+// DELETE lead
+module.exports.leadDelete = function(req, res){
+	console.log('DELETE leadDelete', req.params);
+	if (!req.params.leadId) {
+	    helper.sendJsonResponse(res, BAD_REQUEST, {
+	      "message": "Not found, lead Id is required"
+	    });
+	    return;
+	}
+	Lead
+	  .findById(req.params.leadId)
+	  .exec	(function(err, led){
+	    if (err) {
+	          //console.log(err);
+	        helper.sendJsonResponse(res, BAD_REQUEST, err);
+	        return;
+	     }
+	     if(!led){
+	     	helper.sendJsonResponse(res, NOT_FOUND, {
+	     		"message": "Not found lead"
+	     	});
+	        return;
+	     }
+
+	     led.remove(function(err){
+	     	if (err) {
+	          //console.log(err);
+	        	helper.sendJsonResponse(res, BAD_REQUEST, err);
+	        	return;
+	     	}
+
+	     	helper.sendJsonResponse(res, OK, {
+	     		"message": "Delete completed."
+	     	});
+	     });
+	  });
+}

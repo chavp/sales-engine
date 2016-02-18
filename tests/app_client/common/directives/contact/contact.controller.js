@@ -89,7 +89,7 @@
     }
 
     vm.isEditing = true;
-    vm.canDelete = true;
+    //vm.isCanDelete = true;
     vm.isEmpaty = function(){
       if(vm.contact._id) return false;
       return true;
@@ -107,6 +107,7 @@
           break;
         }
       }
+
       return vm.contact.email != null || vm.contact.email != undefined;
     }
 
@@ -169,7 +170,7 @@
         //console.log(vm.oldContact);
         back(vm.oldContact);
       }
-      $rootScope.$emit("refreshLead_event", {
+      $rootScope.$emit("UPDATE_LEAD_CONTACTS", {
         uuid: vm.uuid,
         event: "cancle"
       });
@@ -182,7 +183,7 @@
         vm.deleting = false;
         if(err) return false;
         //console.log(vm);
-        $rootScope.$emit("refreshLead_event", {
+        $rootScope.$emit("UPDATE_LEAD_CONTACTS", {
           uuid: vm.uuid,
           event: "deleted"
         });
@@ -190,9 +191,8 @@
       })
     }
 
-    vm.canDelete = function(){
-      return vm.contact._id !== null;
-    }
+    //console.log(vm.contact._id);
+    vm.canDelete = (vm.contact._id != null);
 
     vm.newChannel = function(){
       // default channel

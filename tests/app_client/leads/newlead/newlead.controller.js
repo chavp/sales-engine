@@ -29,7 +29,7 @@
                 $log.info(result);
                 //leadsCtrl.refreshLeads();
                 $location.path('/leads');
-                $rootScope.$emit("refreshLeads_event", {});
+                $rootScope.$emit("REFRESH_LEAD", {});
             });
     	 	//alert("OK");
             $uibModalInstance.close({ success: true, message: 'Save!' });

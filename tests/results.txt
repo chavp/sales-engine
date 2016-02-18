@@ -2,10 +2,10 @@
 
 [0m[0m
 [0m  Member[0m
-[2K[0G  [32m  √[0m[90m add ding password 123456789[0m[31m (365ms)[0m
+[2K[0G  [32m  √[0m[90m add ding password 123456789[0m[31m (376ms)[0m
 [2K[0G  [32m  √[0m[90m check ding dupplicate member[0m
-[2K[0G  [32m  √[0m[90m check ding valid password[0m[31m (335ms)[0m
-[2K[0G  [32m  √[0m[90m check ding invalid password[0m[31m (330ms)[0m
+[2K[0G  [32m  √[0m[90m check ding valid password[0m[31m (340ms)[0m
+[2K[0G  [32m  √[0m[90m check ding invalid password[0m[31m (344ms)[0m
 
 [0m  Member with profile[0m
 [2K[0G  [32m  √[0m[90m add ding with profile[0m[31m (347ms)[0m
@@ -15,35 +15,16 @@
 [2K[0G  [32m  √[0m[90m check member $ profile $ org relationship[0m
 
 [0m  Organization add Admin Organization Role[0m
-[2K[0G  [32m  √[0m[90m add Chavp org[0m[31m (671ms)[0m
+[2K[0G  [32m  √[0m[90m add Chavp org[0m[31m (687ms)[0m
 
 [0m  Leads[0m
 [2K[0G  [32m  √[0m[90m create simple lead[0m
 [2K[0G  [32m  √[0m[90m new lead with company name[0m
 
 [0m  Accounts API[0m
-[2K[0G  [31m  1) valid Login[0m
-[2K[0G  [31m  2) invalid Login[0m
+[2K[0G  [32m  √[0m[90m valid Login[0m[31m (344ms)[0m
+[2K[0G  [32m  √[0m[90m invalid Login[0m[31m (335ms)[0m
 
 
-[92m [0m[32m 10 passing[0m[90m (4s)[0m
-[31m  2 failing[0m
-
-[0m  1) Accounts API valid Login:
-[0m[31m     TypeError: Cannot read property 'statusCode' of undefined[0m[90m
-      at Request._callback (D:\projects\Git\sales-engine\tests\tests\api\accounts.tests.js:22:19)
-      at self.callback (D:\projects\Git\sales-engine\tests\node_modules\request\request.js:199:22)
-      at Request.onRequestError (D:\projects\Git\sales-engine\tests\node_modules\request\request.js:821:8)
-      at Socket.socketErrorListener (_http_client.js:266:9)
-      at emitErrorNT (net.js:1257:8)
-[0m
-[0m  2) Accounts API invalid Login:
-[0m[31m     TypeError: Cannot read property 'message' of undefined[0m[90m
-      at Request._callback (D:\projects\Git\sales-engine\tests\tests\api\accounts.tests.js:45:28)
-      at self.callback (D:\projects\Git\sales-engine\tests\node_modules\request\request.js:199:22)
-      at Request.onRequestError (D:\projects\Git\sales-engine\tests\node_modules\request\request.js:821:8)
-      at Socket.socketErrorListener (_http_client.js:266:9)
-      at emitErrorNT (net.js:1257:8)
-[0m
-
+[92m [0m[32m 12 passing[0m[90m (3s)[0m
 

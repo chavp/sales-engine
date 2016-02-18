@@ -42,20 +42,26 @@ leadSchema.pre('remove', function(next) {
     // 'this' is the client being removed. Provide callbacks here if you want
     // to be notified of the calls' result.
     Contact.remove({ lead: lead }).exec();
+    LeadEvent.remove({ lead: lead }).exec();
     next();
 });
 
 leadSchema.pre('save', function(next) {
-    var lead = this;
-
-    LeadEvent.create({
-    	title: "Created manually",
-    	riaseFrom: lead.createdBy,
-    	lead: lead,
-    	type: 'Lead'
-    });
-
-    next();
+    var me = this;
+    //console.log(me.createdAt);
+    if(me.createdAt == undefined){
+	   LeadEvent.create({
+		    	title: "Created manually",
+		    	riaseFrom: me.createdBy,
+		    	lead: me,
+		    	type: 'Lead'
+		    }, function(err){
+		    	if(err) next(err);
+		    	next();
+			});
+	} else {
+		next();
+	}
 });
 
 leadSchema.plugin(timestamps);
