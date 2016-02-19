@@ -13,37 +13,47 @@
         </div>
 
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-7 second-column">
+
             <div class="row top10">
-                <button type="button" class="btn btn-lg btn-default" ng-click="vm.addNote()"><i class="glyphicon glyphicon-comment"></i> Note</button>
-                <button type="button" class="btn btn-lg btn-default" ng-disabled="!vm.isCanEmail"
-                title="You can email this lead after adding an email address to a contact"><i class="glyphicon glyphicon-envelope"></i> Email</button>
-                <button type="button" class="btn btn-lg btn-default" ng-disabled="!vm.isCanCall"><i class="glyphicon glyphicon-earphone"></i> Call</button>
+                <button type="button" class="btn btn-lg btn-default" ng-click="vm.addNote()">
+                    <i class="glyphicon glyphicon-comment"></i> Note
+                </button>
+                <button type="button" class="btn btn-lg btn-default" ng-click="vm.addEmail()"
+                    ng-disabled="!vm.isCanEmail"
+                    title="You can email this lead after adding an email address to a contact">
+                    <i class="glyphicon glyphicon-envelope"></i> Email
+                </button>
+                <button type="button" class="btn btn-lg btn-default" ng-disabled="!vm.isCanCall">
+                    <i class="glyphicon glyphicon-earphone"></i> Call
+                </button>
             </div>
+
             <div class="row top10">
                 <small>Showing: All</small>
             </div>
+
             <div class="row top10">
                 <timeline>
                     <timeline-event ng-repeat="event in vm.events" 
                         side="right" 
                         id="{{event.uuid}}">
+
                       <timeline-badge class="{{event.badgeClass}} timeline-hidden container"
                         when-visible="vm.animateElementIn" when-not-visible="vm.animateElementOut">
                         <i class="glyphicon {{event.badgeIconClass}}"></i>
                       </timeline-badge>
 
-                      <timeline-panel 
-                      ng-if="event.type === 'Lead'" class="{{event.badgeClass}} timeline-hidden">
+                      <timeline-panel ng-if="event.type === 'Lead'" class="{{event.badgeClass}} timeline-hidden">
                         <timeline-heading>
-                          {{event.title}} 
+                          <small class="badge pull-right">{{event.riaseFrom.username}}</small> 
                         </timeline-heading>
-                        <p>{{event.content}}</p>
+                        <p>{{event.title}}  {{event.content}}</p>
                         <small>
                             <time data-toggle="tooltip" data-placement="top" title="{{event.createdAt}}">
                                 <i class="glyphicon glyphicon-time"></i> {{event.createdAt | formatCreatedAt}}
                             </time>
                         </small>
-                        <small class="badge pull-right">{{event.riaseFrom.username}}</small>
+                        
                       </timeline-panel>
 
                       <timeline-panel 
@@ -52,17 +62,19 @@
                         class="{{event.badgeClass}} timeline-hidden"
                         when-visible="vm.animateElementIn2">
                         <timeline-heading>
+                            <small class="badge pull-right">{{event.riaseFrom.username}}</small>
                         </timeline-heading>
+
                         <form class="form-note" ng-if="event._id == null">
                             <div class="form-group">
                                 <textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 70px;" class="form-control" placeholder="Add a note about this lead" type="text" ng-model="vm.oneEvent.content" focus="{{vm.noteFocus}}"></textarea>
                             </div>
                             <div class="form-group row">
                                 <div class="col-xs-6 col-md-6 col-lg-6 text-left">
-                                  <button type="submit" class="btn btn-sm btn-danger" ng-click="vm.deleteEvent()"><span class="glyphicon glyphicon-trash"></span></button>
+                                  <button type="submit" class="btn btn-danger" ng-click="vm.deleteEvent()"><span class="glyphicon glyphicon-trash"></span></button>
                                 </div>
                                 <div class="col-xs-6 col-md-6 col-lg-6 text-right">
-                                  <button type="submit" class="btn btn-sm btn-default" ng-click="vm.doneNote()">Done</button>
+                                  <button type="submit" class="btn btn-default" ng-click="vm.doneNote()">Done</button>
                                 </div>
                             </div>
                         </form>
@@ -74,7 +86,73 @@
                                     <i class="glyphicon glyphicon-time"></i> {{event.createdAt | formatCreatedAt}}
                                 </time>
                             </small>
-                            <small class="badge pull-right">{{event.riaseFrom.username}}</small>
+                        </div>
+
+                      </timeline-panel>
+
+                      <timeline-panel 
+                        data-eventid="{{event._id}}"
+                        ng-if="event.type === 'Email'" 
+                        class="{{event.badgeClass}} timeline-hidden"
+                        when-visible="vm.animateElementIn2">
+                        <timeline-heading>
+                            <small>(No Subject)</small>
+                            <span class="salesrep pull-right"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="Beam yanaphat">
+                            <span class="user-name" title="Beam yanaphat">Beam</span>
+                            </span>
+                        </timeline-heading>
+
+                        <div class="panel panel-default top20">
+                          <div class="panel-heading">
+                            <div name="from">Parinya Chavp "&ltding2@saleshub.com&gt" <small class="label label-default">draft</small> </div>
+                            <div name="to"><label>To: </label>my.parinya@gmail.com</div>
+                          </div>
+                          <div class="panel-body">
+                            <form>
+                                 <div class="email-send-tools">
+                                    <div class="input-group">
+                                      <span class="input-group-addon" id="basic-addon1">To:</span>
+                                      <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="vm.addCc()" ng-if="!vm.haveCc">Add CC</button>
+                                        <button class="btn btn-default" type="button" ng-click="vm.addBcc()"ng-if="!vm.haveBcc">Add BCC</button>
+                                      </span>
+                                    </div>
+                                    <div class="input-group top5" ng-if="vm.haveCc">
+                                      <span class="input-group-addon" id="basic-addon2">CC:</span>
+                                      <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon2">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="vm.cancleCc()" ng-if="vm.haveCc"><span class="glyphicon glyphicon-remove"></span></button>
+                                      </span>
+                                    </div>
+                                    <div class="input-group top5" ng-if="vm.haveBcc">
+                                      <span class="input-group-addon" id="basic-addon3">BCC:</span>
+                                      <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon3">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="vm.cancleBcc()" ng-if="vm.haveBcc"><span class="glyphicon glyphicon-remove"></span></button>
+                                      </span>
+                                    </div>
+                                 </div>
+                                 <div class="email-subject form-group top5">
+                                    <input type="text" class="form-control" placeholder="Subject">
+                                 </div> 
+                                 <div class="form-group top-10">
+
+                                    <textarea class="form-control" rows="3"></textarea>
+                                 </div>
+                                 <div class="form-group row">
+                                    <div class="col-xs-6 col-md-6 col-lg-6 text-left">
+                                      <button type="submit" class="btn btn-danger" ng-click="vm.deleteEvent()" title="Delete email"><span class="glyphicon glyphicon-trash"></span></button>
+
+                                      <button type="submit" class="btn btn-default" ng-click="vm.deleteEvent()" title="Attach a file by clicking here or dragging a file here"><span class="glyphicon glyphicon-paperclip"></span></button>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 col-lg-6 text-right">
+                                      <button type="submit" class="btn btn-default">Save draft</button>
+                                      <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                  </div>
+                            </form>
+                          </div>
                         </div>
                       </timeline-panel>
 

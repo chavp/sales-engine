@@ -143,7 +143,7 @@
     	//console.log($routeParams);
 
         vm.oneEvent = null;
-        vm.addNote = function($el){
+        vm.addNote = function(){
             $log.debug('addNote');
             if(vm.oneEvent != null){
                 vm.events.shift(vm.oneEvent);
@@ -159,6 +159,22 @@
             };
             vm.events.unshift(vm.oneEvent);
             vm.noteFocus = true;
+        }
+
+        vm.addEmail = function(){
+            if(vm.oneEvent != null){
+                vm.events.shift(vm.oneEvent);
+                delete vm.oneEvent;
+            }
+            vm.oneEvent = {
+                uuid: guid(),
+                type: 'Email',
+                badgeClass: 'info',
+                badgeIconClass: 'glyphicon-envelope',
+                title: '',
+                content: ''
+            };
+            vm.events.unshift(vm.oneEvent);
         }
 
         vm.doneNote = function(){
@@ -188,7 +204,26 @@
                 vm.events.splice(0, 1);
                 delete vm.oneEvent;
             }
+            vm.cancleCc();
+            vm.cancleBcc();
         }
+
+        vm.haveCc = false;
+        vm.addCc = function(){
+            vm.haveCc = true;
+        }
+        vm.cancleCc = function(){
+            vm.haveCc = false;
+        }
+
+        vm.haveBcc = false;
+        vm.addBcc = function(){
+            vm.haveBcc = true;
+        }
+        vm.cancleBcc = function(){
+            vm.haveBcc = false;
+        }
+
     }
 
 })();

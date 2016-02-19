@@ -27,6 +27,10 @@ body {
     background-repeat: repeat-x;
 }
 
+.top-10 {
+    margin-top: -10px;
+}
+
 .top5 {
     margin-top: 5px;
 }
@@ -354,11 +358,12 @@ ul.contacts-list .contact {
 
 .first-column {
     padding-right: 25px;
+    padding-left: 40px;
 }
 
 .second-column {
-
-    padding-right: 6%;
+    padding-right: 7%;
+    padding-left: 40px;
 }
 
 .timeline-heading{

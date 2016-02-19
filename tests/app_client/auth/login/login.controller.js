@@ -52,9 +52,12 @@
         accounts
           .login(vm.credentials)
           .error(function(err){
-            vm.formError = err.message;
-            vm.loading = false;
             $log.error(err);
+            if(err) {
+              vm.formError = err.message;
+              vm.loading = false;
+              $log.error(err);
+            }
             //console.log(err);
           })
           .then(function(response){
