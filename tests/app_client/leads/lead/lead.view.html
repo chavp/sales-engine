@@ -112,7 +112,13 @@
                                  <div class="email-send-tools">
                                     <div class="input-group">
                                       <span class="input-group-addon" id="basic-addon1">To:</span>
-                                      <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                                      <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon1" ng-model="vm.toEmails">
+                                        <auto-complete source="vm.loadEmail($query)"
+                                          min-length="0"
+                                          debounce-delay="0"
+                                          max-results="10">
+                                        </auto-complete>
+                                      </tags-input>
                                       <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" ng-click="vm.addCc()" ng-if="!vm.haveCc">Add CC</button>
                                         <button class="btn btn-default" type="button" ng-click="vm.addBcc()"ng-if="!vm.haveBcc">Add BCC</button>
@@ -120,17 +126,29 @@
                                     </div>
                                     <div class="input-group top5" ng-if="vm.haveCc">
                                       <span class="input-group-addon" id="basic-addon2">CC:</span>
-                                      <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon2">
-                                      <span class="input-group-btn">
+                                      <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon2" ng-model="vm.ccEmails">
+                                        <auto-complete source="vm.loadEmail($query)"
+                                          min-length="0"
+                                          debounce-delay="0"
+                                          max-results="10">
+                                        </auto-complete>
+                                      </tags-input>
+                                      <!--<span class="input-group-btn">
                                         <button class="btn btn-default" type="button" ng-click="vm.cancleCc()" ng-if="vm.haveCc"><span class="glyphicon glyphicon-remove"></span></button>
-                                      </span>
+                                      </span>-->
                                     </div>
                                     <div class="input-group top5" ng-if="vm.haveBcc">
                                       <span class="input-group-addon" id="basic-addon3">BCC:</span>
-                                      <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon3">
-                                      <span class="input-group-btn">
+                                      <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon3" ng-model="vm.bccEmails">
+                                        <auto-complete source="vm.loadEmail($query)"
+                                          min-length="0"
+                                          debounce-delay="0"
+                                          max-results="10">
+                                        </auto-complete>
+                                      </tags-input>
+                                      <!--<span class="input-group-btn">
                                         <button class="btn btn-default" type="button" ng-click="vm.cancleBcc()" ng-if="vm.haveBcc"><span class="glyphicon glyphicon-remove"></span></button>
-                                      </span>
+                                      </span>-->
                                     </div>
                                  </div>
                                  <div class="email-subject form-group top5">
@@ -141,14 +159,23 @@
                                     <textarea class="form-control" rows="3"></textarea>
                                  </div>
                                  <div class="form-group row">
+                                    <div class="file-list">
+                                        <div ng-repeat="attachFile in vm.attachFiles">
+                                          <div ng-show="attachFile.uploading"><span class="loader"></span> Uploading…</div>
+                                          <a href="#" ng-hide="attachFile.uploading">{{attachFile.name}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteFile(attachFile.name)"></span></a>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group row">
                                     <div class="col-xs-6 col-md-6 col-lg-6 text-left">
                                       <button type="submit" class="btn btn-danger" ng-click="vm.deleteEvent()" title="Delete email"><span class="glyphicon glyphicon-trash"></span></button>
 
-                                      <button type="submit" class="btn btn-default" ng-click="vm.deleteEvent()" title="Attach a file by clicking here or dragging a file here"><span class="glyphicon glyphicon-paperclip"></span></button>
+                                      <button type="submit" class="btn" ng-click="" title="Attach a file by clicking here or dragging a file here" ngf-select="vm.uploadFiles()" ngf-multiple="true" ng-model="vm.attachFiles" ladda="vm.uploading"><span class="glyphicon glyphicon-paperclip"></span></button>
+
                                     </div>
                                     <div class="col-xs-6 col-md-6 col-lg-6 text-right">
                                       <button type="submit" class="btn btn-default">Save draft</button>
-                                      <button type="submit" class="btn btn-primary">Send</button>
+                                      <button type="submit" class="btn btn-primary" ng-click="vm.sendMail()">Send</button>
                                     </div>
                                   </div>
                             </form>

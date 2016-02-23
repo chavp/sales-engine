@@ -379,3 +379,19 @@ time {
 .form-note{
     width: 400px;
 }
+
+.file-list{
+    list-style-type: disc;
+    margin: 0 0 5px 15px;
+    font-size: .9em;
+}
+
+.loader {
+    background-image: url(../lib/ng-file-upload/ajax-loader.gif);
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 2px;
+    vertical-align: -3px;
+}

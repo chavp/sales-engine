@@ -15,6 +15,8 @@
 	  		'smart-table', 
 	  		'angular-ladda', 
 	  		'blockUI', 
+	  		'ngTagsInput',
+	  		'ngFileUpload',
 	  		'angular-timeline',
 	  		'angular-scroll-animate',
 	  		'yh.featureToggle'])

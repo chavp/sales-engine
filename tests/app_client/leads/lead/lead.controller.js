@@ -1,3 +1,4 @@
+
 (function () {
 	angular
 	  .module('salesHubApp')
@@ -7,9 +8,14 @@
         '$rootScope', 
         '$routeParams', '$location', '$log', 'config', 
         'blockUI', 
+        'Upload',
         'leads', 
-        'leadEvents'];
-    function leadCtrl($rootScope, $routeParams, $location, $log, config, blockUI, leads, leadEvents) {
+        'leadEvents',
+        'accounts'];
+    function leadCtrl(
+            $rootScope, $routeParams, $location, $log, config, 
+            blockUI, Upload,
+            leads, leadEvents, accounts) {
     	var vm = this;
 
         //console.log($scope.ledvm);
@@ -35,6 +41,20 @@
         // event type = { note, email, call, etc }
         // fillter all, mine
         vm.events = [];
+        vm.toEmails = [];
+        vm.ccEmails = [];
+        vm.bccEmails = [];
+        vm.attachFiles = [];
+        vm.loadEmail = function($query){
+            return ['my.parinya@gmail.com', 'my.parinya@outlook.com'];
+        }
+
+        vm.sendMail = function(){
+            $log.debug(vm.toEmails);
+            $log.debug(vm.ccEmails);
+            $log.debug(vm.bccEmails);
+            $log.debug(vm.attachFiles);
+        }
 
         // optional: not mandatory (uses angular-scroll-animate)
         vm.animateElementIn = function($el) {
@@ -204,16 +224,23 @@
                 vm.events.splice(0, 1);
                 delete vm.oneEvent;
             }
+
+            vm.toEmails = [];
+            vm.attachFiles = [];
+            vm.uploading = false;
+
             vm.cancleCc();
             vm.cancleBcc();
         }
 
+        // email
         vm.haveCc = false;
         vm.addCc = function(){
             vm.haveCc = true;
         }
         vm.cancleCc = function(){
             vm.haveCc = false;
+            vm.ccEmails = [];
         }
 
         vm.haveBcc = false;
@@ -222,6 +249,84 @@
         }
         vm.cancleBcc = function(){
             vm.haveBcc = false;
+            vm.bccEmails = [];
+        }
+
+        vm.deleteFile = function(fileId){
+            //alert(fileId);
+            removeByField(vm.attachFiles, 'name', fileId);
+            
+        }
+
+        // for multiple files:
+        //vm.uploading = false;
+        vm.uploadFiles = function () {
+            if (vm.attachFiles && vm.attachFiles.length) {
+                var token = accounts.getToken();
+                //vm.uploading = true;
+                vm.attachFiles.forEach(function(file){
+                    file.uploading = true;
+                    Upload.upload({
+                        url: '/api/files/',
+                        method: 'POST',
+                        data: {file: file},
+                        headers : {
+                            'Content-Type': file.type,
+                            'Authorization': 'Bearer '+ token
+                        }
+                        //headers: {'Authorization': 'xxx'}
+                    }).then(function (resp) {
+                        var response = resp.data;
+                        file.uploading = false;
+                        console.log(vm.attachFiles);
+                        console.log('Success ' + resp.config.data.file.name + ' uploaded. Response: ' + response.message);
+                    }, function (resp) {
+                        console.log('Error status: ' + resp.status);
+                    }, function (evt) {
+                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                        if(progressPercentage === 100){
+                            file.uploading = false;
+                        }
+                        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                    });
+                });
+                /*for (var i = 0; i < vm.attachFiles.length; i++) {
+                    var file = vm.attachFiles[i];
+                    file.uploading = true;
+                    Upload.upload({
+                        url: '/api/files/',
+                        method: 'POST',
+                        data: {file: file},
+                        headers : {
+                            'Content-Type': file.type,
+                            'Authorization': 'Bearer '+ token
+                        }
+                        //headers: {'Authorization': 'xxx'}
+                    }).then(function (resp) {
+                        var response = resp.data;
+                        file.uploading = false;
+                        console.log(vm.attachFiles);
+                        console.log('Success ' + resp.config.data.file.name + ' uploaded. Response: ' + response.message);
+                    }, function (resp) {
+                        console.log('Error status: ' + resp.status);
+                    }, function (evt) {
+                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                        if(progressPercentage === 100){
+                            file.uploading = false;
+                        }
+                        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                    });
+                }*/
+                //vm.uploading = false;
+            }
+            //console.log($files);
+          /*if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+              Upload.upload({..., data: {file: files[i]}, ...})...;
+            }
+            // or send them all together for HTML5 browsers:
+            Upload.upload({..., data: {file: files}, ...})...;
+          }*/
         }
 
     }

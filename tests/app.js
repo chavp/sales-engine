@@ -9,6 +9,7 @@ var uglifyJs = require("uglify-js");
 var fs = require('fs');
 var passport = require('passport');
 var featureToggles = require('feature-toggles');
+
 var toggles = {
   searchLead: true
 };
@@ -105,6 +106,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;

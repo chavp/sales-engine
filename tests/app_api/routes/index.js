@@ -5,12 +5,15 @@ var auth = jwt({
   secret: process.env.JWT_SECRET,
   userProperty: 'payload'
 });
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 var ctrAccounts = require('../controllers/accounts');
 var ctrOrganizations = require('../controllers/organizations');
 var ctrLeads = require('../controllers/leads');
 var ctrContacts = require('../controllers/contacts');
 var ctrLeadEvents = require('../controllers/lead-events');
+var ctrFileUpload = require('../controllers/file-upload');
 
 // Accounts
 router.get('/accounts', auth, ctrAccounts.accounts);
@@ -48,11 +51,15 @@ router.delete('/contactChannles/:contactChannelId', auth, ctrContacts.deleteCont
 router.get('/leads/:leadId/events/', auth, ctrLeadEvents.leadEvents);
 router.post('/leads/:leadId/events/', auth, ctrLeadEvents.leadEventsDone);
 
+// File upload
+router.post('/files', auth, multipartMiddleware, ctrFileUpload.upload);
+
 // Opportunities
 
 // Tasks
 
 // Reporting
+
 
 module.exports = router;
 

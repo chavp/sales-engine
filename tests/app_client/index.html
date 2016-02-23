@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/lib/angular-timeline/angular-timeline.css" />
     <link rel="stylesheet" href="/lib/angular-timeline/angular-timeline-bootstrap.css" />
     <link rel="stylesheet" href="/lib/angular-timeline/angular-timeline-animations.css" />
+    <link rel="stylesheet" href="/lib/ng-tags-input/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="/lib/ng-tags-input/ng-tags-input.bootstrap.min.css" />
 
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="/stylesheets/animate.css" />
@@ -54,7 +56,10 @@
     <script src="/lib/ui-bootstrap-tpls-1.1.2.min.js"></script>
     <script src="/lib/smart-table.min.js"></script>
     <script src="/lib/angular-feature-toggle.min.js"></script>
-
+    <script src="/lib/ng-tags-input/ng-tags-input.min.js"></script>
+    <script src="/lib/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/lib/ng-file-upload/ng-file-upload.min.js"></script>
+    
     <!--<script type="text/javascript" src="angular/saleshub.min.js"></script>-->
     <script src="/app.js"></script>
     <!-- controllers -->
@@ -129,6 +134,15 @@
         function removeByUuid(targetArray, uuid){
             for (var i = 0; i < targetArray.length; i++) {
             if(uuid === targetArray[i].uuid){
+                targetArray.splice(i, 1);
+                break;
+            }
+          }
+        }
+
+        function removeByField(targetArray, field, value){
+            for (var i = 0; i < targetArray.length; i++) {
+            if(value === targetArray[i][field]){
                 targetArray.splice(i, 1);
                 break;
             }
