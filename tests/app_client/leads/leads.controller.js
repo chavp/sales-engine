@@ -3,8 +3,10 @@
 	  .module('salesHubApp')
       .controller('leadsCtrl', leadsCtrl);
 
-    leadsCtrl.$inject = ['$window', '$rootScope', '$location', '$log', 'config', 'blockUI', 'accounts', 'leads'];
-    function leadsCtrl($window, $rootScope, $location, $log, config, blockUI, accounts, leads) {
+    leadsCtrl.$inject = [
+        '$window', '$rootScope', '$location', '$log', 'config', 'blockUI', 
+        'accounts', 'leads', 'emails'];
+    function leadsCtrl($window, $rootScope, $location, $log, config, blockUI, accounts, leads, emails) {
     	var vm = this;
 
         $rootScope.$on('REFRESH_LEAD', function(){

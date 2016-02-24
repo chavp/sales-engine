@@ -43,6 +43,7 @@ leadSchema.pre('remove', function(next) {
     // to be notified of the calls' result.
     Contact.remove({ lead: lead }).exec();
     LeadEvent.remove({ lead: lead }).exec();
+    Compose.remove({ lead: lead }).exec();
     next();
 });
 

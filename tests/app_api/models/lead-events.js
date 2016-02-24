@@ -32,8 +32,14 @@ var leadEventSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Lead',
 		childPath:"events" 
+	},
+
+	compose: {
+		type: Schema.ObjectId,
+		ref: 'Compose'
 	}
  });
+
 
 leadEventSchema.plugin(timestamps);
 leadEventSchema.plugin(relationship, { relationshipPathName:'lead' });

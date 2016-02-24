@@ -14,6 +14,7 @@ var ctrLeads = require('../controllers/leads');
 var ctrContacts = require('../controllers/contacts');
 var ctrLeadEvents = require('../controllers/lead-events');
 var ctrFileUpload = require('../controllers/file-upload');
+var ctrEmail = require('../controllers/emails');
 
 // Accounts
 router.get('/accounts', auth, ctrAccounts.accounts);
@@ -53,6 +54,9 @@ router.post('/leads/:leadId/events/', auth, ctrLeadEvents.leadEventsDone);
 
 // File upload
 router.post('/files', auth, multipartMiddleware, ctrFileUpload.upload);
+
+// Lead Email
+router.post('/emails', auth, ctrEmail.saveEmail);
 
 // Opportunities
 

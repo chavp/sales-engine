@@ -51,6 +51,14 @@ body {
     margin-bottom: 5px;
 }
 
+.left5 {
+    margin-left: 5px;
+}
+
+.right5 {
+    margin-right: 5px;
+}
+
 .error-font {
     color: darkred;
 }
@@ -394,4 +402,8 @@ time {
     display: inline-block;
     margin-right: 2px;
     vertical-align: -3px;
+}
+
+.compose-draft{
+    cursor: pointer;
 }

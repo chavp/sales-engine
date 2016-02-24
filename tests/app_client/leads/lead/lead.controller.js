@@ -11,11 +11,12 @@
         'Upload',
         'leads', 
         'leadEvents',
-        'accounts'];
+        'accounts',
+        'emails'];
     function leadCtrl(
             $rootScope, $routeParams, $location, $log, config, 
             blockUI, Upload,
-            leads, leadEvents, accounts) {
+            leads, leadEvents, accounts, emails) {
     	var vm = this;
 
         //console.log($scope.ledvm);
@@ -24,6 +25,7 @@
         vm.isCanCall = false;
         vm.leadId = $routeParams.leadId;
 
+        // event
         $rootScope.$on('UPDATE_LEAD_TOOLS', function(event, params){
             //console.log(params);
             if(params.isCanEmail){
@@ -33,6 +35,12 @@
                 vm.isCanCall = params.isCanCall;
             }
         });
+
+        vm.currentUser= $rootScope.currentUser;
+        $rootScope.$on('UPDATE_MEMBER', function(event, params){
+            vm.currentUser = params.currentUser;
+        });
+        /////////////////////////////////////////////
 
         vm.isEmpaty = function(){
             return vm.contacts.length === 0;
@@ -45,6 +53,7 @@
         vm.ccEmails = [];
         vm.bccEmails = [];
         vm.attachFiles = [];
+        vm.subject = "";
         vm.loadEmail = function($query){
             return ['my.parinya@gmail.com', 'my.parinya@outlook.com'];
         }
@@ -142,7 +151,9 @@
                         title: event.title,
                         content: event.content,
                         createdAt: event.createdAt,
-                        riaseFrom: event.riaseFrom
+                        riaseFrom: event.riaseFrom,
+                        fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
+                        name: event.riaseFrom.profile.firstName
                     });
 
                 } else if(event.type === 'Note'){
@@ -155,7 +166,26 @@
                         title: event.title,
                         content: event.content,
                         createdAt: event.createdAt,
-                        riaseFrom: event.riaseFrom
+                        riaseFrom: event.riaseFrom,
+                        fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
+                        name: event.riaseFrom.profile.firstName
+                    });
+                } else if(event.type === 'Email' && event.compose.status === 'Draft'){
+                    //console.log(event);
+                    vm.events.push({
+                        uuid: guid(),
+                        badgeClass: 'info',
+                        badgeIconClass: 'glyphicon-envelope',
+                        _id: event._id,
+                        type: event.type,
+                        fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
+                        name: event.riaseFrom.profile.firstName,
+                        //title: event.title,
+                        //content: event.content,
+                        createdAt: event.createdAt,
+                        riaseFrom: event.riaseFrom,
+                        compose: event.compose,
+                        status: 'draft'
                     });
                 }
             };
@@ -290,43 +320,27 @@
                         console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                     });
                 });
-                /*for (var i = 0; i < vm.attachFiles.length; i++) {
-                    var file = vm.attachFiles[i];
-                    file.uploading = true;
-                    Upload.upload({
-                        url: '/api/files/',
-                        method: 'POST',
-                        data: {file: file},
-                        headers : {
-                            'Content-Type': file.type,
-                            'Authorization': 'Bearer '+ token
-                        }
-                        //headers: {'Authorization': 'xxx'}
-                    }).then(function (resp) {
-                        var response = resp.data;
-                        file.uploading = false;
-                        console.log(vm.attachFiles);
-                        console.log('Success ' + resp.config.data.file.name + ' uploaded. Response: ' + response.message);
-                    }, function (resp) {
-                        console.log('Error status: ' + resp.status);
-                    }, function (evt) {
-                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                        if(progressPercentage === 100){
-                            file.uploading = false;
-                        }
-                        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                    });
-                }*/
-                //vm.uploading = false;
             }
-            //console.log($files);
-          /*if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-              Upload.upload({..., data: {file: files[i]}, ...})...;
+        }
+
+        vm.saveDraft = function(){
+            if(vm.toEmails.length == 0){
+                return false;
             }
-            // or send them all together for HTML5 browsers:
-            Upload.upload({..., data: {file: files}, ...})...;
-          }*/
+            //console.log(vm.toEmails);
+            emails.saveDraft({
+                memberId: vm.currentUser._id,
+                leadId: vm.leadId,
+                from: vm.currentUser.email,
+                to: vm.toEmails.map(function(d){ return d.text; }),
+                cc: vm.ccEmails.map(function(d){ return d.text; }),
+                bcc: vm.bccEmails.map(function(d){ return d.text; }),
+                subject: vm.subject,
+                content: vm.content,
+                attachs: vm.attachFiles.map(function(d){ return d.name; })
+            }, function(err){
+
+            });
         }
 
     }

@@ -11,10 +11,23 @@ module.exports.leadEvents = function(req, res) {
 		})
 		.populate('riaseFrom')
 		.populate('riaseTo')
+		.populate('compose')
 		.sort({createdAt: 'desc'})
 		//.sort({createdAt: 'asc'})
 		.exec(function(err, docs){
-			helper.sendJsonResponse(res, OK, docs);
+
+			MemberProfile.populate(docs, {
+		     	path: 'riaseFrom.profile'
+		     }, function(err, result){
+		     	if (err) {
+		          //console.log(err);
+			        helper.sendJsonResponse(res, BAD_REQUEST, err);
+			        return;
+			    }
+			    helper.sendJsonResponse(res, OK, docs);
+		     });
+
+			//helper.sendJsonResponse(res, OK, docs);
 			//return leads;
 		});
 }

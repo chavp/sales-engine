@@ -33,6 +33,7 @@
             </div>
 
             <div class="row top10">
+
                 <timeline>
                     <timeline-event ng-repeat="event in vm.events" 
                         side="right" 
@@ -45,7 +46,9 @@
 
                       <timeline-panel ng-if="event.type === 'Lead'" class="{{event.badgeClass}} timeline-hidden">
                         <timeline-heading>
-                          <small class="badge pull-right">{{event.riaseFrom.username}}</small> 
+                          <span class="salesrep pull-right left5"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="{{event.fullname}}">
+                              </span>
+                              <span class="user-name pull-right">{{event.name}}</span>
                         </timeline-heading>
                         <p>{{event.title}}  {{event.content}}</p>
                         <small>
@@ -62,10 +65,12 @@
                         class="{{event.badgeClass}} timeline-hidden"
                         when-visible="vm.animateElementIn2">
                         <timeline-heading>
-                            <small class="badge pull-right">{{event.riaseFrom.username}}</small>
+                            <span class="salesrep pull-right left5"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="{{vm.currentUser.name}}">
+                              </span>
+                              <span class="user-name pull-right">{{vm.currentUser.shortName}}</span>
                         </timeline-heading>
 
-                        <form class="form-note" ng-if="event._id == null">
+                        <form ng-if="event._id == null" class="form-note">
                             <div class="form-group">
                                 <textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 70px;" class="form-control" placeholder="Add a note about this lead" type="text" ng-model="vm.oneEvent.content" focus="{{vm.noteFocus}}"></textarea>
                             </div>
@@ -95,91 +100,118 @@
                         ng-if="event.type === 'Email'" 
                         class="{{event.badgeClass}} timeline-hidden"
                         when-visible="vm.animateElementIn2">
-                        <timeline-heading>
-                            <small>(No Subject)</small>
-                            <span class="salesrep pull-right"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="Beam yanaphat">
-                            <span class="user-name" title="Beam yanaphat">Beam</span>
-                            </span>
-                        </timeline-heading>
 
-                        <div class="panel panel-default top20">
-                          <div class="panel-heading">
-                            <div name="from">Parinya Chavp "&ltding2@saleshub.com&gt" <small class="label label-default">draft</small> </div>
-                            <div name="to"><label>To: </label>my.parinya@gmail.com</div>
+                        <div ng-if="event._id == null">
+                          <timeline-heading>
+                              <small>(No Subject)</small>
+                              <span class="salesrep pull-right left5"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="{{vm.currentUser.name}}">
+                              </span>
+                              <span class="user-name pull-right">{{vm.currentUser.shortName}}</span>
+                          </timeline-heading>
+
+                          <div class="panel panel-default top20">
+                            <div class="panel-heading">
+                              <div name="from">{{vm.currentUser.name}} "&lt{{vm.currentUser.email}}&gt" <small class="label label-default">draft</small> </div>
+                              <!--<div name="to"><label>To: </label>my.parinya@gmail.com</div>-->
+                            </div>
+                            <div class="panel-body">
+                              <form>
+                                   <div class="email-send-tools">
+                                      <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">To:</span>
+                                        <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon1" ng-model="vm.toEmails" add-from-autocomplete-only="true">
+                                          <auto-complete source="vm.loadEmail($query)"
+                                            min-length="0"
+                                            debounce-delay="0"
+                                            max-results="10">
+                                          </auto-complete>
+                                        </tags-input>
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-default" type="button" ng-click="vm.addCc()" ng-if="!vm.haveCc">Add CC</button>
+                                          <button class="btn btn-default" type="button" ng-click="vm.addBcc()"ng-if="!vm.haveBcc">Add BCC</button>
+                                        </span>
+                                      </div>
+                                      <div class="input-group top5" ng-if="vm.haveCc">
+                                        <span class="input-group-addon" id="basic-addon2">CC:</span>
+                                        <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon2" ng-model="vm.ccEmails">
+                                          <auto-complete source="vm.loadEmail($query)"
+                                            min-length="0"
+                                            debounce-delay="0"
+                                            max-results="10">
+                                          </auto-complete>
+                                        </tags-input>
+                                        <!--<span class="input-group-btn">
+                                          <button class="btn btn-default" type="button" ng-click="vm.cancleCc()" ng-if="vm.haveCc"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </span>-->
+                                      </div>
+                                      <div class="input-group top5" ng-if="vm.haveBcc">
+                                        <span class="input-group-addon" id="basic-addon3">BCC:</span>
+                                        <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon3" ng-model="vm.bccEmails">
+                                          <auto-complete source="vm.loadEmail($query)"
+                                            min-length="0"
+                                            debounce-delay="0"
+                                            max-results="10">
+                                          </auto-complete>
+                                        </tags-input>
+                                        <!--<span class="input-group-btn">
+                                          <button class="btn btn-default" type="button" ng-click="vm.cancleBcc()" ng-if="vm.haveBcc"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </span>-->
+                                      </div>
+                                   </div>
+                                   <div class="email-subject form-group top5">
+                                      <input type="text" class="form-control" placeholder="Subject" ng-model="vm.subject">
+                                   </div> 
+                                   <div class="form-group top-10">
+
+                                      <textarea class="form-control" rows="3" ng-model="vm.content"></textarea>
+                                   </div>
+                                   <div class="form-group row">
+                                      <div class="file-list">
+                                          <div ng-repeat="attachFile in vm.attachFiles">
+                                            <div ng-show="attachFile.uploading"><span class="loader"></span> Uploading…</div>
+                                            <a href="#" ng-hide="attachFile.uploading">{{attachFile.name}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteFile(attachFile.name)"></span></a>
+                                          </div>
+                                      </div>
+                                   </div>
+                                   <div class="form-group row">
+                                      <div class="col-xs-6 col-md-6 col-lg-6 text-left">
+                                        <button type="submit" class="btn btn-danger" ng-click="vm.deleteEvent()" title="Delete email"><span class="glyphicon glyphicon-trash"></span></button>
+
+                                        <button type="submit" class="btn" ng-click="" title="Attach a file by clicking here or dragging a file here" ngf-select="vm.uploadFiles()" ngf-multiple="true" ng-model="vm.attachFiles" ladda="vm.uploading"><span class="glyphicon glyphicon-paperclip"></span></button>
+
+                                      </div>
+                                      <div class="col-xs-6 col-md-6 col-lg-6 text-right">
+                                        <button type="submit" class="btn btn-default" ng-click="vm.saveDraft()">Save draft</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="vm.sendMail()">Send</button>
+                                      </div>
+                                    </div>
+                              </form>
+                            </div>
                           </div>
-                          <div class="panel-body">
-                            <form>
-                                 <div class="email-send-tools">
-                                    <div class="input-group">
-                                      <span class="input-group-addon" id="basic-addon1">To:</span>
-                                      <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon1" ng-model="vm.toEmails">
-                                        <auto-complete source="vm.loadEmail($query)"
-                                          min-length="0"
-                                          debounce-delay="0"
-                                          max-results="10">
-                                        </auto-complete>
-                                      </tags-input>
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" ng-click="vm.addCc()" ng-if="!vm.haveCc">Add CC</button>
-                                        <button class="btn btn-default" type="button" ng-click="vm.addBcc()"ng-if="!vm.haveBcc">Add BCC</button>
-                                      </span>
-                                    </div>
-                                    <div class="input-group top5" ng-if="vm.haveCc">
-                                      <span class="input-group-addon" id="basic-addon2">CC:</span>
-                                      <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon2" ng-model="vm.ccEmails">
-                                        <auto-complete source="vm.loadEmail($query)"
-                                          min-length="0"
-                                          debounce-delay="0"
-                                          max-results="10">
-                                        </auto-complete>
-                                      </tags-input>
-                                      <!--<span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" ng-click="vm.cancleCc()" ng-if="vm.haveCc"><span class="glyphicon glyphicon-remove"></span></button>
-                                      </span>-->
-                                    </div>
-                                    <div class="input-group top5" ng-if="vm.haveBcc">
-                                      <span class="input-group-addon" id="basic-addon3">BCC:</span>
-                                      <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon3" ng-model="vm.bccEmails">
-                                        <auto-complete source="vm.loadEmail($query)"
-                                          min-length="0"
-                                          debounce-delay="0"
-                                          max-results="10">
-                                        </auto-complete>
-                                      </tags-input>
-                                      <!--<span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" ng-click="vm.cancleBcc()" ng-if="vm.haveBcc"><span class="glyphicon glyphicon-remove"></span></button>
-                                      </span>-->
-                                    </div>
-                                 </div>
-                                 <div class="email-subject form-group top5">
-                                    <input type="text" class="form-control" placeholder="Subject">
-                                 </div> 
-                                 <div class="form-group top-10">
+                        </div>
 
-                                    <textarea class="form-control" rows="3"></textarea>
-                                 </div>
-                                 <div class="form-group row">
-                                    <div class="file-list">
-                                        <div ng-repeat="attachFile in vm.attachFiles">
-                                          <div ng-show="attachFile.uploading"><span class="loader"></span> Uploading…</div>
-                                          <a href="#" ng-hide="attachFile.uploading">{{attachFile.name}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteFile(attachFile.name)"></span></a>
-                                        </div>
-                                    </div>
-                                 </div>
-                                 <div class="form-group row">
-                                    <div class="col-xs-6 col-md-6 col-lg-6 text-left">
-                                      <button type="submit" class="btn btn-danger" ng-click="vm.deleteEvent()" title="Delete email"><span class="glyphicon glyphicon-trash"></span></button>
+                        <div ng-if="event._id != null">
+                          <timeline-heading>
+                            <small>{{event.compose.subject || "(No Subject)" }}</small>
+                            <span class="salesrep pull-right left5"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="{{event.fullname}}">
+                              </span>
+                              <span class="user-name pull-right">{{event.name}}</span>
+                          </timeline-heading>
 
-                                      <button type="submit" class="btn" ng-click="" title="Attach a file by clicking here or dragging a file here" ngf-select="vm.uploadFiles()" ngf-multiple="true" ng-model="vm.attachFiles" ladda="vm.uploading"><span class="glyphicon glyphicon-paperclip"></span></button>
+                          <div class="panel panel-default top20">
+                            <div class="panel-heading">
 
-                                    </div>
-                                    <div class="col-xs-6 col-md-6 col-lg-6 text-right">
-                                      <button type="submit" class="btn btn-default">Save draft</button>
-                                      <button type="submit" class="btn btn-primary" ng-click="vm.sendMail()">Send</button>
-                                    </div>
-                                  </div>
-                            </form>
+                              <div name="from" class="compose-draft"><i class="glyphicon glyphicon-triangle-right"></i> {{event.fullname}} <small class="label label-default">{{event.status}}</small> </div>
+
+                              <!--<div name="to"><label>To: </label>my.parinya@gmail.com</div>-->
+                            </div>
                           </div>
+
+                          <small>
+                                <time data-toggle="tooltip" data-placement="top" title="{{event.createdAt}}">
+                                    <i class="glyphicon glyphicon-time"></i> {{event.createdAt | formatCreatedAt}}
+                                </time>
+                            </small>
                         </div>
                       </timeline-panel>
 

@@ -5,9 +5,9 @@
     .controller('toptoolbarCtrl', navigationCtrl);
 
   navigationCtrl.$inject = [
-    '$window', '$location', '$log', '$uibModal', 'accounts', 'featureToggle'
+    '$rootScope', '$window', '$location', '$log', '$uibModal', 'accounts', 'featureToggle'
   ];
-  function navigationCtrl($window, $location, $log, $uibModal, accounts, featureToggle) {
+  function navigationCtrl($rootScope, $window, $location, $log, $uibModal, accounts, featureToggle) {
     var vm = this;
 
     //console.log(featureToggle.isEnabled('searchLead'));
@@ -22,6 +22,8 @@
     accounts.getCurrentUser(function(err, data){
       if(!err){
         vm.currentUser = data;
+        $rootScope.currentUser = data;
+        $rootScope.$emit("UPDATE_MEMBER", { currentUser:data });
       }else{
         //$location.path('/');
         accounts.logout();

@@ -1,3 +1,4 @@
 /new-src/node_modules
 /src/node_modules
 /db
+/tests/public/tmp

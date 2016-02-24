@@ -42,6 +42,7 @@
 		        	callback(null, {
 		          		email : data.email,
 		          		name : data.profile.firstName + " " + data.profile.lastName,
+		          		shortName: data.profile.firstName,
 		          		phone: data.profile.phone
 					});
 	        	}
