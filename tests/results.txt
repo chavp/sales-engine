@@ -1,1 +1,53 @@
 [TypeError: Cannot read property 'Kerberos' of undefined]
+
+[0m[0m
+[0m  Member[0m
+[2K[0G  [31m  1) add ding password 123456789[0m
+[2K[0G  [32m  √[0m[90m check ding dupplicate member[0m[31m (868ms)[0m
+[2K[0G  [32m  √[0m[90m check ding valid password[0m[31m (582ms)[0m
+[2K[0G  [32m  √[0m[90m check ding invalid password[0m[31m (1341ms)[0m
+
+[0m  Member with profile[0m
+[2K[0G  [31m  2) add ding with profile[0m
+
+[0m  Organization with members[0m
+[2K[0G  [32m  √[0m[90m add the-home org with all members[0m[31m (1872ms)[0m
+[2K[0G  [32m  √[0m[90m check member $ profile $ org relationship[0m[31m (624ms)[0m
+
+[0m  Organization add Admin Organization Role[0m
+[2K[0G  [31m  3) add Chavp org[0m
+
+[0m  Leads[0m
+[2K[0G  [31m  4) create simple lead[0m
+[2K[0G  [31m  5) new lead with company name[0m
+
+[0m  Accounts API[0m
+[2K[0G  [32m  √[0m[90m valid Login[0m[31m (702ms)[0m
+[2K[0G  [32m  √[0m[90m invalid Login[0m[31m (611ms)[0m
+
+
+[92m [0m[32m 7 passing[0m[90m (19s)[0m
+[31m  5 failing[0m
+
+[0m  1) Member add ding password 123456789:
+[0m[31m     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.[0m[90m
+      at null.<anonymous> (D:\Projects\sales-engine\tests\node_modules\mocha\lib\runnable.js:215:19)
+[0m
+[0m  2) Member with profile add ding with profile:
+[0m[31m     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.[0m[90m
+      at null.<anonymous> (D:\Projects\sales-engine\tests\node_modules\mocha\lib\runnable.js:215:19)
+[0m
+[0m  3) Organization add Admin Organization Role add Chavp org:
+[0m[31m     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.[0m[90m
+      at null.<anonymous> (D:\Projects\sales-engine\tests\node_modules\mocha\lib\runnable.js:215:19)
+[0m
+[0m  4) Leads create simple lead:
+[0m[31m     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.[0m[90m
+      at null.<anonymous> (D:\Projects\sales-engine\tests\node_modules\mocha\lib\runnable.js:215:19)
+[0m
+[0m  5) Leads new lead with company name:
+[0m[31m     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.[0m[90m
+      at null.<anonymous> (D:\Projects\sales-engine\tests\node_modules\mocha\lib\runnable.js:215:19)
+[0m
+
+

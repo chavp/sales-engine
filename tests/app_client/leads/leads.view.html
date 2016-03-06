@@ -20,11 +20,12 @@
 		</thead>
 		<tbody>
 			<tr st-select-row="row" ng-repeat="row in vm.leadResults">
-				<td>
+				<td ng-click="vm.showLead(row)" class="cursor-pointer">
 					<a ng-href="/leads/{{row._id}}">{{row.company}}</a>
 				</td>
 				<td>
-					<button type="button" class="btn btn-sm" ng-disabled="row.email === ''" title="{{row.email}}">
+					<button type="button" class="btn btn-sm" ng-disabled="row.email === ''" title="{{row.email}}" 
+						ng-click="vm.beginEmail(row)">
 						<i class="glyphicon glyphicon-envelope"></i>
 					</button>
 				</td>

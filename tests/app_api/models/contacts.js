@@ -29,6 +29,7 @@ contactSchema.pre('remove', function(next) {
     var contact = this;
     //console.log(contact._id);
     ContactChannel.remove({ contact: contact }).exec();
+    
     next();
 });
 

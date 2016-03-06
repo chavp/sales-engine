@@ -4,17 +4,30 @@
       .controller('leadsCtrl', leadsCtrl);
 
     leadsCtrl.$inject = [
-        '$window', '$rootScope', '$location', '$log', 'config', 'blockUI', 
+        '$scope',
+        '$window', 
+        '$rootScope', 
+        '$location', 
+        '$log', 'config', 'blockUI', 
         'accounts', 'leads', 'emails'];
-    function leadsCtrl($window, $rootScope, $location, $log, config, blockUI, accounts, leads, emails) {
+    function leadsCtrl(
+        $scope,
+        $window, 
+        $rootScope, 
+        $location, 
+        $log, config, blockUI, accounts, leads, emails) {
     	var vm = this;
 
-        $rootScope.$on('REFRESH_LEAD', function(){
+        // event on
+        var REFRESH_LEAD = $rootScope.$on('REFRESH_LEAD', function(){
             //console.log(params);
             vm.refreshLeads();
 
             
         });
+        
+        $scope.$on("$destroy", REFRESH_LEAD);
+        // end event
 
         vm.currentPath = $location.path();
         
@@ -53,8 +66,8 @@
                                     break;
                                 }
                             };
-                            for (var i = 0; i < conChannels.length; i++) {
-                                var name = conChannels[i].name;
+                            for (var i = 0; i < d.tags.length; i++) {
+                                var name = d.tags[i].tag;
                                 if(validatePhone(name)) {
                                     d.phone = vm.phonePrefix + " " + name;
                                     break;
@@ -74,6 +87,23 @@
                     vm.leadResults = results;
                 }
             });
+        }
+
+        vm.beginEmail = function(lead){
+            $location
+                .path('/leads/' + lead._id)
+                .search({to: lead.email});
+            /*$rootScope.$emit("BEGIN_SEND_MAIL", {
+              to: [lead.email]
+            });*/
+        }
+
+        vm.showLead = function(lead){
+            $location
+                .path('/leads/' + lead._id);
+            /*$rootScope.$emit("BEGIN_SEND_MAIL", {
+              to: [lead.email]
+            });*/
         }
 
         vm.refreshLeads();

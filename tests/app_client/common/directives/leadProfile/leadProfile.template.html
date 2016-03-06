@@ -1,4 +1,4 @@
-<div class="lead-profile">
+<div class="lead-profile" id="{{ledvm.lead._id}}">
     <div ng-show="!ledvm.editing">
         <h1 class="company top10" ng-click="ledvm.edit('company')" title="Click to edit">
             {{ledvm.lead.companyName || 'Untitled'}}</h1>
@@ -10,6 +10,9 @@
         <p ng-show="ledvm.validDescription()">
             <span class="inner-text lead-description" ng-click="ledvm.edit('description')" title="Click to edit">{{ledvm.lead.description}}</span>
         </p>
+        <p ng-show="ledvm.validAddress()">
+            <span class="inner-text lead-address" ng-click="ledvm.edit('address')" title="Click to edit">{{ledvm.lead.address}}</span>
+        </p>
         <div class="add-missing">
             <a href="#" ng-hide="ledvm.validDescription()" class="add-description" title="Click to add description" ng-click="ledvm.edit('description')">
                 {{ledvm.lead.description || 'Add description'}}
@@ -18,7 +21,7 @@
                 <span ng-show="ledvm.validDescription()">Add URL</span>
                 <span ng-hide="ledvm.validDescription()">,URL </span>
             </a>
-            <a href="#" class="add-address" title="Click to add an address">
+            <a href="#" ng-hide="ledvm.validAddress()" class="add-address" title="Click to add an address" ng-click="ledvm.edit('address')">
                 <span ng-show="!ledvm.validDescription()">, or </span>
                 <span ng-show="ledvm.validUrl() && ledvm.validDescription()">Add </span>
                 <span ng-show="!ledvm.validUrl() && ledvm.validDescription()">, </span>
@@ -36,6 +39,9 @@
             </div>
             <div class="form-group">
                 <textarea class="form-control lead-input-form" type="text" placeholder="Description" ng-model="ledvm.lead.description" focus="{{ledvm.focusDescription}}"></textarea>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control lead-input-form" type="text" placeholder="Address" ng-model="ledvm.lead.address" focus="{{ledvm.focusAddress}}"></textarea>
             </div>
             <div class="form-group text-right">
                   <button type="button" class="btn btn-default" ng-click="ledvm.cancle()" ng-disabled="ledvm.loading">Cancle</button>

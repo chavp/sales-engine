@@ -5,6 +5,7 @@
       .controller('leadCtrl', leadCtrl);
 
     leadCtrl.$inject = [
+        '$scope',
         '$rootScope', 
         '$routeParams', '$location', '$log', 'config', 
         'blockUI', 
@@ -12,21 +13,36 @@
         'leads', 
         'leadEvents',
         'accounts',
-        'emails'];
+        'emails',
+        'files'];
     function leadCtrl(
-            $rootScope, $routeParams, $location, $log, config, 
+            $scope,
+            $rootScope, 
+            $routeParams, $location, $log, config, 
             blockUI, Upload,
-            leads, leadEvents, accounts, emails) {
+            leads, leadEvents, accounts, emails, files) {
     	var vm = this;
 
         //console.log($scope.ledvm);
+        //$log.debug($scope.ledvm);
 
-        vm.isCanEmail = true;
+        vm.isCanEmail = false;
         vm.isCanCall = false;
         vm.leadId = $routeParams.leadId;
 
+        /*if(vm.tags && vm.tags.length > 0){
+            vm.tags.forEach(function(tag){
+                if(tag.type === 'Email'){
+                    vm.isCanEmail = true;
+                }
+                if(tag.type === 'Phone'){
+                    vm.isCanCall = true;
+                }
+            });
+        }*/
+
         // event
-        $rootScope.$on('UPDATE_LEAD_TOOLS', function(event, params){
+        var UPDATE_LEAD_TOOLS = $rootScope.$on('UPDATE_LEAD_TOOLS', function(event, params){
             //console.log(params);
             if(params.isCanEmail){
                 vm.isCanEmail = params.isCanEmail;
@@ -37,10 +53,74 @@
         });
 
         vm.currentUser= $rootScope.currentUser;
-        $rootScope.$on('UPDATE_MEMBER', function(event, params){
+        var UPDATE_MEMBER = $rootScope.$on('UPDATE_MEMBER', function(event, params){
             vm.currentUser = params.currentUser;
         });
+
+        var UPDATE_LEAD_TAGS = $rootScope.$on('UPDATE_LEAD_TAGS', function(event, params){
+            //$log.debug("old tags: " + vm.tags);
+            //$log.debug("new tags: " + params.newtags);
+            if(params.leadId == vm.leadId) { // OK target
+                var tags = [];
+                if(params.newtags && params.newtags.length > 0){
+                    params.newtags.forEach(function(tag){
+                        if(validateEmail(tag)){
+                            tags.push({
+                                tag: tag,
+                                type: 'Email'
+                            });
+                        } else if(validatePhone(tag)){
+                            tags.push({
+                                tag: tag,
+                                type: 'Phone'
+                            });
+                        }
+                    });
+
+                    if(tags && tags.length > 0) {
+                        // save tags
+                        leads.saveTags({
+                            leadId: vm.leadId,
+                            tags: tags
+                        }, function(err, result){
+                            vm.tags = result.tags;
+                            updateTools();
+
+                            //$log.debug("update tags: " + result.tags);
+                        });
+                    }
+                }
+                
+                if(params.tags && params.tags.length > 0){
+                    vm.tags = params.tags;
+                    updateTools();
+                }
+            }
+        });
+
+        var BEGIN_SEND_MAIL = $rootScope.$on('BEGIN_SEND_MAIL', function(event, params){
+            vm.addEmail(params.to);
+        });
+
+        $scope.$on("$destroy", UPDATE_LEAD_TOOLS);
+        $scope.$on("$destroy", UPDATE_MEMBER);
+        $scope.$on("$destroy", UPDATE_LEAD_TAGS);
+        $scope.$on("$destroy", BEGIN_SEND_MAIL);
         /////////////////////////////////////////////
+
+        var updateTools = function(){
+            vm.isCanEmail = false;
+            vm.isCanCall = false;
+
+            vm.tags.forEach(function(tag){
+                if(tag.type === 'Email'){
+                    vm.isCanEmail = true;
+                }
+                if(tag.type === 'Phone'){
+                    vm.isCanCall = true;
+                }
+            });
+        }
 
         vm.isEmpaty = function(){
             return vm.contacts.length === 0;
@@ -55,14 +135,15 @@
         vm.attachFiles = [];
         vm.subject = "";
         vm.loadEmail = function($query){
-            return ['my.parinya@gmail.com', 'my.parinya@outlook.com'];
-        }
-
-        vm.sendMail = function(){
-            $log.debug(vm.toEmails);
-            $log.debug(vm.ccEmails);
-            $log.debug(vm.bccEmails);
-            $log.debug(vm.attachFiles);
+            var emails = [];
+            if(vm.tags && vm.tags.length > 0){
+                for (var i = 0; i < vm.tags.length; i++) {
+                    if(vm.tags[i].type == 'Email') 
+                        emails.push(vm.tags[i].tag); 
+                }
+            }
+            //console.log(emails);
+            return emails;
         }
 
         // optional: not mandatory (uses angular-scroll-animate)
@@ -143,51 +224,14 @@
             for (var i = 0; i < result.length; i++) {
                 var event = result[i];
                 if(event.type === 'Lead'){
-                    vm.events.push({
-                        uuid: guid(),
-                        badgeClass: 'default',
-                        badgeIconClass: 'fa fa-newspaper-o',
-                        type: event.type,
-                        title: event.title,
-                        content: event.content,
-                        createdAt: event.createdAt,
-                        riaseFrom: event.riaseFrom,
-                        fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
-                        name: event.riaseFrom.profile.firstName
-                    });
+                    vm.events.push( new EventModel(event, 'default', 'fa fa-newspaper-o') );
 
                 } else if(event.type === 'Note'){
-                    vm.events.push({
-                        uuid: guid(),
-                        badgeClass: 'warning',
-                        badgeIconClass: 'glyphicon-comment',
-                        _id: event._id,
-                        type: event.type,
-                        title: event.title,
-                        content: event.content,
-                        createdAt: event.createdAt,
-                        riaseFrom: event.riaseFrom,
-                        fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
-                        name: event.riaseFrom.profile.firstName
-                    });
-                } else if(event.type === 'Email' && event.compose.status === 'Draft'){
+                    vm.events.push( new EventModel(event, 'warning', 'glyphicon-comment') );
+                } else if(event.type === 'Email'){
                     //console.log(event);
-                    vm.events.push({
-                        uuid: guid(),
-                        badgeClass: 'info',
-                        badgeIconClass: 'glyphicon-envelope',
-                        _id: event._id,
-                        type: event.type,
-                        fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
-                        name: event.riaseFrom.profile.firstName,
-                        //title: event.title,
-                        //content: event.content,
-                        createdAt: event.createdAt,
-                        riaseFrom: event.riaseFrom,
-                        compose: event.compose,
-                        status: 'draft'
-                    });
-                }
+                    vm.events.push( new EventModel(event, 'info', 'glyphicon-envelope') );
+                } 
             };
         });
     	//console.log($routeParams);
@@ -211,7 +255,7 @@
             vm.noteFocus = true;
         }
 
-        vm.addEmail = function(){
+        vm.addEmail = function(to){
             if(vm.oneEvent != null){
                 vm.events.shift(vm.oneEvent);
                 delete vm.oneEvent;
@@ -224,6 +268,9 @@
                 title: '',
                 content: ''
             };
+            if(to) {
+                vm.toEmails = to;
+            }
             vm.events.unshift(vm.oneEvent);
         }
 
@@ -256,6 +303,8 @@
             }
 
             vm.toEmails = [];
+            vm.subject = "";
+            vm.content = "";
             vm.attachFiles = [];
             vm.uploading = false;
 
@@ -282,10 +331,13 @@
             vm.bccEmails = [];
         }
 
-        vm.deleteFile = function(fileId){
-            //alert(fileId);
-            removeByField(vm.attachFiles, 'name', fileId);
-            
+        vm.deleteFile = function(file){
+            //console.log(file);
+            files.delete(
+                { pathId: file.pathId, attachFileId: file.attachFileId }, 
+                function(err, res){
+                    removeByField(vm.attachFiles, 'pathId', file.pathId);
+                });
         }
 
         // for multiple files:
@@ -299,7 +351,9 @@
                     Upload.upload({
                         url: '/api/files/',
                         method: 'POST',
-                        data: {file: file},
+                        data: {
+                            file: file
+                        },
                         headers : {
                             'Content-Type': file.type,
                             'Authorization': 'Bearer '+ token
@@ -308,7 +362,11 @@
                     }).then(function (resp) {
                         var response = resp.data;
                         file.uploading = false;
-                        console.log(vm.attachFiles);
+                        file.attachFileId = response.attachFileId;
+                        file.pathId = response.pathId;
+                        file.length = response.length;
+
+                        //console.log(vm.attachFiles);
                         console.log('Success ' + resp.config.data.file.name + ' uploaded. Response: ' + response.message);
                     }, function (resp) {
                         console.log('Error status: ' + resp.status);
@@ -337,12 +395,181 @@
                 bcc: vm.bccEmails.map(function(d){ return d.text; }),
                 subject: vm.subject,
                 content: vm.content,
-                attachs: vm.attachFiles.map(function(d){ return d.name; })
-            }, function(err){
-
+                attachs: vm.attachFiles.map(function(d){ 
+                    return {
+                        fileName: d.name,
+                        pathId: d.pathId,
+                        fileSize: d.length
+                    }; 
+                })
+            }, function(err, event){
+                //console.log(event);
+                vm.deleteEvent();
+                vm.events.unshift(  new EventModel(event, 'info', 'glyphicon-envelope') );
             });
         }
 
+        vm.saveEventDraft = function(event){
+            //console.log(event);
+            if(event.compose.to.length == 0){
+                return false;
+            }
+            var attachs = [];
+            if(event.compose.attachs) {
+                event.compose.attachs.forEach(function(d){
+                    attachs.push({
+                        fileName: d.name,
+                        pathId: d.pathId,
+                        fileSize: d.length
+                    });
+                });
+            }
+            if(event.compose.newAttachs) {
+                event.compose.newAttachs.map(function(d){
+                    attachs.push({
+                        fileName: d.name,
+                        pathId: d.pathId,
+                        fileSize: d.length
+                    });
+                });
+            }
+            //console.log(attachs);
+            emails.updateDraft({
+                memberId: vm.currentUser._id,
+                leadId: vm.leadId,
+                composeId: event.compose._id,
+                from: event.compose.from,
+                to: event.compose.to.map(function(d){ return d.text; }),
+                cc: event.compose.cc.map(function(d){ return d.text; }),
+                bcc: event.compose.bcc.map(function(d){ return d.text; }),
+                subject: event.compose.subject,
+                content: event.compose.content,
+                attachs: attachs
+            }, function(err, ev){
+                //console.log(event);
+                //vm.deleteEvent();
+                event.endEdit();
+                //vm.events.unshift(  new EventModel(event, 'info', 'glyphicon-envelope') );
+            });
+        }
+
+        vm.sendMail = function(event){
+            if(event) {
+                if(event.compose.to.length == 0) return false;
+                if(!event.compose.subject) return false;
+                if(!event.compose.content) return false;
+                
+                emails.sendMail(
+                    event.compose._id, 
+                    function(err, ev){
+                        event.compose.status = ev.status;
+                        removeByField(vm.events, 'uuid', event.uuid);
+                        vm.events.unshift(  new EventModel(event, 'info', 'glyphicon-envelope') );
+                    }
+                );
+            } else {
+                if(vm.toEmails.length == 0) return false;
+                if(!vm.subject) return false;
+                if(!vm.content) return false;
+
+                emails.sendNewMail({
+                    memberId: vm.currentUser._id,
+                    leadId: vm.leadId,
+                    from: vm.currentUser.email,
+                    to: vm.toEmails.map(function(d){ return d.text; }),
+                    cc: vm.ccEmails.map(function(d){ return d.text; }),
+                    bcc: vm.bccEmails.map(function(d){ return d.text; }),
+                    subject: vm.subject,
+                    content: vm.content,
+                    attachs: vm.attachFiles.map(function(d){ 
+                        return {
+                            fileName: d.name,
+                            pathId: d.pathId,
+                            fileSize: d.length
+                        }
+                    })
+                }, function(err, ev){
+                    vm.deleteEvent();
+                    vm.events.unshift(  new EventModel(ev, 'info', 'glyphicon-envelope') );
+                });
+            }
+            
+            /*$log.debug(vm.toEmails);
+            $log.debug(vm.ccEmails);
+            $log.debug(vm.bccEmails);
+            $log.debug(vm.attachFiles);*/
+        }
+
+        vm.deleteEventFile = function(event, file){
+            console.log(file);
+            files.delete(
+                { 
+                    pathId: file.pathId, 
+                    attachFileId: file._id 
+                }, 
+                function(err, res){
+                    removeByField(event.compose.attachs, 'pathId', file.pathId);
+                    removeByField(event.compose.newAttachs, 'pathId', file.pathId);
+                });
+        }
+
+        vm.deleteEventDraft = function(event){
+            //alert(fileId);
+            emails.deleteDraft(
+                event.compose._id, 
+                function(err, ev){
+                    removeByField(vm.events, 'uuid', event.uuid);
+                }
+            );
+        }
+
+        vm.uploadEventFiles = function(event){
+            //event.uploading = true;
+            /*event.compose.attachs.forEach(file){
+                file.uploading = false;
+            }*/
+            if (event.compose.newAttachs && event.compose.newAttachs.length ) {
+                var token = accounts.getToken();
+                //vm.uploading = true;
+                event.compose.newAttachs.forEach(function(file){
+                    file.uploading = true;
+                    Upload.upload({
+                        url: '/api/files/',
+                        method: 'POST',
+                        data: {
+                            file: file,
+                            composeId: event.compose._id
+                        },
+                        headers : {
+                            'Content-Type': file.type,
+                            'Authorization': 'Bearer '+ token
+                        }
+                        //headers: {'Authorization': 'xxx'}
+                    }).then(function (resp) {
+                        var response = resp.data;
+                        file.uploading = false;
+                        file._id = response.attachFileId;
+                        file.pathId = response.pathId;
+                        file.length = response.length;
+
+                        //console.log(vm.attachFiles);
+                        console.log('Success ' + resp.config.data.file.name + ' uploaded. Response: ' + response.message);
+                    }, function (resp) {
+                        console.log('Error status: ' + resp.status);
+                    }, function (evt) {
+                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                        if(progressPercentage === 100){
+                            file.uploading = false;
+                        }
+                        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                    });
+                });
+            }
+        }
+
+        if($routeParams.to){
+            vm.addEmail([$routeParams.to]);
+        }
     }
 
 })();

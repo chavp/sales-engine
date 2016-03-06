@@ -39,6 +39,7 @@ module.exports.leadsByOrg = function(req, res) {
 			organization: req.params.organizationId
 		})
 		.populate('contacts')
+		.populate('tags')
 		.sort({createdAt: 'desc'})
 		.exec(function(err, leads){
 			if (err) {
@@ -72,6 +73,7 @@ module.exports.leadsByMemberLiveOrg = function(req, res) {
 				organization: mem.liveOrganization
 			})
 			.populate('contacts')
+			.populate('tags')
 			.sort({createdAt: 'desc'})
 			.exec(function(err, leads){
 				if (err) {
@@ -168,6 +170,7 @@ module.exports.leadById = function(req, res) {
 	Lead
 	  .findById(req.params.leadId)
 	  .populate('contacts')
+	  .populate('tags')
 	  .exec	(function(err, led){
 	    if (err) {
 	          //console.log(err);
@@ -216,7 +219,7 @@ module.exports.leadUpdate = function(req, res) {
 	     led.companyName = req.body.companyName;
 	     led.description = req.body.description;
 	     led.url = req.body.url;
-
+	     led.address = req.body.address;
 	     led.save(function(err){
 	     	if (err) {
 	          //console.log(err);
@@ -265,4 +268,94 @@ module.exports.leadDelete = function(req, res){
 	     	});
 	     });
 	  });
+}
+
+// POST save tags
+module.exports.leadSaveTags = function(req, res){
+	console.log('POST leadSaveTags', req.params);
+	if (!req.params.leadId) {
+	    helper.sendJsonResponse(res, BAD_REQUEST, {
+	      "message": "Not found, lead Id is required"
+	    });
+	    return;
+	}
+
+	Lead
+	  .findById(req.params.leadId)
+	  .populate('tags')
+	  .exec	(function(err, led){
+	    if (err) {
+	          //console.log(err);
+	        helper.sendJsonResponse(res, BAD_REQUEST, err);
+	        return;
+	     }
+	     if(!led){
+	     	helper.sendJsonResponse(res, NOT_FOUND, {
+	     		"message": "Not found lead"
+	     	});
+	        return;
+	     }
+
+	     if(req.body.tags == null || req.body.tags.length == 0){
+	     	helper.sendJsonResponse(res, OK, led);
+	        return;
+	     }
+
+	     //console.log("tags: " + led.tags);
+
+	     var newTags = req.body.tags;
+	     var oldTags = led.tags.map(function(d){ return d.tag; });
+	     var saveTags = [],
+	     	 haveNewTags = [];
+
+	     console.log(newTags);
+
+	     if(newTags && newTags.length > 0){
+	      	for (var i = 0; i < newTags.length; i++) {
+	      		//var tag = newTags[i].tag;
+	      		if (!oldTags.contains(newTags[i].tag)) {
+	     		   if(!haveNewTags.contains(newTags[i].tag)){
+				   	   saveTags.push({
+				   	   		tag: newTags[i].tag,
+				   	   		type: newTags[i].type
+				   	   });
+				   	   haveNewTags.push(newTags[i].tag);
+				   }
+				}
+	      	}
+
+	     	//console.log("saveTags: " + saveTags);
+	     	/*led.tags.forEach(function(tag) {
+		     		for (var i = 0; i < newTags.length; i++) {
+					var newTag = newTags[i];
+					if(tag != newTag){
+						saveTags.push(newTag);
+					}
+				}
+	     	});*/
+	     	
+	     	async.eachSeries(
+		     	saveTags, 
+		     	function iteratee(tag, done) {
+		     		var leadTag = new LeadTag({
+				     	tag: tag.tag,
+				     	type: tag.type,
+				     	lead: led
+					});
+					leadTag.save(function(err){
+				     	done();
+					});
+		     	}, 
+		     	function done() {
+					Lead
+					  .findById(req.params.leadId)
+					  .populate('tags')
+					  .exec	(function(err, lead){
+					  	 helper.sendJsonResponse(res, OK, lead);
+					  });
+				});
+	     }
+
+	  });
+
 }

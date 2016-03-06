@@ -6,11 +6,11 @@
     </label>
     <div class="input-group-btn" role="group" aria-label="...">
       <button type="button" class="btn btn-default" ng-disabled="!convm.canCall()" title="Call {{convm.contact.phone}}"><span class="glyphicon glyphicon-earphone"></span></button>
-      <button type="button" class="btn btn-default" ng-disabled="!convm.canEmail()" title="Email {{convm.contact.email}}"><span class="glyphicon glyphicon-envelope"></span></button>
+      <button type="button" class="btn btn-default" ng-disabled="!convm.canEmail()" title="Email {{convm.contact.email}}" ng-click="convm.beginEmail()"><span class="glyphicon glyphicon-envelope"></span></button>
     </div>
 </div>
 
-<form class="contacts-form list-group-item" id="{{convm.uuid}}" ng-submit="convm.save()" ng-show="convm.isEditing">
+<form class="contacts-form list-group-item" ng-show="convm.isEditing">
     <div class="form-group">
       <label for="contact-name">Name</label>
       <input type="text" class="form-control" name="contact-name" placeholder="" ng-model="convm.contact.name" focus="{{convm.isEditing}}" ng-disabled="convm.saving || convm.deleting">
@@ -46,11 +46,11 @@
     
     <div class="row">
       <div class="form-group text-left col-md-5">
-          <button type="button" class="btn btn-danger" ng-click="convm.delete()" ladda="convm.deleting" ng-disabled="convm.saving" ng-if="convm.canDelete"><span class="glyphicon glyphicon-trash"></span></button>
+          <button type="button" class="btn btn-danger" ng-click="convm.delete()" ladda="convm.deleting" ng-disabled="convm.saving" ng-if="convm.canDelete()"><span class="glyphicon glyphicon-trash"></span></button>
       </div>
       <div class="form-group text-right col-md-7">
           <button type="button" class="btn btn-default" ng-click="convm.cancle()" ng-disabled="convm.saving || convm.deleting">Cancle</button>
-          <button type="submit" class="btn btn-primary" ladda="convm.saving" data-style="zoom-out" ng-disabled="convm.deleting">Save</button>
+          <button type="button" class="btn btn-primary" ladda="convm.saving" data-style="zoom-out" ng-disabled="convm.deleting" ng-click="convm.save()">Save</button>
       </div>
     </div>
 </form>

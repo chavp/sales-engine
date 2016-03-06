@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sales Hub</title>
+    <title>Saleshub</title>
     <!--css-->
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/fontawesome/font-awesome.min.css" />
@@ -73,6 +73,7 @@
     <script src="/common/services/leads.service.js"></script>
     <script src="/common/services/lead-events.service.js"></script>
     <script src="/common/services/emails.service.js"></script>
+    <script src="/common/services/files.service.js"></script>
     <!-- directives -->
     <script src="/common/directives/toptoolbar/toptoolbar.controller.js"></script>
     <script src="/common/directives/toptoolbar/toptoolbar.directive.js"></script>
@@ -85,6 +86,8 @@
     <!-- filters -->
     <script src="/common/filters/formatContacts.filter.js"></script>
     <script src="/common/filters/formatCreatedAt.filter.js"></script>
+    <script src="/common/filters/formatEmails.filter.js"></script>
+    <script src="/common/filters/formatByteToKB.filter.js"></script>
 
     <script src="/js/general/jquery-1.11.1.min.js"></script>
     <script src="/jquery-validation/jquery.validate.min.js"></script>
@@ -142,12 +145,83 @@
         }
 
         function removeByField(targetArray, field, value){
-            for (var i = 0; i < targetArray.length; i++) {
-            if(value === targetArray[i][field]){
-                targetArray.splice(i, 1);
-                break;
+            if(targetArray && targetArray.length > 0){
+                for (var i = 0; i < targetArray.length; i++) {
+                if(value === targetArray[i][field]){
+                    targetArray.splice(i, 1);
+                    break;
+                }
             }
           }
+        }
+
+        function EventModel(event, badgeClass, badgeIconClass){
+            var self = this;
+            var editing = false;
+            var status = "";
+            var haveBcc = false,
+                haveCc = false;
+
+            if(event.compose){
+                if(event.compose.status == 'Draft'){
+                    status = "draft";
+                }
+                if(event.compose.status == 'Send'){
+                    status = "send";
+                }
+                if(event.compose.cc.length > 0){
+                    haveCc = true;
+                }
+                if(event.compose.bcc.length > 0){
+                    haveBcc = true;
+                }
+            }
+            
+            //console.log(event);
+            return {
+                uuid: guid(),
+                _id: event._id,
+                badgeClass: badgeClass,
+                badgeIconClass: badgeIconClass,
+                type: event.type,
+                title: event.title,
+                content: event.content,
+                createdAt: event.createdAt,
+                riaseFrom: event.riaseFrom,
+                fullname: event.riaseFrom.profile.firstName + " " + event.riaseFrom.profile.lastName,
+                name: event.riaseFrom.profile.firstName,
+                compose: event.compose,
+                status: status,
+                uploading: false,
+                newAttachs: [],
+                isEditiong: function(){
+                    return editing;
+                },
+                toggleEdit: function(){
+                    editing = !editing;
+                },
+                beginEdit: function(){
+                    editing = true;
+                },
+                endEdit: function(){
+                    editing = false;
+                },
+                haveBcc: function(){
+                    return haveBcc;
+                },
+                haveCc: function(){
+                    return haveCc;
+                },
+                addCc: function(){
+                    haveCc = true;
+                },
+                addBcc: function(){
+                    haveBcc = true;
+                },
+                isReadonly: function(){
+                    return status == 'send';
+                }
+            }
         }
 
         $(function(){

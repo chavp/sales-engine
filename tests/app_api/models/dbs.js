@@ -14,6 +14,8 @@ require('./questions');
 require('./choices');
 require('./lead-events');
 require('./composes');
+require('./lead-tags');
+require('./attach-files');
 //require('./question-choices');
 
 Member = mongoose.model('Member');
@@ -29,4 +31,6 @@ Question = mongoose.model('Question');
 Choice = mongoose.model('Choice');
 LeadEvent = mongoose.model('LeadEvent');
 Compose = mongoose.model('Compose');
+LeadTag = mongoose.model('LeadTag');
+AttachFile = mongoose.model('AttachFile');
 //QuestionChoice = mongoose.model('QuestionChoice');

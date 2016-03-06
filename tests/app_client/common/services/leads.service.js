@@ -89,7 +89,8 @@
 		        {
 					companyName: data.companyName,
 					url: data.url,
-					description: data.description
+					description: data.description,
+					address: data.address
 				},
     			{
     				headers: {
@@ -240,6 +241,33 @@
 		    });
     	}
 
+    	var saveTags = function(data, cb){
+    		if(!accounts.isLoggedIn()) return false;
+    		var token = accounts.getToken();
+    		$http.post(
+    			'/api/leads/' + data.leadId + '/tags', 
+		        {
+					tags: data.tags
+				},
+    			{
+    				headers: {
+		          		Authorization: 'Bearer '+ token
+		        	}
+		    	}
+		    ).success(function(data){
+		    	//console.log(data);
+		    	if(cb){
+		        	cb(null, data);
+	        	}
+	        	//console.log(_currentUser);
+		    }).error(function(err){
+		    	//console.log(err);
+		    	//throw err;
+		    	//accounts.logout();
+		    	cb(err, null);
+		    });
+    	}
+
     	return {
     		// lead
     		getAllLeads: getAllLeads,
@@ -247,7 +275,8 @@
     		getLeadById: getLeadById,
     		updateLead: updateLead,
     		deleteLead: deleteLead,
-    		
+    		saveTags: saveTags,
+
     		// contacts
     		saveLeadContact: saveLeadContact,
     		updateLeadContact: updateLeadContact,

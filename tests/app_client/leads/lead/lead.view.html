@@ -162,14 +162,14 @@
                                       <input type="text" class="form-control" placeholder="Subject" ng-model="vm.subject">
                                    </div> 
                                    <div class="form-group top-10">
-
                                       <textarea class="form-control" rows="3" ng-model="vm.content"></textarea>
                                    </div>
                                    <div class="form-group row">
-                                      <div class="file-list">
-                                          <div ng-repeat="attachFile in vm.attachFiles">
+                                      <div class="file-list list-group">
+                                          <div ng-repeat="attachFile in vm.attachFiles track by $index" class="list-group-item">
                                             <div ng-show="attachFile.uploading"><span class="loader"></span> Uploading…</div>
-                                            <a href="#" ng-hide="attachFile.uploading">{{attachFile.name}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteFile(attachFile.name)"></span></a>
+                                            <a href="#" ng-hide="attachFile.uploading">{{attachFile.name}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteFile(attachFile)"></span></a>
+                                            <span class="badge" ng-hide="attachFile.uploading">{{attachFile.length | formatByteToKB}}</span>
                                           </div>
                                       </div>
                                    </div>
@@ -193,18 +193,121 @@
                         <div ng-if="event._id != null">
                           <timeline-heading>
                             <small>{{event.compose.subject || "(No Subject)" }}</small>
-                            <span class="salesrep pull-right left5"><img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="{{event.fullname}}">
-                              </span>
-                              <span class="user-name pull-right">{{event.name}}</span>
+                            <span class="salesrep pull-right left5">
+                              <img class="user-img" width="32" height="32" alt="" src="https://secure.gravatar.com/avatar/1f90c8642c2edc6c55f00a67b824779f?d=mm&amp;r=x&amp;s=32" title="{{event.fullname}}">
+                            </span>
+                            <span class="user-name pull-right">{{event.name}}</span>
                           </timeline-heading>
 
                           <div class="panel panel-default top20">
                             <div class="panel-heading">
 
-                              <div name="from" class="compose-draft"><i class="glyphicon glyphicon-triangle-right"></i> {{event.fullname}} <small class="label label-default">{{event.status}}</small> </div>
+                              <div name="from" class="compose-draft" ng-click="event.toggleEdit()">
+                                <i class="glyphicon glyphicon-triangle-right" ng-if="!event.isEditiong()"></i> 
+                                <i class="glyphicon glyphicon-triangle-bottom" ng-if="event.isEditiong()"></i> 
+                                {{event.fullname}} <span ng-if="event.isEditiong()">"&lt{{event.compose.from}}&gt"</span>
+                                <small class="label label-default" ng-if="event.status == 'draft'">{{event.status}}</small> 
+                                <small class="label label-success" ng-if="event.status == 'send'">{{event.status}}</small> 
+                                </div>
 
                               <!--<div name="to"><label>To: </label>my.parinya@gmail.com</div>-->
                             </div>
+                            <div ng-if="event.isEditiong()" class="panel-body">
+                               <form>
+                                  <div class="email-send-tools">
+                                    <div class="input-group">
+                                      <span class="input-group-addon" id="basic-addon1">To:</span>
+                                        <tags-input ng-show="!event.isReadonly()" type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon1" ng-model="event.compose.to" 
+                                        add-from-autocomplete-only="true">
+                                          <auto-complete source="vm.loadEmail($query)"
+                                            min-length="0"
+                                            debounce-delay="0"
+                                            max-results="10">
+                                          </auto-complete>
+                                        </tags-input>
+                                        <input type="text" class="form-control" readonly ng-show="event.isReadonly()" aria-describedby="basic-addon1" value="{{event.compose.to | formatEmails}}">
+                                        <span class="input-group-btn">
+                                          <button class="btn btn-default" type="button" ng-click="event.addCc()" ng-if="!event.haveCc()" ng-disabled="event.isReadonly()">Add CC</button>
+                                          <button class="btn btn-default" type="button" ng-click="event.addBcc()" ng-if="!event.haveBcc()" ng-disabled="event.isReadonly()">Add BCC</button>
+                                      </span>
+
+                                    </div>
+                                    <div class="input-group top5" ng-if="event.haveCc()">
+                                        <span class="input-group-addon" id="basic-addon2">CC:</span>
+                                        <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon2" ng-model="event.compose.cc"
+                                          ng-if="!event.isReadonly()"
+                                          add-from-autocomplete-only="true">
+                                          <auto-complete source="vm.loadEmail($query)"
+                                            min-length="0"
+                                            debounce-delay="0"
+                                            max-results="10">
+                                          </auto-complete>
+                                        </tags-input>
+                                        <input type="text" class="form-control" readonly ng-if="event.isReadonly()" aria-describedby="basic-addon2" value="{{event.compose.cc | formatEmails}}">
+                                        <!--<span class="input-group-btn">
+                                          <button class="btn btn-default" type="button" ng-click="vm.cancleCc()" ng-if="vm.haveCc"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </span>-->
+                                      </div>
+                                      <div class="input-group top5" ng-if="event.haveBcc()">
+                                        <span class="input-group-addon" id="basic-addon3">BCC:</span>
+                                        <tags-input type="text" class="bootstrap" placeholder="Add email" aria-describedby="basic-addon3" ng-model="event.compose.bcc"
+                                          ng-if="!event.isReadonly()"
+                                          add-from-autocomplete-only="true">
+                                          <auto-complete source="vm.loadEmail($query)"
+                                            min-length="0"
+                                            debounce-delay="0"
+                                            max-results="10">
+                                          </auto-complete>
+                                        </tags-input>
+                                        <input type="text" class="form-control" readonly ng-if="event.isReadonly()" aria-describedby="basic-addon3" value="{{event.compose.bcc | formatEmails}}">
+                                        <!--<span class="input-group-btn">
+                                          <button class="btn btn-default" type="button" ng-click="vm.cancleBcc()" ng-if="vm.haveBcc"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </span>-->
+                                      </div>
+                                      <div class="email-subject form-group top5">
+                                        <input type="text" class="form-control" placeholder="Subject" ng-model="event.compose.subject" ng-readonly="event.isReadonly()">
+                                      </div>
+                                      <div class="form-group top-10">
+                                        <textarea class="form-control" rows="3" ng-model="event.compose.content" ng-readonly="event.isReadonly()"></textarea>
+                                      </div>
+                                      <div class="form-group row" ng-show="!event.isReadonly()">
+                                        <div class="file-list list-group">
+                                            <div ng-repeat="attachFile in event.compose.attachs track by $index" class="list-group-item">
+                                              <div ng-show="attachFile.uploading"><span class="loader"></span> Uploading…</div>
+                                              <a href="#" ng-hide="attachFile.uploading">{{attachFile.fileName}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteEventFile(event, attachFile)"></span></a>
+                                              <span class="badge">{{attachFile.fileSize | formatByteToKB}}</span>
+                                            </div>
+                                            <div ng-repeat="attachFile in event.compose.newAttachs track by $index" class="list-group-item">
+                                              <div ng-show="attachFile.uploading"><span class="loader"></span> Uploading…</div>
+                                              <a href="#" ng-hide="attachFile.uploading">{{attachFile.name}} <span class="glyphicon glyphicon-remove" ng-click="vm.deleteEventFile(event, attachFile)"></span></a>
+                                              <span class="badge">{{attachFile.length | formatByteToKB}}</span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row" ng-show="event.isReadonly()">
+                                        <div class="file-list list-group">
+                                            <div ng-repeat="attachFile in event.compose.attachs track by $index" class="list-group-item">
+                                              <a href="#" ng-hide="attachFile.uploading">{{attachFile.fileName}} </a> 
+                                              <span class="badge">{{attachFile.fileSize | formatByteToKB}}</span>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <div class="col-xs-6 col-md-6 col-lg-6 text-left">
+                                          <button type="submit" class="btn btn-danger" ng-click="vm.deleteEventDraft(event)" title="Delete email" ng-show="!event.isReadonly()"><span class="glyphicon glyphicon-trash"></span></button>
+
+                                          <button type="submit" class="btn" ng-click="" title="Attach a file by clicking here or dragging a file here" ngf-select="vm.uploadEventFiles(event)" ngf-multiple="true" ng-model="event.compose.newAttachs" ladda="event.uploading" ng-show="!event.isReadonly()"><span class="glyphicon glyphicon-paperclip"></span></button>
+
+                                        </div>
+                                        <div class="col-xs-6 col-md-6 col-lg-6 text-right">
+                                          <button type="submit" class="btn btn-default" ng-click="vm.saveEventDraft(event)" ng-show="!event.isReadonly()">Save draft</button>
+                                          <button type="submit" class="btn btn-primary" ng-click="vm.sendMail(event)" ng-show="!event.isReadonly()">Send</button>
+                                        </div>
+                                      </div>
+                                  </div>
+                               </form>
+                            </div>
+
                           </div>
 
                           <small>

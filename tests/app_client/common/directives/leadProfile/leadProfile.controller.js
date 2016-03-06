@@ -46,16 +46,16 @@
     vm.errorUrl = "";
 
     var form = $( "#edit-lead-form" )
-            .validate({
-              errorClass:'error-font',
-              errorElement: 'span',
-              rules: {
-                url: {
-                  required: false,
-                  url: true
-                }
-              }
-            });
+        .validate({
+          errorClass:'error-font',
+          errorElement: 'span',
+          rules: {
+            url: {
+              required: false,
+              url: true
+            }
+          }
+        });
 
     vm.edit = function(focus){
         //console.log(angular.element($event.currentTarget).focus());
@@ -65,6 +65,8 @@
             vm.focusURL = true;
         }else if(focus == 'description'){
             vm.focusDescription = true;
+        }else if(focus == 'address'){
+            vm.focusAddress = true;
         }
         vm.editing = true;
     }
@@ -74,6 +76,7 @@
         vm.focusCompanyName = false;
         vm.focusURL = false;
         vm.focusDescription = false;
+        vm.focusAddress = false;
 
         vm.errorUrl = "";
     }
@@ -88,6 +91,12 @@
     vm.validUrl = function(){
         if(vm.lead.url === '' ||
             vm.lead.url === undefined) return false;
+        return true;
+    }
+
+    vm.validAddress = function(){
+        if(vm.lead.address === '' ||
+            vm.lead.address === undefined) return false;
         return true;
     }
 
@@ -114,6 +123,7 @@
             vm.lead.companyName = result.companyName;
             vm.lead.url = result.url;
             vm.lead.description = result.description;
+            vm.lead.address = result.address;
 
             vm.oldLead = result;
         });
@@ -125,6 +135,7 @@
         vm.lead.companyName = vm.oldLead.companyName;
         vm.lead.url = vm.oldLead.url;
         vm.lead.description = vm.oldLead.description;
+        vm.lead.address = vm.oldLead.address;
     }
 
     vm.addContact = function(){
@@ -145,7 +156,7 @@
 
     // get lead
     leads.getLeadById($routeParams.leadId, function	(err, result){
-            $log.debug(result);
+            $log.debug(result.tags);
     		if(err) {
                 $location.path('/leads');
                 return false;
@@ -158,7 +169,13 @@
     		vm.lead.companyName = result.companyName;
             vm.lead.url = result.url;
             vm.lead.description = result.description;
-
+            vm.lead.address = result.address;
+            vm.lead.tags = result.tags;
+            $rootScope.$emit("UPDATE_LEAD_TAGS", {
+                leadId: $routeParams.leadId,
+                tags: result.tags,
+                newtags: []
+            });
             vm.oldLead = result;
 
             if(result.contacts.length == 0){ // add new contact

@@ -30,10 +30,18 @@ var mongoose = require('mongoose'),
 	url:{
 		type: String
 	},
+	address:{
+		type: String
+	},
 
 	events: [{
 		type:Schema.ObjectId, 
 		ref:"LeadEvent"
+	}],
+
+	tags: [{
+		type:Schema.ObjectId, 
+		ref:"LeadTag"
 	}]
  });
 
@@ -44,6 +52,7 @@ leadSchema.pre('remove', function(next) {
     Contact.remove({ lead: lead }).exec();
     LeadEvent.remove({ lead: lead }).exec();
     Compose.remove({ lead: lead }).exec();
+    LeadTag.remove({ lead: lead }).exec();
     next();
 });
 

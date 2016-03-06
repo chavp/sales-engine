@@ -12,6 +12,10 @@ module.exports.leadEvents = function(req, res) {
 		.populate('riaseFrom')
 		.populate('riaseTo')
 		.populate('compose')
+		.populate({
+			path: 'compose.attachs',
+			model: 'AttachFile'
+		})
 		.sort({createdAt: 'desc'})
 		//.sort({createdAt: 'asc'})
 		.exec(function(err, docs){
@@ -24,7 +28,21 @@ module.exports.leadEvents = function(req, res) {
 			        helper.sendJsonResponse(res, BAD_REQUEST, err);
 			        return;
 			    }
-			    helper.sendJsonResponse(res, OK, docs);
+			    //console.log(docs[0].compose);
+			    //helper.sendJsonResponse(res, OK, docs);
+
+			    LeadEvent.populate(docs, {
+			    	path: 'compose.attachs',
+					model: 'AttachFile'
+			    }, function(err, results){
+			    	if (err) {
+			          //console.log(err);
+				        helper.sendJsonResponse(res, BAD_REQUEST, err);
+				        return;
+				    }
+				    console.log(results[0].compose);
+				    helper.sendJsonResponse(res, OK, results);
+			    });
 		     });
 
 			//helper.sendJsonResponse(res, OK, docs);
