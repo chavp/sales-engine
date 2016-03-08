@@ -461,8 +461,9 @@
                 
                 emails.sendMail(
                     event.compose._id, 
-                    function(err, ev){
-                        event.compose.status = ev.status;
+                    function(err, com){
+                        event.compose.status = com.status;
+                        event.compose.attachs = com.attachs;
                         removeByField(vm.events, 'uuid', event.uuid);
                         vm.events.unshift(  new EventModel(event, 'info', 'glyphicon-envelope') );
                     }

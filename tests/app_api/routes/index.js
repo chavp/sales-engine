@@ -15,6 +15,7 @@ var ctrContacts = require('../controllers/contacts');
 var ctrLeadEvents = require('../controllers/lead-events');
 var ctrFileUpload = require('../controllers/file-upload');
 var ctrEmail = require('../controllers/emails');
+var ctrMailgunForward = require('../controllers/mailgun-forwards');
 
 // Accounts
 router.get('/accounts', auth, ctrAccounts.accounts);
@@ -63,6 +64,10 @@ router.put('/emails/:composeId', auth, ctrEmail.updateEmail);
 router.delete('/emails/:composeId', auth, ctrEmail.deleteEmail);
 router.post('/emails/:composeId/send', auth, ctrEmail.sendEmail);
 router.post('/emails/send', auth, ctrEmail.sendNewEmail);
+
+// Mailgun forward
+router.post('/messages/callback', ctrMailgunForward.callback);
+router.post('/messages', ctrMailgunForward.messages);
 
 // Opportunities
 

@@ -48,7 +48,7 @@ describe("Member", function () {
 /////////////////////////////////////////////////////////////////////////////
 describe("Member with profile", function () {
 	it("add ding with profile", function(done){
-		var memberName = "ding2@saleshub.com";
+		var memberName = "my.parinya@gmail.com";
 
 		var ding = new Member({
 			email: memberName,
@@ -126,7 +126,7 @@ describe("Organization with members", function () {
         });
 	});
 
-	var memberName = "ding2@saleshub.com";
+	var memberName = "my.parinya@gmail.com";
 	it("check member $ profile $ org relationship", function(done){
 		Member
 		 .findOne({username: memberName})

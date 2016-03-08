@@ -16,6 +16,7 @@ require('./lead-events');
 require('./composes');
 require('./lead-tags');
 require('./attach-files');
+require('./mailgun-forwards');
 //require('./question-choices');
 
 Member = mongoose.model('Member');
@@ -33,4 +34,5 @@ LeadEvent = mongoose.model('LeadEvent');
 Compose = mongoose.model('Compose');
 LeadTag = mongoose.model('LeadTag');
 AttachFile = mongoose.model('AttachFile');
+MailgunForward = mongoose.model('MailgunForward');
 //QuestionChoice = mongoose.model('QuestionChoice');

@@ -34,7 +34,23 @@ var composeSchema = new Schema({
 		type: String
 	},
 
+	messageId:{
+		type: String
+	},
+
+	replyTo:{
+		type: String
+	},
+
 	content:{
+		type: String
+	},
+
+	textBody:{
+		type: String
+	},
+
+	htmlBody:{
 		type: String
 	},
 
@@ -42,6 +58,11 @@ var composeSchema = new Schema({
 		type:Schema.ObjectId, 
 		ref:"AttachFile"
 	}],
+
+	sourceId:{
+		type: Schema.ObjectId,
+		ref: 'MailgunForward'
+	},
 
 	status: {
 		type: String, 

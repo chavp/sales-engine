@@ -62,7 +62,7 @@ var utils = require('./utils');
     it("new lead with company name", function(done){
 
     	Member
-    		.findOneByUsername("ding2@saleshub.com")
+    		.findOneByUsername("my.parinya@gmail.com")
     		.populate('organizations')
     		.exec(function(err, mem){
     			if(err) return done(err);

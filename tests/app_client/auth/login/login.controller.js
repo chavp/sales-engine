@@ -14,7 +14,7 @@
 
     	vm.message = "TEST";
     	vm.credentials = {
-	      username : "ding2@saleshub.com",
+	      username : "my.parinya@gmail.com",
 	      password : "123456789"
 	    };
       vm.errorEmail = "";
